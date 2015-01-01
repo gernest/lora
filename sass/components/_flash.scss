@@ -1,0 +1,27 @@
+.flash {
+  display: block;
+  padding: 2px;
+  margin:  0 0 18px;
+  box-sizing: border-box;
+  width: 100%;
+  .error,.notice,.warning {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 10px 0px;
+
+  }
+  .error {
+    border:  1px solid #bf370f;
+    color: #bf370f;
+  }
+  .notice {
+    border: 1px solid #1b8036;
+    color: #1b8036;
+  }
+  .warning{
+    border: 1px solid #bf911d;
+    color: #bf911d;
+  }
+
+}

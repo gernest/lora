@@ -1,0 +1,49 @@
+.pricing {
+  .main-heading {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+  .pricing-box{
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px #000000 solid;
+    border-bottom: 1px #000000 solid;
+
+    .pricing-title {
+      display: block;
+      box-sizing: border-box;
+      padding: 10px 5px;
+      text-align: center;
+      .currency{
+        display: inline-block;
+        font-size: medium;
+        color: #000000;
+        font-style: bold;
+      }
+      .amount{
+        display: inline-block;
+        color: blue;
+        font-size: $large-font-size;
+        font-weight: 200;
+      }
+      .per-time{
+        display: inline-block;
+      }
+    }
+
+    .pricing-items{
+      display: block;
+      box-sizing: border-box;
+      list-style: none;
+      width: 100%;
+      .pricing-item{
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        text-align:  center;
+      }
+    }
+  }
+}

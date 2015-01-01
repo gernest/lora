@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <div class="two columns"></div>
+        <div class="six columns">
+            <div class="delete-section">
+               <form method="post" action="/project/{{ .projectId }}/delete" class="pure-form">
+                    <p>
+                        Type the name of your website in the box and click delete
+                    </p>
+                    <input type="text" name="projectName" placeholder="website name">
+                    <button type="submit" class="button button-flat button-primary">
+                        delete
+                    </button>
+                </form>
+                </div>
+        </div>
+    </div>
+</div>
+<div class="login-spacer">
+</div>
+
+

@@ -1,0 +1,36 @@
+Id = 1
+title = "my new tushabe site"
+project_name = "pasiansi"
+templateName = "default"
+theme = "loraina"
+publishDir = "www"
+baseurl = "http://yourSiteHere"
+languageCode = "en-us"
+
+[[pages]]
+  Id = 1
+  title = "home"
+  content = "## hello home"
+  slug = "slug"
+  draft = false
+
+[[pages]]
+  Id = 2
+  title = "about"
+  content = "## hello about"
+  slug = "slug"
+  draft = false
+
+[[pages]]
+  Id = 3
+  title = "products"
+  content = "## hello products"
+  slug = "slug"
+  draft = false
+
+[[pages]]
+  Id = 4
+  title = "contact"
+  content = "## hello contact"
+  slug = "slug"
+  draft = false

@@ -1,0 +1,15 @@
+.service {
+  .service-title{
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: darken(#1EAEDB, 80%);
+    margin: 5px;
+    border-bottom:  1px #1EAEDB solid;
+    padding: 20px;
+    font-size: $medium-font-size  ;
+    @include breakpoint($max-phone-l){
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="six columns">
+             <form method="post" class="pure-form pure-form-aligned">
+                <legend>Log in</legend>
+                <fieldset>
+                    <div class="pure-control-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" placeholder="email address">
+                        {{ if .Errors.email }}
+                        <aside class="pure-form-message">{{ .Errors.email }}</aside>
+                        {{ end }}
+                    </div>
+                    <div class="pure-control-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" placeholder="password">
+                        {{ if .Errors.password }}
+                        <aside  class="pure-form-message">{{ .Errors.password }}</aside>
+                        {{ end }}
+                    </div>
+                    <div class="pure-controls">
+                        <button type="submit" class="button button-flat button-primary button-large">Login</button>
+                        <a href="/accounts/register">or Register</a>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="login-spacer">
+</div>

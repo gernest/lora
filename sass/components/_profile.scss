@@ -1,0 +1,51 @@
+.profile {
+  .profile-image{
+    display: block;
+    img{
+      display: block;
+      height: 180px;
+      width: 150px;
+    }
+  }
+  .profile-details {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    ul{
+      display: block;
+      list-style: none;
+      width: 100%;
+      li{
+        display: block;
+        box-sizing: border-box;
+        span{
+          display: inline-block;
+          margin: 6px;
+          padding: 4px;
+        }
+        a{
+          display: inline-block;
+          padding: 10px;
+        }
+      }
+    }
+    .update-profile{
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      text-decoration: none;
+      text-align: center;
+      color: darken(#1EAEDB, 80%);
+      margin: 5px;
+      border: 1px #1EAEDB solid;
+      padding: 20px;
+      font-size: $medium-font-size  ;
+      @include breakpoint($max-phone-l){
+        padding: 0;
+      }
+      &:hover{
+        background: #1EAEDB;
+      }
+    }
+  }
+}

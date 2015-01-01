@@ -1,0 +1,34 @@
+<div class="profile">
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <form method="post">
+                    <legend>
+                        Account Details
+                    </legend>
+                    <fieldset>
+                        <div class="">
+                            <label for="company">Company Name:</label>
+                            <input type="text" name="company" value="{{ .user.Company }}">
+                            {{ if .Errors.Company}}
+                            <aside class="form-message">{{ .Errors.Company}}</aside>
+                            {{ end }}
+                        </div>
+                        <div class="">
+                            <label for="phone">Phone number:</label>
+                            <input type="text" name="phone" value="{{ .profile.Phone }}">
+                            {{ if .Errors.Company}}
+                            <aside class="form-message">{{ .Errors.Company}}</aside>
+                            {{ end }}
+                        </div>
+                        <div class="">
+                            <button type="submit" class="button button-flat button-primary button-large">Update</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="login-spacer">
+</div>

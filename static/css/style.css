@@ -1,0 +1,433 @@
+.navbar {
+  display: block;
+  margin: 0;
+  width: 100%;
+  padding: 0;
+}
+.navbar ul {
+  list-style: none;
+  display: block;
+  float: right;
+}
+.navbar ul li {
+  display: inline-block;
+  padding: 4px;
+  margin: 2px;
+}
+@media screen and (max-width: 479px) {
+  .navbar ul li {
+    padding: 0;
+    margin: 1px;
+  }
+  .navbar ul li a {
+    display: block;
+    padding: 2px;
+    font-size: 14px;
+    margin: 0;
+  }
+}
+.navbar ul li a {
+  text-decoration: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-right: 2px;
+  margin-left: 2px;
+  display: inline-block;
+  color: #000000;
+}
+.navbar .nav {
+  padding-top: 30px;
+}
+.navbar .nav .nav-link-primary {
+  background: #000000;
+  color: #ffffff;
+}
+
+.footer-links {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  background: #000000;
+  margin-bottom: -20px;
+}
+.footer-links ul {
+  list-style: none;
+  margin-bottom: -20px;
+}
+.footer-links ul li {
+  display: inline-block;
+}
+.footer-links ul li a {
+  display: block;
+  padding: 10px;
+  background: #000000;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+html, body {
+  width: 100%;
+}
+
+.promo-section,
+.invitation-section,
+.lead-section, .delete-section {
+  padding: 8rem 0.5rem;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+@media screen and (max-width: 479px) {
+  .promo-section,
+  .invitation-section,
+  .lead-section, .delete-section {
+    padding: 0;
+  }
+}
+
+.lead-section {
+  background: #ffffff;
+}
+.lead-section .sand-box {
+  box-sizing: border-box;
+  width: 100%;
+}
+.lead-section .sand-box .title {
+  display: block;
+  box-sizing: border-box;
+  margin: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 1px #1EAEDB solid;
+}
+.lead-section .sand-box .title h5 {
+  padding: 10px;
+  display: block;
+  box-sizing: border-box;
+  text-align: center;
+  color: black;
+  font-size: 16.8px;
+}
+.lead-section .sand-box p {
+  display: block;
+  text-align: center;
+  font-size: 24px;
+  border-bottom: 2px solid #1EAEDB;
+}
+
+.promo-section .fact-box {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+.promo-section .fact-box p {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 2px 8px;
+  padding: 5px 8px;
+  border-left: 2px #1EAEDB solid;
+  text-transform: capitalize;
+  font-size: 24px;
+}
+
+.invitation-section .shout-out {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+.invitation-section .shout-out a {
+  display: block;
+  text-decoration: none;
+  width: 100%;
+  text-align: center;
+  color: black;
+  margin: 5px;
+  border: 1px #1EAEDB solid;
+  padding: 20px;
+  font-size: 24px;
+}
+@media screen and (max-width: 479px) {
+  .invitation-section .shout-out a {
+    padding: 0;
+  }
+}
+.invitation-section .shout-out a:hover {
+  background: #1EAEDB;
+}
+.invitation-section .shout-out p {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 2px 8px;
+  padding: 5px 20px;
+  border-left: 2px #1EAEDB solid;
+  text-transform: capitalize;
+  font-size: 24px;
+  text-align: center;
+}
+@media screen and (max-width: 479px) {
+  .invitation-section .shout-out p {
+    padding: 0;
+  }
+}
+
+.footer-section {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  background: #000000;
+}
+
+.empty-box {
+  display: block;
+  content: "";
+  height: 5px;
+  width: 100%;
+}
+@media screen and (max-width: 479px) {
+  .empty-box {
+    display: none;
+  }
+}
+
+.placeholder {
+  width: 100%;
+  height: 400px;
+  content: "";
+  background: #e0e0e0;
+}
+
+.project-list {
+  display: block;
+  box-sizing: border-box;
+  width: 1005;
+  margin: 10px;
+}
+.project-list h3 {
+  display: block;
+  border: 1px #1EAEDB solid;
+  text-align: center;
+}
+.project-list a {
+  text-decoration: none;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 2px 8px;
+  padding: 5px 8px;
+  border-left: 2px #1EAEDB solid;
+  text-transform: capitalize;
+}
+
+.page-heading {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.page-control {
+  display: block;
+  width: 100%;
+  margin: 10px 5px;
+}
+.page-control ul {
+  list-style: none;
+  display: inline-block;
+}
+.page-control ul li {
+  display: inline;
+  padding: 4px;
+  margin: 2px;
+}
+.page-control ul li a {
+  text-decoration: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-right: 2px;
+  margin-left: 2px;
+  display: inline-block;
+  border-left: 2px #1EAEDB solid;
+  text-transform: capitalize;
+  font-size: 1.5rem;
+}
+
+.page-body {
+  display: block;
+  width: 100%;
+  margin: 10px 5px;
+}
+
+.flash {
+  display: block;
+  padding: 2px;
+  margin: 0 0 18px;
+  box-sizing: border-box;
+  width: 100%;
+}
+.flash .error, .flash .notice, .flash .warning {
+  display: block;
+  text-align: center;
+  width: 100%;
+  padding: 10px 0px;
+}
+.flash .error {
+  border: 1px solid #bf370f;
+  color: #bf370f;
+}
+.flash .notice {
+  border: 1px solid #1b8036;
+  color: #1b8036;
+}
+.flash .warning {
+  border: 1px solid #bf911d;
+  color: #bf911d;
+}
+
+.form-message {
+  color: red;
+}
+
+.account .settings {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 10px;
+}
+.account .settings h3 {
+  display: block;
+  border: 1px #1EAEDB solid;
+  text-align: center;
+}
+.account .settings a {
+  text-decoration: none;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 2px 8px;
+  padding: 5px 8px;
+  border-left: 2px #1EAEDB solid;
+  text-transform: capitalize;
+}
+
+.profile .profile-image {
+  display: block;
+}
+.profile .profile-image img {
+  display: block;
+  height: 180px;
+  width: 150px;
+}
+.profile .profile-details {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+.profile .profile-details ul {
+  display: block;
+  list-style: none;
+  width: 100%;
+}
+.profile .profile-details ul li {
+  display: block;
+  box-sizing: border-box;
+}
+.profile .profile-details ul li span {
+  display: inline-block;
+  margin: 6px;
+  padding: 4px;
+}
+.profile .profile-details ul li a {
+  display: inline-block;
+  padding: 10px;
+}
+.profile .profile-details .update-profile {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  text-decoration: none;
+  text-align: center;
+  color: black;
+  margin: 5px;
+  border: 1px #1EAEDB solid;
+  padding: 20px;
+  font-size: 24px;
+}
+@media screen and (max-width: 479px) {
+  .profile .profile-details .update-profile {
+    padding: 0;
+  }
+}
+.profile .profile-details .update-profile:hover {
+  background: #1EAEDB;
+}
+
+.pricing .main-heading {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.pricing .pricing-box {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border-top: 1px #000000 solid;
+  border-bottom: 1px #000000 solid;
+}
+.pricing .pricing-box .pricing-title {
+  display: block;
+  box-sizing: border-box;
+  padding: 10px 5px;
+  text-align: center;
+}
+.pricing .pricing-box .pricing-title .currency {
+  display: inline-block;
+  font-size: medium;
+  color: #000000;
+  font-style: bold;
+}
+.pricing .pricing-box .pricing-title .amount {
+  display: inline-block;
+  color: blue;
+  font-size: 32px;
+  font-weight: 200;
+}
+.pricing .pricing-box .pricing-title .per-time {
+  display: inline-block;
+}
+.pricing .pricing-box .pricing-items {
+  display: block;
+  box-sizing: border-box;
+  list-style: none;
+  width: 100%;
+}
+.pricing .pricing-box .pricing-items .pricing-item {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+}
+
+.service .service-title {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: black;
+  margin: 5px;
+  border-bottom: 1px #1EAEDB solid;
+  padding: 20px;
+  font-size: 24px;
+}
+@media screen and (max-width: 479px) {
+  .service .service-title {
+    padding: 0;
+  }
+}
+
+.login-spacer {
+  display: block;
+  content: "";
+  margin: 8rem 0.8rem;
+  height: 5px;
+  width: 100%;
+}

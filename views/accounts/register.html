@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row">
+        <div class="six columns">
+            <form method="POST" class=" ">
+                <legend>
+                    Sign Up
+                </legend>
+                <fieldset>
+                    <div class="">
+                        <label for="last">username</label>
+                        <input type="text" name="userName" placeholder="User Name">
+                        {{ if .Errors.Company}}
+                        <aside class="form-message">{{ .Errors.Company}}</aside>
+                        {{ end }}
+                    </div>
+                    <div class="">
+                        <label for="last">Company Name</label>
+                        <input type="text" name="company" placeholder="Company Name">
+                        {{ if .Errors.Company}}
+                        <aside class="form-message">{{ .Errors.Company}}</aside>
+                        {{ end }}
+                    </div>
+                    <div class="">
+                        <label for="email">Email Address</label>
+                        <input type="email" name="email" placeholder="youremail@example.com">
+                        {{ if .Errors.Email}}
+                        <aside class="form-message">{{ .Errors.Email}}</aside>
+                        {{ end }}
+                    </div>
+                    <div class="">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" placeholder="Password">
+                        {{ if .Errors.Password}}
+                        <aside class="form-message">{{ .Errors.Password}}</aside>
+                        {{ end }}
+                    </div>
+                    <div class="">
+                        <label for="password2">Retype Password</label>
+                        <input name="password2" type="password" placeholder="confirm password">
+                        {{ if .Errors.Confirm}}
+                        <aside class="form-message">{{ .Errors.Confirm}}</aside>
+                        {{ end }}
+                    </div>
+                    <div class="">
+                        <label for="cb" class="">
+                            <input id="cb" type="checkbox" checked="checked" value="1" name="cb"> <a href="#">I've read the terms and conditions</a>
+                        </label>
+
+                        <button type="submit" class="button button-flat button-primary button-large">Register</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+    </div>
+
+</div>

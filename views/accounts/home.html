@@ -1,0 +1,33 @@
+<div class="account">
+    <div class="container">
+   <div class="row">
+       <!--Controls part-->
+       <div class="four columns">
+           <div class="settings">
+               <h3><i class="fa fa-gears"></i>Tasks</h3>
+               <a href="/project/new">create website</a>
+               <a href="/projects/list">manage websites</a>
+               <a href="#">Install templates</a>
+               <a href="#">Install themes</a>
+           </div>
+       </div>
+       <div class="four columns">
+           <div class="settings">
+               <h3><i class="fa fa-gears"></i> Settings</h3>
+               <a href="/project/new">notifications</a>
+               <a href="/projects/list">domains</a>
+               <a href="/project/">Upgrade</a>
+           </div>
+       </div>
+       <div class="four columns">
+           <div class="settings">
+               <h3><i class="fa fa-gears"></i> Profile</h3>
+               <a href="/profile/{{ .user.ProfileId }}/view">View</a>
+               <a href="/profile/{{ .user.ProfileId }}/edit">Edit</a>
+           </div>
+       </div>
+        </div>
+    </div>
+</div>
+<div class="login-spacer">
+</div>

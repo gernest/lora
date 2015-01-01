@@ -1,0 +1,20 @@
+<div class="account">
+    <div class="container">
+        <div class="row">
+            {{ range .projects }}
+            <div class="four columns">
+                <div class="project-list">
+                    <h3>{{ .Name }}</h3>
+                    <a href="/project/{{ .Id }}/delete">delete</a>
+                    <a href="/project/{{ .Id }}/update">update</a>
+                    <a href="/project/{{ .Id }}/deploy">deploy</a>
+                    <a href="/project/{{ .Id }}/preview">preview</a>
+                    <a href="/project/{{ .Id }}/download">download</a>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</div>
+<div class="login-spacer">
+</div>

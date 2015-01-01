@@ -1,0 +1,12 @@
+<script src="/static/js/trumbowyg.min.js"></script>
+<script src="/static/js/he.js"></script>
+<script src="/static/js/to-markdown.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var content =$(".content");
+        content.trumbowyg();
+        $("#pageForm").submit(function(){
+            content.val(toMarkdown(content.val()));
+        });
+    });
+</script>

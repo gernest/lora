@@ -1,0 +1,23 @@
+.account{
+  .settings{
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 10px;
+    h3{
+      display: block;
+      border: 1px #1EAEDB solid;
+      text-align: center;
+    }
+    a{
+      text-decoration: none;
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      margin: 2px 8px;
+      padding: 5px 8px;
+      border-left: 2px #1EAEDB solid;
+      text-transform: capitalize;
+    }
+  }
+}
