@@ -33,7 +33,3 @@ Before writing code, send mail to geofreyernest@live.com to discuss what you
 plan to do. This gives me a chance to validate the design, avoid duplication of
 effort and ensure that the changes fit the goals of the project. Do not start
 the discussion with a pull request.
-
-# LICENCE
-
-Still thinking about this, but It will  be open source.
