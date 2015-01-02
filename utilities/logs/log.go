@@ -5,81 +5,61 @@ import (
 	"fmt"
 	"path"
 	"runtime"
+	"time"
 
 	"github.com/agtorre/gocolorize"
 )
 
+const (
+	Red     = "red"
+	Green   = "green"
+	Black   = "black"
+	Blue    = "blue"
+	Magenta = "magenta"
+	Cyan    = "cyan"
+
+	INFO  = "INFO"
+	TRAC  = "TRAC"
+	ERRO  = "ERRO"
+	WARN  = "WARN"
+	SUCC  = "SUCC"
+	DEBUG = "DEB"
+	EVENT = "EVE"
+	CRIT  = "CRIT"
+)
+
 func NewLoraLog() LoraLog {
 	lola := LoraLog{}
-	lola.debug = "[ERRO]"
-	lola.info = "[INFO]"
-	lola.critical = "[TRAC]"
-	lola.warning = "[WARN"
 	return lola
 }
 
 type LoraLog struct {
-	info     string
-	debug    string
-	critical string
-	warning  string
 }
 
 func (l *LoraLog) Debug(format string, a ...interface{}) {
-	buf := new(bytes.Buffer)
-	buf.WriteString(l.debug)
-	buf.WriteString(" ")
-	buf.WriteString(getFuncCall(2))
-
-	buf.WriteString(colorize(fmt.Sprintf(format, a...), "red"))
-	buf.WriteString("\n")
-	ColorLog(buf.String())
+	s := fmt.Sprintf(format, a...)
+	logThis(DEBUG, s)
 }
 func (l *LoraLog) Critical(format string, a ...interface{}) {
-	buf := new(bytes.Buffer)
-	buf.WriteString(l.critical)
-	buf.WriteString(" ")
-	buf.WriteString(getFuncCall(2))
-
-	buf.WriteString(colorize(fmt.Sprintf(format, a...), "black"))
-	buf.WriteString("\n")
-	ColorLog(buf.String())
+	s := fmt.Sprintf(format, a...)
+	logThis(CRIT, s)
 }
 func (l *LoraLog) Warning(format string, a ...interface{}) {
-	buf := new(bytes.Buffer)
-	buf.WriteString(l.debug)
-	buf.WriteString(" ")
-	buf.WriteString(getFuncCall(2))
-
-	buf.WriteString(colorize(fmt.Sprintf(format, a...), "blue"))
-	buf.WriteString("\n")
-	ColorLog(buf.String())
+	s := fmt.Sprintf(format, a...)
+	logThis(INFO, s)
 }
 func (l *LoraLog) Info(format string, a ...interface{}) {
-	buf := new(bytes.Buffer)
-	buf.WriteString(l.info)
-	buf.WriteString(" ")
-	buf.WriteString(getFuncCall(2))
-	buf.WriteString(colorize(fmt.Sprintf(format, a...), "green"))
-	buf.WriteString("\n")
-	ColorLog(buf.String())
+	s := fmt.Sprintf(format, a...)
+	logThis(INFO, s)
 }
 func (l *LoraLog) Success(format string, a ...interface{}) {
-	buf := new(bytes.Buffer)
-	buf.WriteString("[SUCC]")
-	buf.WriteString(" ")
-	buf.WriteString(colorize(fmt.Sprintf(format, a...), "cyan"))
-	buf.WriteString("\n")
-	ColorLog(buf.String())
+	s := fmt.Sprintf(format, a...)
+	logThis(SUCC, s)
 }
 
 func (l *LoraLog) Event(format string, a ...interface{}) {
-	buf := new(bytes.Buffer)
-	buf.WriteString("[EVEN]")
-	buf.WriteString(" ")
-	buf.WriteString(colorize(fmt.Sprintf(format, a...), "black"))
-	buf.WriteString("\n")
-	ColorLog(buf.String())
+	s := fmt.Sprintf(format, a...)
+	logThis(EVENT, s)
 }
 func colorize(s, color string) string {
 	c := gocolorize.NewColor(color)
@@ -93,4 +73,36 @@ func getFuncCall(depth int) string {
 		return s
 	}
 	return ""
+}
+func getLoggingTime() string {
+	t := time.Now()
+	return t.Format(time.ANSIC)
+}
+func logThis(level string, format string) {
+	var colorLevel, callDepth, sep string
+	switch level {
+	case INFO:
+		colorLevel = Green
+	case DEBUG:
+		colorLevel = Red
+	case CRIT:
+		colorLevel = Magenta
+	case SUCC:
+		colorLevel = Cyan
+	case EVENT:
+		colorLevel = Black
+	case WARN:
+		colorLevel = Blue
+	case ERRO:
+		colorLevel = Red
+	}
+	buf := new(bytes.Buffer)
+	sep = "::"
+	callDepth = getFuncCall(3)
+	buf.WriteString(getLoggingTime())
+	buf.WriteString(colorize("["+level+"]", colorLevel))
+	buf.WriteString(sep)
+	buf.WriteString(callDepth)
+	buf.WriteString(colorize(format, colorLevel))
+	fmt.Println(buf.String())
 }
