@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="account">
+    <div class="container">
+        {{ $proj:=.project }}
+        <div class="row">
+            <div class="four columns">
+                <div class="project-list">
+                    <h3>pages</h3>
+                    {{ range .pages }}
+                    <a href="/page/{{ $proj.Id }}/{{ .Id }}/update">{{ .Title }}</a>
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
