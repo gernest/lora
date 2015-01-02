@@ -73,7 +73,7 @@ func NewLoraProject(base string, name string, template string, theme string) (Pr
 		logThis.Debug("Trouble to create new project *%v*", err)
 		return *p, err
 	}
-	err = copyTheme(p)
+	err = copyTheme(p, p.Theme)
 	if err != nil {
 		logThis.Debug("Trouble to create new project *%v*", err)
 		return *p, err
@@ -94,20 +94,23 @@ func NewLoraProject(base string, name string, template string, theme string) (Pr
 	return *p, nil
 }
 
-func copyTheme(p *Project) error {
+func copyTheme(p *Project, name string) error {
 	themeDir := beego.AppConfig.String("themesDir")
 	if themeDir == "" {
 		themeDir = "themes"
 	}
-
-	sourceDir := filepath.Join(filepath.Join(p.BaseDir, themeDir), p.Theme)
-	destDir := filepath.Join(filepath.Join(p.ProjectPath, "themes"), p.Theme)
+	if name == "" || p.Theme == "" {
+		name = "loraina"
+	}
+	sourceDir := filepath.Join(filepath.Join(p.BaseDir, themeDir), name)
+	destDir := filepath.Join(filepath.Join(p.ProjectPath, "themes"), name)
 
 	err := cp.CopyDir(sourceDir, destDir)
 	if err != nil {
 		logThis.Debug("Trouble copying theme *%v*", err)
 		return err
 	}
+	p.Theme = name
 	return nil
 }
 

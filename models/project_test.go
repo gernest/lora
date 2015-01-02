@@ -47,7 +47,7 @@ var _ = Describe("Project", func() {
 		PContext(" Given the base path ", func() {
 
 			It("Shold populate with initial values", func() {
-				p, _:= NewLoraProject(base, "mchele", "", "")
+				p, _ := NewLoraProject(base, "mchele", "", "")
 				Expect(base).Should(Equal(p.BaseDir))
 			})
 
@@ -144,6 +144,30 @@ var _ = Describe("Project", func() {
 			_ = currentProject.LoadConfigFile()
 
 			Expect(currentProject.Title).Should(Equal("Fuck ISIS"))
+		})
+	})
+	Describe("Install template", func() {
+		BeforeEach(func() {
+			_ = currentProject.Initialize(base, "yoyo", "", "")
+			_ = currentProject.GenScaffold()
+		})
+		It("It tick", func() {
+			err := currentProject.InstallTemplate("", "")
+			Expect(err).ShouldNot(HaveOccurred())
+		})
+	})
+	Describe("Install template", func() {
+		BeforeEach(func() {
+			_ = currentProject.Initialize(base, "yoyo", "", "")
+			_ = currentProject.GenScaffold()
+		})
+		It("ticks", func() {
+			err := currentProject.InstallTheme("")
+			Expect(err).ShouldNot(HaveOccurred())
+		})
+		It("No theme", func() {
+			err := currentProject.InstallTheme("nouma")
+			Expect(err).Should(HaveOccurred())
 		})
 	})
 

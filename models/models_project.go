@@ -221,3 +221,39 @@ func initializeProject(p *Project, base string, name string, template string, th
 	p.TemplatePath = sourceDir
 	return nil
 }
+
+func (p *Project) InstallTemplate(name, theme string) error {
+	err := installTemplate(p, name, theme)
+	return err
+}
+func (p *Project) InstallTheme(theme string) error {
+	err := copyTheme(p, theme)
+	return err
+}
+func installTemplate(p *Project, templatename string, theme string) error {
+	templatesDir := beego.AppConfig.String("templatesDir")
+	if templatename == "" || p.Template == "" {
+		templatename = "default"
+	}
+	if theme == "" || p.Theme == "" {
+		theme = "loraina"
+	}
+	dest := p.ProjectPath
+	sourceDir := filepath.Join(filepath.Join(p.BaseDir, templatesDir), templatename)
+	err := cp.CopyDir(sourceDir, dest)
+	if err != nil {
+		if os.IsExist(err) {
+			e := p.Clean()
+			if e != nil {
+				return e
+			}
+			e = cp.CopyDir(sourceDir, dest)
+			if e != nil {
+				return e
+			}
+		}
+	}
+	p.Template = templatename
+	p.Theme = theme
+	return nil
+}
