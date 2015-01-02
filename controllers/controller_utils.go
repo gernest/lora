@@ -1,20 +1,23 @@
 package controllers
 
 import (
-	"encoding/hex"
 	"errors"
 	"fmt"
 	"time"
 
+	"code.google.com/p/go.crypto/bcrypt"
 	"github.com/astaxie/beego"
 	sh "github.com/codeskyblue/go-sh"
 	"github.com/gernest/lora/models"
-	"github.com/gernest/lora/utilities/pbkdf2"
+)
+
+const (
+	HASHCOST = 8
 )
 
 // Rebuild takes a new saved page object and rebuilds the project with ne updted conent
 func Rebuild(p *models.Page) error {
-	logThis.Event(" Rebuilding %s.....",p.Title )
+	logThis.Event(" Rebuilding %s.....", p.Title)
 	project := new(models.Project)
 	db, err := models.Conn()
 	if err != nil {
@@ -124,25 +127,19 @@ func checkUserByEmail(email string) (models.Account, error) {
 	}
 	return usr, err
 }
-func checkUserPassword(usr *models.Account, passwd string) error {
-	var x pbkdf2.PasswordHash
-	var err error
-	x.Hash = make([]byte, 32)
-	x.Salt = make([]byte, 16)
 
-	if usr.Password == "" {
-		return errors.New("No such User")
-	}
-	x.Hash, err = hex.DecodeString(usr.Password[:64])
+func newAccountPassword(a *models.Account, pass string) error {
+	h, err := bcrypt.GenerateFromPassword([]byte(pass), HASHCOST)
 	if err != nil {
 		return err
 	}
-	x.Salt, err = hex.DecodeString(usr.Password[64:])
+	a.Password = string(h)
+	return nil
+}
+func verifyPassword(a *models.Account, pass string) error {
+	err := bcrypt.CompareHashAndPassword([]byte(a.Password), []byte(pass))
 	if err != nil {
 		return err
-	}
-	if !pbkdf2.MatchPassword(passwd, &x) {
-		return errors.New("Wrong Password")
 	}
 	return nil
 }

@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"encoding/hex"
 	"fmt"
 	"strings"
 	"time"
@@ -9,7 +8,6 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/validation"
 	"github.com/gernest/lora/models"
-	"github.com/gernest/lora/utilities/pbkdf2"
 )
 
 // AccountController hangles account related endpoints
@@ -72,7 +70,7 @@ func (c *AccountController) Login() {
 			flash.Store(&c.Controller)
 			return
 		}
-		err = checkUserPassword(&a, password)
+		err = verifyPassword(&a, password)
 		if err != nil {
 			logThis.Debug("%v ", err)
 			flash.Error("Incorrect Password")
@@ -85,7 +83,7 @@ func (c *AccountController) Login() {
 		m["username"] = a.UserName
 		m["email"] = a.Email
 		m["timestamp"] = time.Now()
-		notice := fmt.Sprintf("Welcome   %s", a.Email)
+		notice := fmt.Sprintf("Welcome   %s", a.UserName)
 		c.SetSession("xshabe", m)
 
 		flash.Notice(notice)
@@ -153,7 +151,6 @@ func (c *AccountController) Register() {
 			flash.Store(&c.Controller)
 			return
 		}
-		h := pbkdf2.HashPassword(password)
 
 		db, err := models.Conn()
 		if err != nil {
@@ -169,7 +166,13 @@ func (c *AccountController) Register() {
 			UserName: userName,
 			Email:    email,
 			Profile:  profile,
-			Password: hex.EncodeToString(h.Hash) + hex.EncodeToString(h.Salt),
+		}
+		err = newAccountPassword(&account, password)
+		if err != nil {
+			logThis.Info("%v", err)
+			flash.Error("some fish opening database")
+			flash.Store(&c.Controller)
+			return
 		}
 
 		query := db.Where("email= ?", account.Email).First(&account)
