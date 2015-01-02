@@ -161,6 +161,9 @@ var _ = Describe("Project", func() {
 			_ = currentProject.Initialize(base, "yoyo", "", "")
 			_ = currentProject.GenScaffold()
 		})
+		AfterEach(func() {
+			_ = currentProject.Clean()
+		})
 		It("ticks", func() {
 			err := currentProject.InstallTheme("")
 			Expect(err).ShouldNot(HaveOccurred())
