@@ -12,15 +12,39 @@ import (
 type ProjectController struct {
 	MainController
 }
+type Resource struct {
+	Key   string
+	Value string
+}
 
 // NewProject Creates a new boilerplate hugo project and saves important data to database
 func (p *ProjectController) NewProject() {
-
+	var th, tmpl []Resource
 	sess := p.ActivateContent("projects/new")
+	themes, _ := models.GetAvailableThemes("")
+	logThis.Debug("%v", themes)
+	templates, _ := models.GetAvailableTemplates("")
+	logThis.Debug("%v", templates)
+	th = make([]Resource, len(themes))
+	tmpl = make([]Resource, len(templates))
+	for k, v := range themes {
+		th[k] = Resource{Key: v, Value: v}
+	}
+	for k, v := range templates {
+		tmpl[k] = Resource{Key: v, Value: v}
+	}
+	logThis.Info("Thems list %v", th)
+	logThis.Info("templateList %v", tmpl)
+	p.Data["themeList"] = &th
+	p.Data["templateList"] = &tmpl
 
 	if p.Ctx.Input.Method() == "POST" {
 		flash := beego.NewFlash()
 		projectName := p.GetString("projectName")
+		templeteName := p.GetString("templateName")
+		themeName := p.GetString("themeName")
+		logThis.Debug("Theme selected %s", themeName)
+		logThis.Debug("template selected %s", templeteName)
 		if sess == nil {
 			flash.Error("You need  to login inorder to create a new site")
 			flash.Store(&p.Controller)
@@ -40,7 +64,7 @@ func (p *ProjectController) NewProject() {
 			flash.Store(&p.Controller)
 			return
 		}
-		project, err := models.NewLoraProject("", projectName, "", "")
+		project, err := models.NewLoraProject("", projectName, templeteName, themeName)
 		if err != nil {
 			logThis.Critical("Failed **%v**", err)
 			flash.Error("failed to create the project")

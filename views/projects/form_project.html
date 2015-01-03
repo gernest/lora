@@ -2,8 +2,17 @@
     <fieldset>
         <div>
             <input name="projectName" placeholder="website Name" type="text">
-
-            <button type="submit">Create</button>
+            <select name="themeName">
+                {{ range .themeList }}
+                <option value="{{ .Key }}">{{ .Value }}</option>
+                {{ end }}
+            </select>
+            <select name="templateName">
+                {{ range .templateList }}
+                <option value="{{ .Key }}">{{ .Value }}</option>
+                {{ end }}
+            </select>
         </div>
     </fieldset>
+    <button type="submit">Create</button>
 </form>

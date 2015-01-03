@@ -77,7 +77,7 @@ func NewLoraProject(base string, name string, template string, theme string) (Pr
 		logThis.Debug("Trouble to create new project *%v*", err)
 		return *p, err
 	}
-	err = copyTheme(p, p.Theme)
+	err = copyTheme(p, theme)
 	if err != nil {
 		logThis.Debug("Trouble to create new project *%v*", err)
 		return *p, err
@@ -112,12 +112,13 @@ func copyTheme(p *Project, name string) error {
 	if themeDir == "" {
 		themeDir = "themes"
 	}
-	if name == "" || p.Theme == "" {
+	if name == "" {
 		name = "loraina"
 	}
+	logThis.Debug("Installing %s", name)
 	sourceDir := filepath.Join(filepath.Join(p.BaseDir, themeDir), name)
 	destDir := filepath.Join(filepath.Join(p.ProjectPath, "themes"), name)
-
+	logThis.Debug("Copying %s to %s", sourceDir, destDir)
 	err := cp.CopyDir(sourceDir, destDir)
 	if err != nil {
 		logThis.Debug("Trouble copying theme *%v*", err)
