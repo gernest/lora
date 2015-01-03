@@ -190,6 +190,12 @@ var _ = Describe("Project", func() {
 			Expect(p.ContentPath).ShouldNot(BeEmpty())
 		})
 	})
+	Describe("Get available themes", func() {
+		It("ticks", func() {
+			_, err := GetAvailableThemes(base)
+			Expect(err).ShouldNot(HaveOccurred())
+		})
+	})
 
 })
 

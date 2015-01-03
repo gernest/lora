@@ -2,9 +2,13 @@ package models
 
 import (
 	"fmt"
+	"os"
 	"path"
 	"path/filepath"
 	"runtime"
+	"sort"
+
+	"bitbucket.org/kardianos/osext"
 
 	"github.com/gernest/lora/utilities/logs"
 
@@ -94,6 +98,15 @@ func NewLoraProject(base string, name string, template string, theme string) (Pr
 	return *p, nil
 }
 
+func GetAvailableThemes(base string) ([]string, error) {
+	list, err := getResourceList("themes", base)
+	return list, err
+}
+func GetAvailableTemplates(base string) ([]string, error) {
+	list, err := getResourceList("templates", base)
+	return list, err
+}
+
 func copyTheme(p *Project, name string) error {
 	themeDir := beego.AppConfig.String("themesDir")
 	if themeDir == "" {
@@ -128,4 +141,49 @@ func getFuncCall(depth int) string {
 		return s
 	}
 	return ""
+}
+
+func getResourceList(s, location string) ([]string, error) {
+	var (
+		resource, resourcePath, resourceDir, base string
+		resourceList                              []string
+	)
+	base = location
+	if location == "" {
+		baseD, err := osext.ExecutableFolder()
+		if err != nil {
+			return []string{}, err
+		}
+		base = baseD
+	}
+
+	switch s {
+	case "themes":
+		resource = "themes"
+		resourceDir = beego.AppConfig.String("themesDir")
+		if resourceDir == "" {
+			resourceDir = resource
+		}
+	case "templates":
+		resource = "templates"
+		resourceDir = beego.AppConfig.String("templatesDIr")
+		if resourceDir == "" {
+			resourceDir = resource
+		}
+	}
+	resourcePath = filepath.Join(base, resourceDir)
+	if filepath.IsAbs(resourceDir) {
+		resourcePath = resourceDir
+	}
+	file, err := os.Open(resourcePath)
+	if err != nil {
+		return []string{}, err
+	}
+	resourceList, err = file.Readdirnames(2)
+
+	if err != nil {
+		return []string{}, err
+	}
+	sort.Sort(sort.StringSlice(resourceList)) //Sort the list
+	return resourceList, nil
 }

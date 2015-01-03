@@ -153,8 +153,8 @@ func (p *ProjectController) Remove() {
 			flash.Store(&p.Controller)
 			return
 		}
-		
-		logThis.Info("deleting project %s",project.Name)
+
+		logThis.Info("deleting project %s", project.Name)
 
 		// delete all pages
 		pages := []models.Page{}
@@ -211,11 +211,53 @@ func (p *ProjectController) Preview() {
 }
 
 // Update provides a restful project update
-func (p *ProjectController) Update() {}
+func (p *ProjectController) Update() {
+	sess := p.ActivateContent("projects/update")
+
+	flash := beego.NewFlash()
+	if sess == nil {
+		flash.Error("You need  to login inorder to delete a site")
+		flash.Store(&p.Controller)
+		return
+	}
+	projectID, err := p.GetInt64(":id")
+	if err != nil {
+		beego.Info("Whaacko %s", err)
+	}
+	project := models.Project{}
+
+	db, err := models.Conn()
+	if err != nil {
+		logThis.Debug("Whacko whacko %s", err)
+		flash.Error("Sorry Internal problem")
+		flash.Store(&p.Controller)
+		return
+	}
+	db.LogMode(true)
+	err = db.First(&project, projectID).Error
+	if err != nil {
+		logThis.Debug("Whacko whacko %s", err)
+		flash.Error("Sorry Internal problem")
+		flash.Store(&p.Controller)
+		return
+	}
+	pages := []models.Page{}
+	err = db.Model(&project).Related(&pages).Error
+	if err != nil {
+		logThis.Debug("Whacko whacko %s", err)
+		flash.Error("Sorry Internal problem")
+		flash.Store(&p.Controller)
+		return
+	}
+	p.Data["pages"] = &pages
+	p.Data["project"] = &project
+}
 
 // Deploy prepares and pushes the project to the cloud
 // TODO
-func (p *ProjectController) Deploy() {}
+func (p *ProjectController) Deploy() {
+	p.ActivateView("notyet")
+}
 
 // List spits serialized slice of projects in json format
 func (p *ProjectController) List() {

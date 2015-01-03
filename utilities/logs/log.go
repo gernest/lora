@@ -76,7 +76,7 @@ func getFuncCall(depth int) string {
 }
 func getLoggingTime() string {
 	t := time.Now()
-	return t.Format(time.ANSIC)
+	return t.Format("2006/01/02 15:04:05 ")
 }
 func logThis(level string, format string) {
 	var colorLevel, callDepth, sep string
