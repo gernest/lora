@@ -11,14 +11,14 @@ func (c *LoraController) Services() {
 	c.ActivateView("lora/services")
 }
 func (c *LoraController) Contacts() {
-	c.ActivateView("lora/contacts")
+	c.ActivateView("lnotyet")
 }
 func (c *LoraController) Legal() {
-	c.ActivateContent("lora/legal")
+	c.ActivateContent("notyet")
 }
 func (c *LoraController) Terms() {
-	c.ActivateContent("lora/terms")
+	c.ActivateContent("notyet")
 }
 func (c *LoraController) Help() {
-	c.ActivateContent("lora/help")
+	c.ActivateContent("notyet")
 }

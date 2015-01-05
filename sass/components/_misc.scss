@@ -5,3 +5,15 @@
   height: 5px;
   width: 100%;
 }
+
+.title {
+  display: inline-block;
+  text-align: none;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: $large-font-size;
+  span{
+    padding: 5px;
+    display: inline-block;
+  }
+}

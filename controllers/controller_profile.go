@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"path/filepath"
 	"fmt"
 	"strings"
 
@@ -63,6 +64,7 @@ func (p *ProfileController) Edit() {
 		phone := p.GetString("phone")
 		uForm := models.UserForm{Company: company}
 		uProfile := models.UserProfileForm{Phone: phone}
+		uploadsDir := beego.AppConfig.String("uploadsDir")
 
 		v1 := validation.Validation{}
 		v2 := validation.Validation{}
@@ -80,12 +82,21 @@ func (p *ProfileController) Edit() {
 				errMap[s[0]] = err.Message
 			}
 		}
+		_, fileHeader, err := p.GetFile("profilePicture")
+		logThis.Debug("Filename *%s* fileHead *%s*", fileHeader.Filename, fileHeader.Header)
+		fileDestination:=filepath.Join(uploadsDir,fileHeader.Filename)
+		logThis.Debug("destination is %s", fileDestination)
+		err=p.SaveToFile("profilePicture", fileDestination)		
+		if err != nil {
+			errMap["profilePic"] = err.Error()
+		}
 		if len(errMap) != 0 {
 			p.Data["Errors"] = errMap
 			return
 		}
 		a.Company = company
 		profile.Phone = phone
+		profile.Photo="/"+fileDestination
 		db.Save(&a)
 		db.Save(&profile)
 

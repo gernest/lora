@@ -15,6 +15,7 @@ type (
 		Email          string    `toml:"email" sql:"unique"`
 		Projects       []Project `toml:"-"`
 		Password       string    `toml:"-"`
+		Uploads        []Upload  `toml:"-"`
 		Profile        Profile   `toml:"-"`
 		ProfileId      int64     `toml:"-"`
 		ClearanceLevel int       `toml:"-"`
@@ -83,8 +84,13 @@ type (
 	Profile struct {
 		Id        int64
 		Phone     string
-		Photo     string `sql:"null;type(url)"`
+		Photo     string `sql:"null`
 		UpdatedAt time.Time
 		CreatedAT time.Time
+	}
+
+	Upload struct {
+		Id   int64
+		Path string
 	}
 )

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="twelve columns">
-                <form method="post">
+                <form enctype="multipart/form-data" method="post">
                     <legend>
                         Account Details
                     </legend>
@@ -17,6 +17,14 @@
                         <div class="">
                             <label for="phone">Phone number:</label>
                             <input type="text" name="phone" value="{{ .profile.Phone }}">
+                            {{ if .Errors.Company}}
+                            <aside class="form-message">{{ .Errors.Company}}</aside>
+                            {{ end }}
+                        </div>
+
+                        <div class="">
+                            <label for="pic">Change Profile Picture:</label>
+                            <input type="file" name="profilePicture">
                             {{ if .Errors.Company}}
                             <aside class="form-message">{{ .Errors.Company}}</aside>
                             {{ end }}
