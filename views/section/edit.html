@@ -1,15 +1,18 @@
 <div class="container">
     <div class="row">
         <div class="twelve columns">
-            <form method="post" id="pageForm">
-                <legend>{{ .section.Name }}</legend>
-                <textarea name="content" class="content">
-                    {{ .section.BodyHtml }}
-                </textarea>
-                <button type="submit" name="SaveAndEdit"> Update</button>
-                <button name="saveAndPreview" value="1" type="submit">save and preview</button>
-            </form>
-            <div>
+            <div class="edit">
+                <h4 class="edit-title">{{ .section.Name }}</h4>
+                <form method="post" id="pageForm">
+                    <textarea name="content" class="content">
+                        {{ .section.BodyHtml }}
+                    </textarea>
+                    <button type="submit" name="SaveAndEdit"> Update</button>
+                    <button name="saveAndPreview" value="1" type="submit">save and preview</button>
+                </form>
+            </div>
+            <button class="edit-section-btn">Subsections <i class="fa fa-chevron-down"></i></button>
+            <div class="edit-section">
                 {{ range .subSections }}
                 <div>
                     <h4>{{ .Name }}</h4>

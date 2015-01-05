@@ -1,14 +1,17 @@
 <div class="container">
     <div class="row">
         <div class="twelve columns">
-            <form method="post" id="pageForm">
-                <legend>{{ .page.Title }}</legend>
-                <textarea name="content" class="content">
-                    {{ .page.ContentHtml }}
-                </textarea>
-                <button type="submit" name="SaveAndEdit"> Update</button>
-                <button name="saveAndPreview" value="1" type="submit">save and preview</button>
-            </form>
+            <div class="edit">
+                <h4>{{ .page.Title }}</h4>
+                <form method="post" id="pageForm">
+                    <textarea name="content" class="content">
+                        {{ .page.ContentHtml }}
+                    </textarea>
+                    <button type="submit" name="SaveAndEdit"> Update</button>
+                    <button name="saveAndPreview" value="1" type="submit">save and preview</button>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>

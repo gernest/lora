@@ -1,4 +1,17 @@
-// Package controllers project management controlls
+// Copyright 2015 Geofrey Ernest a.k.a gernest, All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"): you may
+// not use this file except in compliance with the License. You may obtain
+// a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+// License for the specific language governing permissions and limitations
+// under the License.
+
 package controllers
 
 import (
@@ -52,7 +65,7 @@ func (p *ProjectController) NewProject() {
 		}
 		db, err := models.Conn()
 		if err != nil {
-			beego.Info(":==> ", err)
+			logThis.Debug(":==> %v ", err)
 			flash.Error("some fish opening database")
 			flash.Store(&p.Controller)
 			return
@@ -85,20 +98,20 @@ func (p *ProjectController) NewProject() {
 		ps := &project
 		err = ps.GenContent()
 		if err != nil {
-			beego.Info("holly shit check this mess %s", err.Error())
+			logThis.Debug("holly shit check this mess %s", err.Error())
 			flash.Error("some fish happened")
 			flash.Store(&p.Controller)
 			return
 		}
 		err = ps.SaveConfigFile()
 		if err != nil {
-			beego.Info("holly shit check this mess %s", db.Error)
+			logThis.Debug("holly shit check this mess %s", db.Error)
 			flash.Error("some fish happened sorry")
 			flash.Store(&p.Controller)
 			return
 		}
 		if db.NewRecord(project) {
-			beego.Info("Failed to save into database %s", db.Error)
+			logThis.Debug("Failed to save into database %s", db.Error)
 			flash.Error("Problem saving the project")
 			flash.Store(&p.Controller)
 			_ = project.Clean()
