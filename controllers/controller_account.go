@@ -36,6 +36,7 @@ func (c *AccountController) Index() {
 	c.SetNotice()
 
 	flash := beego.NewFlash()
+	lora:=models.NewLoraObject()
 	if sess == nil {
 		logThis.Info(" Attempt to access restircted page")
 		flash.Error("You need to login to access this page")
@@ -50,7 +51,8 @@ func (c *AccountController) Index() {
 		flash.Store(&c.Controller)
 		return
 	}
-	c.Data["user"] = &a
+	lora.Add(a)
+	c.Data["lora"]=lora
 }
 
 // Login athenticates the user

@@ -1,7 +1,9 @@
+{{ $lora:=.lora}}
+{{ if $lora.HasProjects }}
 <div class="account">
     <div class="container">
         <div class="row">
-            {{ range .projects }}
+            {{ range $lora.Projects }}
             <div class="four columns">
                 <div class="project-list">
                     <h3>{{ .Name }}</h3>
@@ -16,5 +18,4 @@
         </div>
     </div>
 </div>
-<div class="login-spacer">
-</div>
+{{ end }}

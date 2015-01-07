@@ -15,6 +15,8 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/astaxie/beego"
 	"github.com/gernest/lora/models"
 )
@@ -63,6 +65,7 @@ func (p *PageController) Preview() {
 func (p *PageController) Update() {
 	sess := p.ActivateContent("page/edit")
 	flash := beego.NewFlash()
+	lora := models.NewLoraObject()
 	p.LayoutSections["JScripts"] = "jscript/editor.html"
 
 	if sess == nil {
@@ -97,9 +100,10 @@ func (p *PageController) Update() {
 		n := &sections[k]
 		n.Sanitize()
 	}
-	p.Data["sections"] = sections
+	lora.Add(sections)
 	page.Sanitize()
-	p.Data["page"] = page
+	lora.Add(page)
+	p.Data["lora"] = lora
 
 	if p.Ctx.Input.Method() == "POST" {
 		pageContent := p.GetString("content")
@@ -114,8 +118,10 @@ func (p *PageController) Update() {
 			return
 		}
 		if sp == 1 {
-			p.Redirect("/accounts", 302)
+			previewPath := fmt.Sprintf("/page/%d/%d/preview", page.ProjectId, page.Id)
+			p.Redirect(previewPath, 302)
 		}
-		p.Data["page"] = page
+		lora.Add(page)
+		p.Data["lora"] = lora
 	}
 }

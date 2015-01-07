@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="six columns">
-             <form method="post" class="pure-form pure-form-aligned">
+            <form method="post" class="pure-form pure-form-aligned">
                 <legend>Log in</legend>
                 <fieldset>
                     <div class="pure-control-group">
@@ -15,7 +15,7 @@
                         <label for="password">Password</label>
                         <input type="password" name="password" placeholder="password">
                         {{ if .Errors.password }}
-                        <aside  class="pure-form-message">{{ .Errors.password }}</aside>
+                        <aside class="pure-form-message">{{ .Errors.password }}</aside>
                         {{ end }}
                     </div>
                     <div class="pure-controls">

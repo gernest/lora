@@ -1,15 +1,20 @@
+{{ $lora:=.lora}}
+{{if $lora.HasProject}}
 <div class="promo-section account">
     <div class="container">
-        {{ $proj:=.project }}
+        {{ $proj:=$lora.Project }}
         <div class="row">
             <div class="four columns">
+			{{ if $lora.HasPages }}
                 <div class="project-list">
                     <h3>pages</h3>
-                    {{ range .pages }}
+                    {{ range $lora.Pages }}
                     <a href="/page/{{ $proj.Id }}/{{ .Id }}/update">{{ .Title }}</a>
                     {{ end }}
                 </div>
+			{{ end }}
             </div>
         </div>
     </div>
 </div>
+{{ end }}

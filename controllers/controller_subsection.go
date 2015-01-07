@@ -26,6 +26,7 @@ type SubSectionController struct {
 func (s SubSectionController) Update() {
 	sess := s.ActivateContent("section/edit")
 	flash := beego.NewFlash()
+	lora := models.NewLoraObject()
 	s.LayoutSections["JScripts"] = "jscript/editor.html"
 
 	if sess == nil {
@@ -55,7 +56,8 @@ func (s SubSectionController) Update() {
 		return
 	}
 	subSection.Sanitize()
-	s.Data["subSection"] = subSection
+	lora.Add(subSection)
+	s.Data["lora"] = lora
 
 	if s.Ctx.Input.Method() == "POST" {
 		subSectionContent := s.GetString("content")

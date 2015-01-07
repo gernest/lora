@@ -252,6 +252,7 @@ func (p *ProjectController) Update() {
 	sess := p.ActivateContent("projects/update")
 
 	flash := beego.NewFlash()
+	lora := models.NewLoraObject()
 	if sess == nil {
 		flash.Error("You need  to login inorder to delete a site")
 		flash.Store(&p.Controller)
@@ -286,8 +287,9 @@ func (p *ProjectController) Update() {
 		flash.Store(&p.Controller)
 		return
 	}
-	p.Data["pages"] = &pages
-	p.Data["project"] = &project
+	lora.Add(pages)
+	lora.Add(project)
+	p.Data["lora"] = lora
 }
 
 // Deploy prepares and pushes the project to the cloud
@@ -301,6 +303,7 @@ func (p *ProjectController) List() {
 	sess := p.ActivateContent("projects/list")
 	p.SetNotice()
 	flash := beego.NewFlash()
+	lora := models.NewLoraObject()
 	if sess == nil {
 		flash.Error("You need to login to access this page")
 		flash.Store(&p.Controller)
@@ -327,5 +330,6 @@ func (p *ProjectController) List() {
 
 	projects := []models.Project{}
 	db.Model(&a).Related(&projects)
-	p.Data["projects"] = &projects
+	lora.Add(projects)
+	p.Data["lora"] = lora
 }

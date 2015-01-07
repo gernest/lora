@@ -25,6 +25,7 @@ type SectonController struct {
 func (s *SectonController) Update() {
 	sess := s.ActivateContent("section/edit")
 	flash := beego.NewFlash()
+	lora := models.NewLoraObject()
 	s.LayoutSections["JScripts"] = "jscript/editor.html"
 
 	if sess == nil {
@@ -59,9 +60,12 @@ func (s *SectonController) Update() {
 		n := &subSections[k]
 		n.Sanitize()
 	}
-	s.Data["subSections"] = subSections
+	if len(subSections) > 0 {
+		lora.Add(subSections)
+	}
 	section.Sanitize()
-	s.Data["section"] = section
+	lora.Add(section)
+	s.Data["lora"] = lora
 
 	if s.Ctx.Input.Method() == "POST" {
 		sectionContent := s.GetString("content")
