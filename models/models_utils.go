@@ -24,10 +24,10 @@ import (
 
 	"bitbucket.org/kardianos/osext"
 
-	"github.com/gernest/lora/utilities/logs"
+	"github.com/gernest/lora/utils/logs"
 
 	"github.com/astaxie/beego"
-	cp "github.com/gernest/lora/utilities/copy"
+	cp "github.com/gernest/lora/utils/copy"
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
 	"github.com/microcosm-cc/bluemonday"
@@ -129,13 +129,10 @@ func copyTheme(p *Project, name string) error {
 	if name == "" {
 		name = "loraina"
 	}
-	logThis.Debug("Installing %s", name)
 	sourceDir := filepath.Join(filepath.Join(p.BaseDir, themeDir), name)
 	destDir := filepath.Join(filepath.Join(p.ProjectPath, "themes"), name)
-	logThis.Debug("Copying %s to %s", sourceDir, destDir)
 	err := cp.CopyDir(sourceDir, destDir)
 	if err != nil {
-		logThis.Debug("Trouble copying theme *%v*", err)
 		return err
 	}
 	p.Theme = name
@@ -201,4 +198,11 @@ func getResourceList(s, location string) ([]string, error) {
 	}
 	sort.Sort(sort.StringSlice(resourceList)) //Sort the list
 	return resourceList, nil
+}
+
+func getLocalHost() string {
+	port := beego.AppConfig.String("httpport")
+	host := "localhost"
+	scheme := fmt.Sprintf("http://%s:%s", host, port)
+	return scheme
 }

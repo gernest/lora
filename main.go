@@ -20,7 +20,7 @@ import (
 	"github.com/astaxie/beego"
 
 	"github.com/gernest/lora/models"
-	"github.com/gernest/lora/utilities/logs"
+	"github.com/gernest/lora/utils/logs"
 
 	_ "github.com/gernest/lora/models"
 	_ "github.com/gernest/lora/routers"
@@ -39,6 +39,7 @@ func init() {
 
 	// make sure we will preview our shitty sites
 	loadProjectPreview()
+	loadDeployedApps()
 }
 
 var logThis = logs.NewLoraLog()
@@ -64,8 +65,25 @@ func loadProjectPreview() {
 		logThis.Info("Proublem updating previw paths ** %v **", err)
 	}
 	for _, v := range ps {
-		staticPath := filepath.Join(v.ProjectPath, "public")
+		staticPath := filepath.Join(v.ProjectPath, "www")
 		previewPath := "/preview/" + v.Name
+		beego.SetStaticPath(previewPath, staticPath)
+	}
+}
+
+func loadDeployedApps() {
+	db, err := models.Conn()
+	if err != nil {
+		logThis.Info("some fish %v", err)
+	}
+	ps := []models.Project{}
+	err = db.Select("name, project_path").Find(&ps).Error
+	if err != nil {
+		logThis.Info("Proublem updating previw paths ** %v **", err)
+	}
+	for _, v := range ps {
+		staticPath := filepath.Join(v.ProjectPath, "www")
+		previewPath := "/apps/" + v.Name
 		beego.SetStaticPath(previewPath, staticPath)
 	}
 }

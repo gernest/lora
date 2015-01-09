@@ -170,7 +170,7 @@ var _ = Describe("Project", func() {
 			Expect(err).ShouldNot(HaveOccurred())
 		})
 	})
-	Describe("Install template", func() {
+	Describe("Install Theme", func() {
 		BeforeEach(func() {
 			_ = currentProject.Initialize(base, "yoyo", "", "")
 			_ = currentProject.GenScaffold()

@@ -16,7 +16,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/gernest/lora/utilities/logs"
+	"github.com/gernest/lora/utils/logs"
 )
 
 var logThis = logs.NewLoraLog()

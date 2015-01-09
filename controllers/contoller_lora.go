@@ -31,7 +31,7 @@ func (c *LoraController) Legal() {
 	c.ActivateContent("notyet")
 }
 func (c *LoraController) Terms() {
-	c.ActivateContent("notyet")
+	c.ActivateContent("lora/terms")
 }
 func (c *LoraController) Help() {
 	c.ActivateContent("notyet")

@@ -16,6 +16,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"os"
 
 	"path/filepath"
@@ -24,11 +25,12 @@ import (
 
 	"bytes"
 	"io/ioutil"
-	lorem "github.com/drhodes/golorem"
+
 	"github.com/BurntSushi/toml"
 	"github.com/astaxie/beego"
 	sh "github.com/codeskyblue/go-sh"
-	cp "github.com/gernest/lora/utilities/copy"
+	lorem "github.com/drhodes/golorem"
+	cp "github.com/gernest/lora/utils/copy"
 )
 
 // GenScaffold copies  a directory from thr templates folder into the projects folder.
@@ -191,6 +193,12 @@ func (p *Project) Initialize(base string, name string, template string, theme st
 	return nil
 }
 
+func (p *Project) SetBaseUrl() {
+	scheme := getLocalHost()
+	base := fmt.Sprintf("/apps/%s", p.Name)
+	uri := scheme + base
+	p.BaseUrl = uri
+}
 func initializeProject(p *Project, base string, name string, template string, theme string) error {
 	var projectsDir, templatesDir string
 	projectsDir = beego.AppConfig.String("projectsDir")

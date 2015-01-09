@@ -33,3 +33,47 @@
     text-transform: capitalize;
   }
 }
+.new-project {
+  padding: 8rem 0.5rem;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  @include breakpoint($max-phone-l){
+    padding: 0;
+  }
+  form{
+    .theme, .template {
+      display: none;
+    }
+  }
+  .theme-select, .template-select{
+    .theme-select-btn {
+      display: block;
+      margin-top: 5px;
+    }
+  }
+  .theme-box, .template-box{
+    display: block;
+    img{
+      display: block;
+    }
+  }
+  .theme-controls, .template-controls{
+    display: block;
+    .pick-theme, .pick-template{
+      display: inline-block;
+    }
+    .theme-demo, .template-demo{
+      display: inline-block;
+    }
+  }
+  .theme-id, .template-id {
+    display: none;
+  }
+  .theme-notice, .template-notice {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    background: green;
+  }
+}

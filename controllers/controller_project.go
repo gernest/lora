@@ -32,10 +32,14 @@ type Resource struct {
 
 // NewProject Creates a new boilerplate hugo project and saves important data to database
 func (p *ProjectController) NewProject() {
+
 	var th, tmpl []Resource
+	
 	sess := p.ActivateContent("projects/new")
+		
 	themes, _ := models.GetAvailableThemes("")
 	logThis.Debug("%v", themes)
+	
 	templates, _ := models.GetAvailableTemplates("")
 	logThis.Debug("%v", templates)
 	th = make([]Resource, len(themes))
@@ -103,6 +107,7 @@ func (p *ProjectController) NewProject() {
 			flash.Store(&p.Controller)
 			return
 		}
+		project.SetBaseUrl()
 		err = ps.SaveConfigFile()
 		if err != nil {
 			logThis.Debug("holly shit check this mess %s", db.Error)
@@ -126,10 +131,14 @@ func (p *ProjectController) NewProject() {
 			_ = project.Clean()
 			return
 		}
+
 		// serve public folder as static
 		staticPath := filepath.Join(project.ProjectPath, "www")
 		previewPath := "/preview/" + project.Name
-		beego.SetStaticPath(previewPath, staticPath)
+		deployPath := "/apps/" + project.Name
+
+		beego.SetStaticPath(previewPath, staticPath) // preview
+		beego.SetStaticPath(deployPath, staticPath)  // deploy local
 
 		flash.Notice("your website has successful been created")
 		flash.Store(&p.Controller)

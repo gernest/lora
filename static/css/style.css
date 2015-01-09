@@ -221,6 +221,49 @@ html, body {
   text-transform: capitalize;
 }
 
+.new-project {
+  padding: 8rem 0.5rem;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+@media screen and (max-width: 479px) {
+  .new-project {
+    padding: 0;
+  }
+}
+.new-project form .theme, .new-project form .template {
+  display: none;
+}
+.new-project .theme-select .theme-select-btn, .new-project .template-select .theme-select-btn {
+  display: block;
+  margin-top: 5px;
+}
+.new-project .theme-box, .new-project .template-box {
+  display: block;
+}
+.new-project .theme-box img, .new-project .template-box img {
+  display: block;
+}
+.new-project .theme-controls, .new-project .template-controls {
+  display: block;
+}
+.new-project .theme-controls .pick-theme, .new-project .theme-controls .pick-template, .new-project .template-controls .pick-theme, .new-project .template-controls .pick-template {
+  display: inline-block;
+}
+.new-project .theme-controls .theme-demo, .new-project .theme-controls .template-demo, .new-project .template-controls .theme-demo, .new-project .template-controls .template-demo {
+  display: inline-block;
+}
+.new-project .theme-id, .new-project .template-id {
+  display: none;
+}
+.new-project .theme-notice, .new-project .template-notice {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  background: green;
+}
+
 .page-heading {
   display: block;
   width: 100%;
@@ -463,4 +506,14 @@ html, body {
 }
 .edit .edit-section {
   display: none;
+}
+
+.copyright {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+}
+.copyright span {
+  padding: 0 5px;
 }

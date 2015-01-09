@@ -6,6 +6,27 @@
     <link rel="stylesheet" href="/static/css/vendors/normalize.css">
     <link rel="stylesheet" href="/static/css/vendors/skeleton.css">
     <link rel="stylesheet" href="/static/css/custom.css">
+    <script src="/static/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+        var footerDown=function(){
+            var winHeight=$(window).height();
+            var docHeight=$(document).height();
+            var footer=$(".footer");
+            if(docHeight<=winHeight){
+                p=winHeight-docHeight;
+                footer.offset({
+                    left:0,
+                    top: docHeight-footer.height()+p,
+                });
+            }
+        };
+        $(document).ready(function(){
+            footerDown();
+            $(window).resize(function(){
+                footerDown();
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="container">
@@ -13,13 +34,13 @@
     <nav class="navbar">
         <div class="container">
             <ul class="navbar-list">
-                <li class="navbar-item"><a class="navbar-link" href="#intro">home</a></li>
+                <li class="navbar-item"><a class="navbar-link" href="{{ .Site.BaseUrl }}/home">home</a></li>
                 <li class="navbar-item">
-                    <a class="navbar-link" href="#" data-popover="#codeNavPopover">Producs</a>
+                    <a class="navbar-link" href="{{ .Site.BaseUrl }}/products">Producss</a>
                 </li>
-                <li class="navbar-item"><a class="navbar-link" href="#examples">contacts</a></li>
+                <li class="navbar-item"><a class="navbar-link" href="{{ .Site.BaseUrl }}/contact">contacts</a></li>
                 <li class="navbar-item">
-                    <a class="navbar-link" href="#" data-popover="#moreNavPopover">about</a>
+                    <a class="navbar-link" href="{{ .Site.BaseUrl }}/about">about</a>
                 </li>
             </ul>
         </div>

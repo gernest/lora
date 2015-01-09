@@ -1,11 +1,59 @@
-
-<div class="promo-section">
+<div class="new-project">
     <div class="container">
         <div class="row">
-            <div class="twelve columns">
-                {{ template "projects/form_project.html" . }}
+            <div class="four columns">
+                <form method="post">
+                    <fieldset>
+                        <div>
+                            <input name="projectName" placeholder="website Name" type="text">
+                            <select name="themeName" class="theme">
+                                {{ range .themeList }}
+                                <option value="{{ .Key }}">{{ .Value }}</option>
+                                {{ end }}
+                            </select>
+                            <select name="template" class="template">
+                                {{ range .templateList }}
+                                <option value="{{ .Key }}">{{ .Value }}</option>
+                                {{ end }}
+                            </select>
+                        </div>
+                    </fieldset>
+                    <button type="submit">Create</button>
+                </form>
+
+            </div>
+            <div class="four columns">
+                <div class="theme-select">
+                    <button class="theme-select-btn">Select theme <i class="fa fa-chevron-down"></i></button>
+                    {{ range .themeList }}
+                    <div class="theme-box" t-id="{{ .Key }}">
+                        <h5>{{ .Value }}</h5>
+                        <img src="/static/img/DSCF1150_thumbnail.JPG">
+
+                        <div class="theme-controls">
+                            <button class="pick-theme">select</button>
+                            <button class="theme-demo">demo</button>
+                        </div>
+                    </div>
+                    {{ end }}
+                </div>
+            </div>
+            <div class="four columns">
+                <div class="template-select">
+                    <button class="template-select-btn">Select Template <i class="fa fa-chevron-down"></i></button>
+                    {{ range .templateList }}
+                    <div class="template-box" t-id="{{ .Key }}">
+                        <h5>{{ .Value }}</h5>
+                        <img src="/static/img/DSCF1150_thumbnail.JPG">
+
+                        <div class="template-controls">
+                            <button class="pick-template">select</button>
+                            <button class="template-demo">demo</button>
+                        </div>
+                    </div>
+                    {{ end }}
+                </div>
             </div>
         </div>
     </div>
 </div>
-
