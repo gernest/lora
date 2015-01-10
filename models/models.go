@@ -43,7 +43,7 @@ type (
 	Project struct {
 		Id           int64
 		Title        string    `toml:"title"`
-		Name         string    `toml:"project_name sql:"unique""`
+		Name         string    `toml:"projectName" sql:"unique""`
 		BaseDir      string    `toml:"-" sql:"-"`
 		Template     string    `toml:"templateName"`
 		Theme        string    `toml:"theme"`

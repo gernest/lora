@@ -33,14 +33,10 @@ import (
 	cp "github.com/gernest/lora/utils/copy"
 )
 
-// GenScaffold copies  a directory from thr templates folder into the projects folder.
+// GenScaffold copies  a directory from the templates folder into the projects folder.
 // The template name should be provided by the user, if not default template is used
 func (p *Project) GenScaffold() error {
-	err := cp.CopyDir(p.TemplatePath, p.ProjectPath)
-	if err != nil {
-		return err
-	}
-	return nil
+	return cp.CopyDir(p.TemplatePath, p.ProjectPath)
 }
 
 // InitiDir initializes the project directory by performing git stuffs
@@ -133,14 +129,9 @@ func (p *Project) SaveConfigFile() error {
 // Clean  makes sure all project  files in disc are safely removed
 func (p *Project) Clean() error {
 	if p.ProjectPath == "" {
-		err := errors.New("Project path should not be empty")
-		return err
+		return errors.New("Project path should not be empty")
 	}
-	err := os.RemoveAll(p.ProjectPath)
-	if err != nil {
-		return err
-	}
-	return nil
+	return os.RemoveAll(p.ProjectPath)
 }
 
 // Build run hugo on the root of project path to generate static files in public folder
@@ -186,11 +177,7 @@ func (p *Project) GenLorem() {
 }
 
 func (p *Project) Initialize(base string, name string, template string, theme string) error {
-	err := initializeProject(p, base, name, template, theme)
-	if err != nil {
-		return err
-	}
-	return nil
+	return initializeProject(p, base, name, template, theme)
 }
 
 func (p *Project) SetBaseUrl() {

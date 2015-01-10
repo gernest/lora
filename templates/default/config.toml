@@ -1,7 +1,6 @@
 baseurl = "http://yourSiteHere"
 languageCode = "en-us"
-title = "my new hugo site"
-theme="loraina"
+title = "my new lora site"
 publishDir="www"
 
 [[pages]]
