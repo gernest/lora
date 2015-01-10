@@ -13,16 +13,22 @@
 // under the License.
 
 $(document).ready(function(){
+    animateParagraph();
+    animateTitles();
+});
+
+
+// Animate the home page
+
+var animateParagraph=function(){
     var boxes =$(".sand-box p");
-    console.log(boxes)
-    pos=boxes.position()
-    var rate=0.9;
+    var pos=boxes.position();
     boxes.snabbt({
         position:[pos.top,pos.left,0],
         rotation:[0,0,2*Math.PI],
         easing:'spring',
         spring_constant:0.9,
-        spring_decceleration:rate,
+        spring_decceleration:0.1,
         loop:1,
         delay:500
     }).then({
@@ -30,12 +36,12 @@ $(document).ready(function(){
         postition:[0,pos.left,0],
         easing:'linear'
     });
-    var titleEl=$(".title")
-    var title = titleEl.text();
-    var title_height = titleEl.height();
-
+}
+var animateTitles=function(){
     $(".title span").each(function(idx, element) {
         var x = 20;
+        var title=$(".title")
+        var title_height=title.height
         var z = title.length/2 * x - Math.abs((title.length/2 - idx) * x);
         snabbt(element, {
             from_rotation: [0, 0, -8*Math.PI],
@@ -69,4 +75,4 @@ $(document).ready(function(){
         });
 
     });
-});
+}

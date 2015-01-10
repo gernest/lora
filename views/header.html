@@ -15,28 +15,8 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/vendors/trumbowyg.min.css">
     <script src="/static/js/jquery-2.1.1.min.js"></script>
+    <script src="/static/js/footer.js"></script>
     <script src="/static/js/install.js"></script>
-    <!--keep the footer down-->
-    <script type="text/javascript">
-        var footerDown=function(){
-            var winHeight=$(window).height();
-            var docHeight=$(document).height();
-            var footer=$(".footer-section");
-            if(docHeight<=winHeight){
-                p=winHeight-docHeight;
-                footer.offset({
-                    left:0,
-                    top: docHeight-footer.height()+p,
-                });
-            }
-        };
-        $(document).ready(function(){
-            footerDown();
-            $(window).resize(function(){
-                footerDown();
-            });
-        });
-    </script>
   </head>
 
 <body>

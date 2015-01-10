@@ -1,26 +1,4 @@
 <script src="/static/js/trumbowyg.min.js"></script>
 <script src="/static/js/he.js"></script>
 <script src="/static/js/to-markdown.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        var content =$(".content");
-        var sections=$(".edit-section");
-        console.log(sections.val())
-        var secBtn=$(".edit-section-btn");
-        console.log(secBtn)
-        sections.hide();
-        secBtn.click(function(){
-            sections.show();
-        });
-        var opts={
-            btns: [
-                'viewHTML',
-                '|', 'formatting',
-            ]
-        }
-        content.trumbowyg(opts);
-        $("#pageForm").submit(function(){
-            content.val(toMarkdown(content.val()));
-        });
-    });
-</script>
+<script src="/static/js/editor.js"></script>

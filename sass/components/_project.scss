@@ -76,4 +76,13 @@
     text-align: center;
     background: green;
   }
+  .install-empty-box {
+    display: block;
+    content: "";
+    height: 200px;
+    width: 100%;
+    @include breakpoint($max-phone-l){
+      display: none;
+    }
+  }
 }

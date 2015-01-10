@@ -307,7 +307,6 @@ func (p *ProjectController) Deploy() {
 	p.ActivateView("notyet")
 }
 
-// List spits serialized slice of projects in json format
 func (p *ProjectController) List() {
 	sess := p.ActivateContent("projects/list")
 	p.SetNotice()
@@ -340,5 +339,11 @@ func (p *ProjectController) List() {
 	projects := []models.Project{}
 	db.Model(&a).Related(&projects)
 	lora.Add(projects)
+	
+	if p.Ctx.Input.IsAjax(){
+		p.Data["json"]=lora
+		logThis.Info("AJAX Request")
+		p.ServeJson()
+	}	
 	p.Data["lora"] = lora
 }
