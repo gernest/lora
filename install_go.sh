@@ -56,12 +56,5 @@ mkdir -p $GOPATH/src
 mkdir -p $GOPATH/bin
 mkdir -p $GOPATH/pkg
 
-echo "Creating environment variables"
-
-bashrc=$HOME/.bashrc
-echo "export GOPATH=${HOME}/gosrc">>$bashrc
-echo "export GOROOT=${HOME}/go">>$bashrc
-echo "export PATH=${HOME}/go/bin:${PATH}">>$bashrc
-
 echo "Finished installing"
 exit 0
