@@ -24,7 +24,6 @@ $(document).ready(function () {
             console.log(iPos)
             console.log(cPos)
             diff=(thumb.height()-thumbImg.height())/2;
-//        thumbImg.offset({ top: cPos.top+diff, left:iPos.left})
             l=iPos.left
             t=cPos.top+diff;
             console.log(l);
@@ -41,7 +40,4 @@ $(document).ready(function () {
     $(window).resize(function () {
         footerDown();
     });
-
-
-
 })

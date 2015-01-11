@@ -47,15 +47,15 @@
     }
   }
   .thumbnail{
-    padding: 2px;
     border: 1px #ffffff solid;
     &:hover{
           border: 1px #1EAEDB solid;
     }
     img{
       width: 28px;
-      height: 28px;
-      padding: 4px;
+      height: 30px;
+      padding: 4px 0 4px 4px;
+      border-radius: 2px;
     }
     span{
       display: inline-block;

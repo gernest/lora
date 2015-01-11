@@ -82,7 +82,7 @@ func (c *AccountController) Login() {
 		a, err := checkUserByEmail(email)
 		if err != nil || a.Id == 0 {
 			logThis.Debug(" %v", err)
-			flash.Error("Sorry no  we have no record for this, try registering again or ask for help")
+			flash.Error("Sorry wrong username or password")
 			flash.Store(&c.Controller)
 			return
 		}

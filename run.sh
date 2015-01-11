@@ -13,7 +13,12 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-
+# This scripts helps to run tests and lora without building
+#
+#  ****THIS NEEDS A POSTGRESQL DATABASE INORDER TO WORK*******
+#
+# Please make sure you have a working postgres database and edit the file conf/app.conf
+# to reflect your database settings
 export GOPATH=$HOME/gosrc
 export GOROOT=$HOME/go
 export PATH=$PATH:$HOME/go/bin

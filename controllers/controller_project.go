@@ -34,12 +34,12 @@ type Resource struct {
 func (p *ProjectController) NewProject() {
 
 	var th, tmpl []Resource
-	
+
 	sess := p.ActivateContent("projects/new")
-		
+
 	themes, _ := models.GetAvailableThemes("")
 	logThis.Debug("%v", themes)
-	
+
 	templates, _ := models.GetAvailableTemplates("")
 	logThis.Debug("%v", templates)
 	th = make([]Resource, len(themes))
@@ -68,6 +68,7 @@ func (p *ProjectController) NewProject() {
 			return
 		}
 		db, err := models.Conn()
+		defer db.Close()
 		if err != nil {
 			logThis.Debug(":==> %v ", err)
 			flash.Error("some fish opening database")
@@ -175,6 +176,7 @@ func (p *ProjectController) Remove() {
 			return
 		}
 		db, err := models.Conn()
+		defer db.Close()
 		if err != nil {
 			beego.Info(":==> ", err)
 			flash.Error("some fish opening database")
@@ -245,6 +247,7 @@ func (p *ProjectController) Preview() {
 	project := new(models.Project)
 
 	db, err := models.Conn()
+	defer db.Close()
 	if err != nil {
 		beego.Info("Whacko whacko %s", err)
 	}
@@ -274,6 +277,7 @@ func (p *ProjectController) Update() {
 	project := models.Project{}
 
 	db, err := models.Conn()
+	defer db.Close()
 	if err != nil {
 		logThis.Debug("Whacko whacko %s", err)
 		flash.Error("Sorry Internal problem")
@@ -320,6 +324,7 @@ func (p *ProjectController) List() {
 
 	}
 	db, err := models.Conn()
+	defer db.Close()
 	if err != nil {
 		beego.Info(":==> ", err)
 		flash.Error("If you see this message, please report it by sending us aa email")
@@ -339,11 +344,11 @@ func (p *ProjectController) List() {
 	projects := []models.Project{}
 	db.Model(&a).Related(&projects)
 	lora.Add(projects)
-	
-	if p.Ctx.Input.IsAjax(){
-		p.Data["json"]=lora
+
+	if p.Ctx.Input.IsAjax() {
+		p.Data["json"] = lora
 		logThis.Info("AJAX Request")
 		p.ServeJson()
-	}	
+	}
 	p.Data["lora"] = lora
 }

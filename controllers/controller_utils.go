@@ -34,6 +34,7 @@ func Rebuild(p *models.Page) error {
 	logThis.Event(" Rebuilding %s.....", p.Title)
 	project := new(models.Project)
 	db, err := models.Conn()
+	defer db.Close()
 	if err != nil {
 		return err
 	}

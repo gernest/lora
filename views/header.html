@@ -32,16 +32,17 @@
                     <li>
                         <a href="/">home</a>
                     </li>
-                    <li>
-                        <a href="/services">services</a>
-                    </li>
-                    <li>
-                        <a href="/pricing" class="nav-link-primary">pricing</a>
-                    </li>
-                    <li>
-                        <a href="/contacts">contacts</a>
-                    </li>
+
                     {{ if .InSession }}
+                    <li>
+                        <a href="/services">explore</a>
+                    </li>
+                    <li>
+                        <a href="/help" class="nav-link-primary">help</a>
+                    </li>
+                    <li>
+                        <a href="/terms">terms</a>
+                    </li>
                         <li>
                     <a href="/accounts" class="thumbnail">
                         <img src="{{.avatar.Thumbnail}}">
@@ -53,6 +54,15 @@
                            <a href="/accounts/logout">logout</a>
                        </li>
                     {{ else }}
+                    <li>
+                        <a href="/services">services</a>
+                    </li>
+                    <li>
+                        <a href="/pricing" class="nav-link-primary">pricing</a>
+                    </li>
+                    <li>
+                        <a href="/contacts">contacts</a>
+                    </li>
                     <li>
                         <a href="/accounts/register"> SIGN UP</a>
                     </li>

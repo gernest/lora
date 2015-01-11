@@ -41,6 +41,7 @@ func (p *PageController) Preview() {
 	flash := beego.NewFlash()
 
 	db, err := models.Conn()
+	defer db.Close()
 	if err != nil {
 		beego.Info("whacko", err)
 	}
@@ -78,6 +79,7 @@ func (p *PageController) Update() {
 	page := models.Page{}
 
 	db, err := models.Conn()
+	defer db.Close()
 	if err != nil {
 		flash.Error("Whacko opening the database")
 		flash.Store(&p.Controller)

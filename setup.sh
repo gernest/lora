@@ -13,6 +13,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+# SETS UP GOLANG DEVELOPMENT ENVIRONMENT
 
 #if dumb terminal (file browser) run xterm so basicaly the script must run on almost any distro
 if [ $TERM == "dumb" ]; then xterm -hold -e $0; fi
