@@ -21,6 +21,8 @@ import (
 	"math/rand"
 	"path/filepath"
 
+	"github.com/gernest/lora/imgr"
+
 	"bitbucket.org/kardianos/osext"
 	"github.com/1l0/identicon"
 )
@@ -36,6 +38,17 @@ func (p *Profile) GenerateIdenticon(base, s string) error {
 		return err
 	}
 	p.Photo = link
+	src := fmt.Sprintf("%s/%s.png", gPath, name)
+	return p.geenerateThumbnail(src, name, 100, 100)
+
+}
+func (p *Profile) geenerateThumbnail(src, name string, width, height int) error {
+	thumb := &imgr.Thumbnails{}
+	err := thumb.CreateThumbnail(src, filepath.Dir(src), width, height)
+	if err != nil {
+		return err
+	}
+	p.Thumbnail = fmt.Sprintf("/static/profile/%s_thumbnail.png", name)
 	return nil
 
 }

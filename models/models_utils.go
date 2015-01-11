@@ -16,6 +16,7 @@ package models
 
 import (
 	"fmt"
+	"html/template"
 	"os"
 	"path"
 	"path/filepath"
@@ -68,12 +69,12 @@ func RunMigrations() {
 		return
 	}
 	//db.LogMode(true)
-	//db.DropTableIfExists(new(Account))
+	db.DropTableIfExists(new(Account))
 	db.DropTableIfExists(new(Project))
 	db.DropTableIfExists(new(Page))
 	db.DropTableIfExists(new(Section))
 	db.DropTableIfExists(new(SubSection))
-	//db.DropTableIfExists(new(Profile))
+	db.DropTableIfExists(new(Profile))
 	db.AutoMigrate(new(Account), new(Profile), new(Project), new(Page), new(Section), new(SubSection))
 	logThis.Success("migrations succeded")
 }
@@ -144,6 +145,10 @@ func sanitizeHTMLField(s string) []byte {
 	safe := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
 	return safe
 }
+func SanitizeTestHelper(s string) template.HTML {
+	sane := sanitizeHTMLField(s)
+	return template.HTML(sane)
+}
 
 func getFuncCall(depth int) string {
 	_, file, line, ok := runtime.Caller(depth)
@@ -202,6 +207,9 @@ func getResourceList(s, location string) ([]string, error) {
 
 func getLocalHost() string {
 	port := beego.AppConfig.String("httpport")
+	if port == "" {
+		return ""
+	}
 	host := "localhost"
 	scheme := fmt.Sprintf("http://%s:%s", host, port)
 	return scheme

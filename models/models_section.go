@@ -21,7 +21,6 @@ import (
 )
 
 func (s *Section) Sanitize() {
-
 	s.BodyHtml = template.HTML(sanitizeHTMLField(s.Body))
 }
 

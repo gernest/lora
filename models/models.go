@@ -99,6 +99,7 @@ type (
 		Id        int64
 		Phone     string
 		Photo     string `sql:"null`
+		Thumbnail string
 		UpdatedAt time.Time
 		CreatedAT time.Time
 	}

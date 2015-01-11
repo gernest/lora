@@ -93,6 +93,9 @@ func (p *Project) LoadConfigFile() error {
 // GenContent  generates frontmatter and contents of the pages in Markdown files, the fuction
 // can only be called after the project configurations have been loaded
 func (p *Project) GenContent() error {
+	if len(p.Pages) == 0 {
+		return errors.New("No Page to generate content for make sure you cal LoadConfigFile before this")
+	}
 	for _, v := range p.Pages {
 		err := v.Generate(p)
 		if err != nil {
@@ -182,9 +185,12 @@ func (p *Project) Initialize(base string, name string, template string, theme st
 
 func (p *Project) SetBaseUrl() {
 	scheme := getLocalHost()
-	base := fmt.Sprintf("/apps/%s", p.Name)
-	uri := scheme + base
-	p.BaseUrl = uri
+	if scheme != "" {
+		base := fmt.Sprintf("/apps/%s", p.Name)
+		uri := scheme + base
+		p.BaseUrl = uri
+	}
+
 }
 func initializeProject(p *Project, base string, name string, template string, theme string) error {
 	var projectsDir, templatesDir string

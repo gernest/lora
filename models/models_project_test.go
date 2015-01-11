@@ -95,6 +95,52 @@ var _ = Describe("Project", func() {
 			Expect(currentProject.ProjectPath).Should(Equal(projectPath))
 			Expect(file.IsDir()).Should(BeTrue())
 		})
+		It("Initi Dir", func() {
+			_ = currentProject.GenScaffold()
+			err = currentProject.InitDir()
+			Expect(err).ShouldNot(HaveOccurred())
+		})
+		It("", func() {
+			err = currentProject.InitDir()
+			Expect(err).Should(HaveOccurred())
+		})
+		It("fails to load", func() {
+			err = currentProject.LoadConfigFile()
+			Expect(err).Should(HaveOccurred())
+		})
+		It("Build", func() {
+			_ = currentProject.GenScaffold()
+			err = currentProject.Build()
+			Expect(err).ShouldNot(HaveOccurred())
+		})
+		It("Fails to build", func() {
+			err = currentProject.Build()
+			Expect(err).Should(HaveOccurred())
+		})
+		It("fail to generate content ", func() {
+			_ = currentProject.GenScaffold()
+			err = currentProject.GenContent()
+			Expect(err).Should(HaveOccurred())
+		})
+		It("generates content", func() {
+			_ = currentProject.GenScaffold()
+			_ = currentProject.LoadConfigFile()
+			err = currentProject.GenContent()
+			Expect(err).ShouldNot(HaveOccurred())
+		})
+		It("Generates Lorem", func() {
+			_ = currentProject.GenScaffold()
+			_ = currentProject.LoadConfigFile()
+			v := &currentProject.Pages[0]
+			v.Content = "# mambo"
+			c := v.Content
+			currentProject.GenLorem()
+			Expect(currentProject.Pages[0].Content).ShouldNot(Equal(c))
+		})
+		It("", func() {
+			currentProject.SetBaseUrl()
+			Expect(currentProject.BaseUrl).Should(BeEmpty())
+		})
 	})
 
 	Describe("Clean", func() {
