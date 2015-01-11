@@ -46,6 +46,24 @@
       }
     }
   }
+  .thumbnail{
+    padding: 2px;
+    border: 1px #ffffff solid;
+    &:hover{
+          border: 1px #1EAEDB solid;
+    }
+    img{
+      width: 28px;
+      height: 28px;
+      padding: 4px;
+    }
+    span{
+      display: inline-block;
+      padding: 5px;
+      box-sizing: border-box;
+      font-size: $medium-font-size;
+    }
+  }
 
   .nav{
     padding-top: 30px;

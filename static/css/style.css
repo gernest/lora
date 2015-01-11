@@ -35,6 +35,24 @@
   display: inline-block;
   color: #000000;
 }
+.navbar .thumbnail {
+  padding: 2px;
+  border: 1px #ffffff solid;
+}
+.navbar .thumbnail:hover {
+  border: 1px #1EAEDB solid;
+}
+.navbar .thumbnail img {
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+}
+.navbar .thumbnail span {
+  display: inline-block;
+  padding: 5px;
+  box-sizing: border-box;
+  font-size: 24px;
+}
 .navbar .nav {
   padding-top: 30px;
 }
@@ -261,7 +279,7 @@ html, body {
   display: block;
   padding: 10px;
   text-align: center;
-  background: green;
+  border: 1px #1EAEDB solid;
 }
 .new-project .install-empty-box {
   display: block;
@@ -415,6 +433,14 @@ html, body {
 }
 .profile .profile-details .update-profile:hover {
   background: #1EAEDB;
+}
+
+.uname {
+  font-size: 24px;
+  box-sizing: border-box;
+  padding-left: 10px;
+  text-align: center;
+  border-bottom: 1px #000000 solid;
 }
 
 .pricing .main-heading {

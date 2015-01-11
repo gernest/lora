@@ -55,7 +55,6 @@ func (l *Thumbnails) CreateThumbnail(src, dest string, width int, height int) er
 	if err != nil {
 		return err
 	}
-	logThis.Info("Creating thumbnail for %s", src)
 	pic := newImage(img, src)
 	return createThumbnail(pic, dest, width, height)
 }

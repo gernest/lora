@@ -44,6 +44,7 @@ func (p *ProfileController) Edit() {
 	profile := models.Profile{}
 
 	db, err := models.Conn()
+	defer db.Close()
 	if err != nil {
 		flash.Error("Whacko opening the database")
 		flash.Store(&p.Controller)
@@ -134,6 +135,7 @@ func (p *ProfileController) Display() {
 	profile := models.Profile{}
 
 	db, err := models.Conn()
+	defer db.Close()
 	if err != nil {
 		flash.Error("Whacko opening the database")
 		flash.Store(&p.Controller)

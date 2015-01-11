@@ -41,15 +41,18 @@
                     <li>
                         <a href="/contacts">contacts</a>
                     </li>
-                        {{ if .InSession }}
+                    {{ if .InSession }}
                         <li>
-                    <a href="/accounts">
-                        <i class="fa fa-user"></i> Account</a>
+                    <a href="/accounts" class="thumbnail">
+                        <img src="{{.avatar.Thumbnail}}">
+                        <span>{{ .acc.UserName }}</span>
+                    </a>
                         </li>
-                       <li>
+
+                    <li>
                            <a href="/accounts/logout">logout</a>
                        </li>
-                        {{ else }}
+                    {{ else }}
                     <li>
                         <a href="/accounts/register"> SIGN UP</a>
                     </li>

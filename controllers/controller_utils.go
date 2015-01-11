@@ -116,6 +116,7 @@ func Deploy(p *models.Project) error {
 func checkUserByName(sess map[string]interface{}) (models.Account, error) {
 	usr := models.Account{}
 	db, err := models.Conn()
+	defer db.Close()
 	if err != nil {
 		return usr, err
 	}
@@ -130,6 +131,7 @@ func checkUserByName(sess map[string]interface{}) (models.Account, error) {
 func checkUserByEmail(email string) (models.Account, error) {
 	usr := models.Account{}
 	db, err := models.Conn()
+	defer db.Close()
 	if err != nil {
 		return usr, err
 	}

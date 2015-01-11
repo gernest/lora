@@ -56,6 +56,7 @@ func main() {
 
 func loadProjectPreview() {
 	db, err := models.Conn()
+	defer db.Close()
 	if err != nil {
 		logThis.Info("some fish %v", err)
 	}
@@ -73,6 +74,7 @@ func loadProjectPreview() {
 
 func loadDeployedApps() {
 	db, err := models.Conn()
+	defer db.Close()
 	if err != nil {
 		logThis.Info("some fish %v", err)
 	}

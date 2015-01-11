@@ -170,6 +170,7 @@ func (c *AccountController) Register() {
 		}
 
 		db, err := models.Conn()
+		defer db.Close()
 		if err != nil {
 			logThis.Info("%v", err)
 			flash.Error("some fish opening database")

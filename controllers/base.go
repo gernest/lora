@@ -16,6 +16,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/gernest/lora/models"
 	"github.com/gernest/lora/utils/logs"
 )
 
@@ -38,10 +39,28 @@ func (c *MainController) ActivateContent(view string) map[string]interface{} {
 	logThis.Info("Checking session")
 	sess := c.GetSession("xshabe")
 	if sess != nil {
-		c.Data["InSession"] = 1
 		m := sess.(map[string]interface{})
 		c.Data["Username"] = m["username"]
 		logThis.Success("Session found *%v*", m["username"])
+
+		db, err := models.Conn()
+		defer db.Close()
+		em := m["email"]
+		a := models.Account{}
+		a.Email = em.(string)
+		err = db.Where("email= ?", a.Email).First(&a).Error
+		if err != nil {
+			return nil
+		}
+		prof := models.Profile{}
+		err = db.First(&prof, a.ProfileId).Error
+		if err != nil {
+			return nil
+		}
+
+		c.Data["InSession"] = 1
+		c.Data["avatar"] = &prof
+		c.Data["acc"] = &a
 		return m
 
 	}
