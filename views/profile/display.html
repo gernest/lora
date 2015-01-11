@@ -1,3 +1,6 @@
+{{ $lora:=.lora}}
+{{ if $lora.HasProfile }}
+{{ $user:= $lora.Account }}
 <div class="profile">
     <div class="container">
         <div class="row">
@@ -5,6 +8,7 @@
                 <div class="profile-image">
                     <img src="{{ .profile.Photo }}">
                 </div>
+                <h5>{{ $user.UserName }}</h5>
             </div>
             <div class="four columns">
                 <div class="profile-details">
@@ -13,7 +17,7 @@
                             <span>email</span> <a href="#">{{ .user.Email }}</a>
                         </li>
                         <li>
-                            <span>company</span> {{ .user.Company }}
+                            <span>company</span> {{ $user.Company }}
                         </li>
                         <li>
                             <span>Phone</span> {{ .profile.Phone }}
@@ -25,3 +29,4 @@
         </div>
     </div>
 </div>
+{{ end }}

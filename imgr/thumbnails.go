@@ -29,13 +29,20 @@ type Thumbnails struct {
 	ImageManager
 }
 
-func (t *Thumbnails) Process() error {
+func (t *Thumbnails) Process(width, height int) error {
+	var w, h int
+	w = width
+	h = height
+	if width == 0 || height == 0 {
+		w = THUMNAIL_SIZE
+		h = THUMNAIL_SIZE
+	}
 	if len(t.Images) == 0 {
 		return errors.New("There is nothing to process")
 	}
 	for _, img := range t.Images {
 		logThis.Info("Processing %s", img.Name)
-		err := createThumbnail(img, t.Destinalion, THUMNAIL_SIZE)
+		err := createThumbnail(img, t.Destinalion, w, h)
 		if err != nil {
 			return err
 		}
@@ -43,21 +50,21 @@ func (t *Thumbnails) Process() error {
 	return nil
 }
 
-func (l *Thumbnails) CreateThumbnail(src, dest string, size int) error {
+func (l *Thumbnails) CreateThumbnail(src, dest string, width int, height int) error {
 	img, err := getImageDetails(src)
 	if err != nil {
 		return err
 	}
 	logThis.Info("Creating thumbnail for %s", src)
 	pic := newImage(img, src)
-	return createThumbnail(pic, dest, size)
+	return createThumbnail(pic, dest, width, height)
 }
-func createThumbnail(img *Image, dest string, size int) error {
+func createThumbnail(img *Image, dest string, width int, height int) error {
 	pic, err := imaging.Open(img.Path)
 	if err != nil {
 		return err
 	}
-	destImg := imaging.Thumbnail(pic, size, size, imaging.Lanczos)
+	destImg := imaging.Thumbnail(pic, width, height, imaging.Lanczos)
 	destName := img.Name + "_thumbnail" + img.Ext
 	destPath := filepath.Join(dest, destName)
 	err = imaging.Save(destImg, destPath)

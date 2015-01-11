@@ -69,12 +69,19 @@ var _ = Describe("Imgr", func() {
 		})
 		It("Process", func() {
 			_ = thumb.LoadFromSource()
-			err = thumb.Process()
+			err = thumb.Process(0, 0)
 			Expect(err).ShouldNot(HaveOccurred())
 		})
 		It("Create a single thumnail", func() {
 			source := filepath.Join(thumb.Source, "tusha.png")
-			err = thumb.CreateThumbnail(source, thumb.Destinalion, 200)
+			err = thumb.CreateThumbnail(source, thumb.Destinalion, 200, 200)
+			Expect(err).ShouldNot(HaveOccurred())
+		})
+		It("SHould make tiny stuffs", func() {
+			d := thumb.Destinalion
+			thumb.Destinalion = filepath.Join(d, "tiny")
+			_ = thumb.LoadFromSource()
+			err = thumb.Process(100, 100)
 			Expect(err).ShouldNot(HaveOccurred())
 		})
 	})

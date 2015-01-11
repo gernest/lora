@@ -15,8 +15,8 @@
 package controllers
 
 import (
-	"path/filepath"
 	"fmt"
+	"path/filepath"
 	"strings"
 
 	"github.com/astaxie/beego/validation"
@@ -98,9 +98,9 @@ func (p *ProfileController) Edit() {
 		}
 		_, fileHeader, err := p.GetFile("profilePicture")
 		logThis.Debug("Filename *%s* fileHead *%s*", fileHeader.Filename, fileHeader.Header)
-		fileDestination:=filepath.Join(uploadsDir,fileHeader.Filename)
+		fileDestination := filepath.Join(uploadsDir, fileHeader.Filename)
 		logThis.Debug("destination is %s", fileDestination)
-		err=p.SaveToFile("profilePicture", fileDestination)		
+		err = p.SaveToFile("profilePicture", fileDestination)
 		if err != nil {
 			errMap["profilePic"] = err.Error()
 		}
@@ -110,7 +110,7 @@ func (p *ProfileController) Edit() {
 		}
 		a.Company = company
 		profile.Phone = phone
-		profile.Photo="/"+fileDestination
+		profile.Photo = "/" + fileDestination
 		db.Save(&a)
 		db.Save(&profile)
 
@@ -160,6 +160,10 @@ func (p *ProfileController) Display() {
 		flash.Store(&p.Controller)
 		return
 	}
+	lora := models.NewLoraObject()
+	lora.Add(a)
+	lora.Add(profile)
 	p.Data["user"] = &a
 	p.Data["profile"] = &profile
+	p.Data["lora"] = lora
 }

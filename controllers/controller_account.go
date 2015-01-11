@@ -36,7 +36,7 @@ func (c *AccountController) Index() {
 	c.SetNotice()
 
 	flash := beego.NewFlash()
-	lora:=models.NewLoraObject()
+	lora := models.NewLoraObject()
 	if sess == nil {
 		logThis.Info(" Attempt to access restircted page")
 		flash.Error("You need to login to access this page")
@@ -52,7 +52,7 @@ func (c *AccountController) Index() {
 		return
 	}
 	lora.Add(a)
-	c.Data["lora"]=lora
+	c.Data["lora"] = lora
 }
 
 // Login athenticates the user
@@ -134,6 +134,7 @@ func (c *AccountController) Register() {
 	if c.Ctx.Input.Method() == "POST" {
 		userName := c.GetString("userName")
 		company := c.GetString("company")
+		logThis.Debug("Company name %s", company)
 		email := c.GetString("email")
 		password := c.GetString("password")
 		password2 := c.GetString("password2")
@@ -181,6 +182,7 @@ func (c *AccountController) Register() {
 		account := models.Account{
 			UserName: userName,
 			Email:    email,
+			Company:  company,
 			Profile:  profile,
 		}
 		err = newAccountPassword(&account, password)
@@ -197,6 +199,11 @@ func (c *AccountController) Register() {
 			flash.Error(email + "Already Registered")
 			flash.Store(&c.Controller)
 			return
+		}
+		pf := &account.Profile
+		err = pf.GenerateIdenticon("", userName)
+		if err != nil {
+			logThis.Debug("%s", err)
 		}
 		db.Create(&account)
 		if db.Error != nil {
