@@ -16,6 +16,7 @@ package imgr
 
 import (
 	"errors"
+	"os"
 	"path/filepath"
 
 	"github.com/disintegration/imaging"
@@ -40,13 +41,14 @@ func (t *Thumbnails) Process(width, height int) error {
 	if len(t.Images) == 0 {
 		return errors.New("There is nothing to process")
 	}
+	logThis.Event("Start Processing Images from %s", t.Source)
 	for _, img := range t.Images {
-		logThis.Info("Processing %s", img.Name)
 		err := createThumbnail(img, t.Destinalion, w, h)
 		if err != nil {
 			return err
 		}
 	}
+	logThis.Success("***Finished Processing***")
 	return nil
 }
 
@@ -59,6 +61,11 @@ func (l *Thumbnails) CreateThumbnail(src, dest string, width int, height int) er
 	return createThumbnail(pic, dest, width, height)
 }
 func createThumbnail(img *Image, dest string, width int, height int) error {
+	info, _ := os.Stat(filepath.Dir(img.Path))
+	_, err := os.Stat(dest)
+	if os.IsNotExist(err) {
+		_ = os.Mkdir(dest, info.Mode())
+	}
 	pic, err := imaging.Open(img.Path)
 	if err != nil {
 		return err
@@ -67,5 +74,9 @@ func createThumbnail(img *Image, dest string, width int, height int) error {
 	destName := img.Name + "_thumbnail" + img.Ext
 	destPath := filepath.Join(dest, destName)
 	err = imaging.Save(destImg, destPath)
-	return err
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
