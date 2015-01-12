@@ -26,7 +26,6 @@ Oh yeah, you can run this and provide a hosting platform for your clients
 
 * A Postgresql database
 * [hugo](http://gohugo.io/) static site generator (Will be removed later )
-* A working golang environment
 
 # How to hack it?
 
