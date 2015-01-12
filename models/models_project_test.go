@@ -95,7 +95,7 @@ var _ = Describe("Project", func() {
 			Expect(currentProject.ProjectPath).Should(Equal(projectPath))
 			Expect(file.IsDir()).Should(BeTrue())
 		})
-		It("Initi Dir", func() {
+		PIt("Initi Dir", func() {
 			_ = currentProject.GenScaffold()
 			err = currentProject.InitDir()
 			Expect(err).ShouldNot(HaveOccurred())
@@ -108,7 +108,7 @@ var _ = Describe("Project", func() {
 			err = currentProject.LoadConfigFile()
 			Expect(err).Should(HaveOccurred())
 		})
-		It("Build", func() {
+		PIt("Build", func() {
 			_ = currentProject.GenScaffold()
 			err = currentProject.Build()
 			Expect(err).ShouldNot(HaveOccurred())
