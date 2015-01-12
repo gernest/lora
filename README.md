@@ -2,7 +2,6 @@
 
 
 # What is it
--------------
 
 Generates, manages, builds and deploy static sites for multiple users in a single application.
  Currently we support hugo based websites.
@@ -14,7 +13,6 @@ Or cut it short to a web hosting platform for static sites
 Oh yeah, you can run this and provide a hosting platform for your clients
 
 # Features
-----------
 
 * Identicons for profiles
 * Multi User Architecture
@@ -25,22 +23,20 @@ Oh yeah, you can run this and provide a hosting platform for your clients
 * deploy to the cloud with dokku
 
 # Requirements
---------
 
 * A Postgresql database
-* hugo static site generator (Will be removed later )
+* [hugo](http://gohugo.io/) static site generator (Will be removed later )
 * A working golang environment
 
 # How to hack it?
-----------
 
-Lora uses postgresql database as its backend, and hugo for builing. It is based on Beego framework
+Lora uses postgresql database as its backend, and hugo for builing. It is based on  [beego](http://beego.me/) framework
 and is written in go programming language a.k.a golang
 
 I assume you have a working golang environment you can skip this part if its true, if not I have included a script `setup.sh` which helps
 install golang and sets up the environment for you. To setup do the following.
 
-    $ git clone 
+    $ git clone https://github.com/gernest/lora.git
     $ cd lora
     $ chmod +x setup.sh
     $ ,/setup.sh
@@ -62,17 +58,14 @@ Lora usess compass and sass for generating `css` If you want to hack on the styl
 is installed and you can run the command `compass watch` and enjoy hacking.
 
 # Releases
------
 
 Not yet
 
 
 # Contributing
-------
 
 Contributions are welcome
 
 # Author
--------
 
 Geofrey Ernest
