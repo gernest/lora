@@ -1,4 +1,4 @@
-# Lora [![Build Status](https://travis-ci.org/gernest/lora.svg)](https://travis-ci.org/gernest/lora)
+# Lora [![Build Status](https://travis-ci.org/gernest/lora.svg?branch=master)](https://travis-ci.org/gernest/lora)
 
 A website as a service platform powered by Go docs : [here](http://gernest.github.io/lora/)
 
