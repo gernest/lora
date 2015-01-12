@@ -22,6 +22,10 @@ Edit `conf/app.conf` to reflect your database settings
     
     $ go build && ./lora
 
+or 
+
+    $ go run lora.go
+
 Open your browser at `http://localhost:4567` to view the running instance.
 
 Contributing
