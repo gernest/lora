@@ -33,7 +33,7 @@ echo "Running tests....."
 
 ginkgo -r
 
-echo "Running lora....."
+echo "Building lora....."
 
-go run main.go
+go clean && go build
 

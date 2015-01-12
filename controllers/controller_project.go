@@ -352,3 +352,7 @@ func (p *ProjectController) List() {
 	}
 	p.Data["lora"] = lora
 }
+
+func(p *ProjectController)Download(){
+	
+}

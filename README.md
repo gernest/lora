@@ -1,39 +1,78 @@
 # Lora [![Build Status](https://travis-ci.org/gernest/lora.svg?branch=master)](https://travis-ci.org/gernest/lora)
 
-A website as a service platform powered by Go docs : [here](http://gernest.github.io/lora/)
+
+# What is it
+-------------
+
+Generates, manages, builds and deploy static sites for multiple users in a single application.
+ Currently we support hugo based websites.
+
+Or cut it short to a web hosting platform for static sites 
+
+### Really?
+
+Oh yeah, you can run this and provide a hosting platform for your clients
+
+# Features
+----------
+
+* Identicons for profiles
+* Multi User Architecture
+* Templates Support
+* Themes support
+* Versioned Builds
+* Download your site as zip
+* deploy to the cloud with dokku
 
 # Requirements
+--------
 
-* A working postgres database
-* A working Go Environment
-* Hugo (This is a static site generator, lora themes and templates are compiled by this)
-* A Dokku server(Optional)
+* A Postgresql database
+* hugo static site generator (Will be removed later )
+* A working golang environment
 
-# Installation
+# How to hack it?
+----------
 
-Clone this repo and go get dependencies
+Lora uses postgresql database as its backend, and hugo for builing. It is based on Beego framework
+and is written in go programming language a.k.a golang
 
-    $ git clone https://github.com/gernest/lora
-    $ cd lora && go get -v ./..
- 
-# How to run
+I assume you have a working golang environment you can skip this part if its true, if not I have included a script `setup.sh` which helps
+install golang and sets up the environment for you. To setup do the following.
 
-Edit `conf/app.conf` to reflect your database settings 
+    $ git clone 
+    $ cd lora
+    $ chmod +x setup.sh
+    $ ,/setup.sh
     
-    $ go build && ./lora
+Then relax the heavy golang setup will  be done for you.
 
-or 
+Now you can hack on lora whatever you want and if you are done build your work with the `build.sh` script
 
-    $ go run lora.go
+    $ cd /path/to/lora
+    $ chmod +x build.sh
+    $ ./build.sh
 
-Open your browser at `http://localhost:4567` to view the running instance.
+Which will create a binary `lora` at the current working directory
+you can then execute by command `./lora`. Visit `http://localhost:4567` to view your site.
 
-Contributing
-------------
+Remember to read `conf/app.config` and change it to suit your needs
 
-Contributions are welcome. 
+Lora usess compass and sass for generating `css` If you want to hack on the styles, make sure sass and compass
+is installed and you can run the command `compass watch` and enjoy hacking.
 
-Before writing code, send mail to geofreyernest@live.com to discuss what you
-plan to do. This gives me a chance to validate the design, avoid duplication of
-effort and ensure that the changes fit the goals of the project. Do not start
-the discussion with a pull request.
+# Releases
+-----
+
+Not yet
+
+
+# Contributing
+------
+
+Contributions are welcome
+
+# Author
+-------
+
+Geofrey Ernest
