@@ -21,6 +21,16 @@ import (
 	"github.com/astaxie/beego/context"
 )
 
+const (
+	LEVEL_GROUND = iota
+	LEVEL_ONE
+	LEVEL_TWO
+	LEVEL_THREE
+	LEVEL_FOUR
+	LEVEL_FIVE
+	LEVEL_SIX
+)
+
 var logThis = logs.NewLoraLog()
 
 type ResourceClearance interface {
@@ -29,6 +39,7 @@ type ResourceClearance interface {
 
 type ClearanceObject interface {
 	ClearanceLevel() int
+	NewContext(*context.Context)
 }
 
 type BaseClearance struct {
@@ -44,14 +55,17 @@ type baseClearanceObject struct {
 
 func (o *baseClearanceObject) Clear() {
 	beego.InsertFilter(o.route, o.pos, func(ctx *context.Context) {
+		o.object.NewContext(ctx)
 		if o.object.ClearanceLevel() < o.level {
-			logThis.Info("No Permission")
+			logThis.Info("No Permission level is %d", o.level)
+			logThis.Info("Object level is %d", o.object.ClearanceLevel())
+			return
 		}
 		logThis.Info("Permitted")
 	})
 }
 
-func (b *BaseClearance) Register(o ClearanceObject, level int, route string) {
+func (b *BaseClearance) Register(o ClearanceObject, level int, route string) *BaseClearance {
 	base := &baseClearanceObject{
 		object: o,
 		level:  level,
@@ -60,10 +74,15 @@ func (b *BaseClearance) Register(o ClearanceObject, level int, route string) {
 	}
 	objects := append(b.Objects, base)
 	b.Objects = objects
+	return b
 }
 
 func (b *BaseClearance) ClearUp() {
 	for _, ob := range b.Objects {
 		ob.Clear()
 	}
+}
+
+func NewBaseClearance() *BaseClearance {
+	return &BaseClearance{}
 }
