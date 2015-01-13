@@ -13,3 +13,57 @@
 // under the License.
 
 package filters
+
+import (
+	"github.com/gernest/lora/utils/logs"
+
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/context"
+)
+
+var logThis = logs.NewLoraLog()
+
+type ResourceClearance interface {
+	Clear()
+}
+
+type ClearanceObject interface {
+	ClearanceLevel() int
+}
+
+type BaseClearance struct {
+	Ctx     *context.Context
+	Objects []*baseClearanceObject
+}
+type baseClearanceObject struct {
+	object ClearanceObject
+	level  int
+	pos    int
+	route  string
+}
+
+func (o *baseClearanceObject) Clear() {
+	beego.InsertFilter(o.route, o.pos, func(ctx *context.Context) {
+		if o.object.ClearanceLevel() < o.level {
+			logThis.Info("No Permission")
+		}
+		logThis.Info("Permitted")
+	})
+}
+
+func (b *BaseClearance) Register(o ClearanceObject, level int, route string) {
+	base := &baseClearanceObject{
+		object: o,
+		level:  level,
+		pos:    beego.BeforeRouter,
+		route:  route,
+	}
+	objects := append(b.Objects, base)
+	b.Objects = objects
+}
+
+func (b *BaseClearance) ClearUp() {
+	for _, ob := range b.Objects {
+		ob.Clear()
+	}
+}
