@@ -16,10 +16,10 @@ Oh yeah, you can run this and provide a hosting platform for your clients
 
 * Identicons for profiles
 * Multi User Architecture
-* In house resouce access clearance system. This allows giving access to certain resouces for only
+* In house resource access clearance system. This allows giving access to certain resources for only
 users who have that priviledge.   For instance you want only users with level 6 clearance to access the
 route `/admin` , this will make sure everyone who is below the level gets `permission denied` when he/she tries to access
-the page.
+the page.   Thre are six levels plus a ground floor `level 0`.
 * Templates Support
 * Themes support
 * Versioned Builds
