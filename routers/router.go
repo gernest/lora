@@ -60,6 +60,8 @@ func init() {
 	beego.Router("/legal", &controllers.LoraController{}, "get:Legal")
 	beego.Router("/help", &controllers.LoraController{}, "get:Help")
 
-	// Filters
-	filters.ClearAccounts("xshabe")
+	// clearance
+	cls := filters.NewBaseClearance()
+	cls.Register(filters.NewUser("xshabe"), filters.LEVEL_SIX, "/")
+	cls.ClearUp()
 }
