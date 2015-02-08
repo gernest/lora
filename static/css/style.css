@@ -238,6 +238,9 @@ html, body {
   border-left: 2px #1EAEDB solid;
   text-transform: capitalize;
 }
+.project-list a i {
+  padding-left: 5px;
+}
 
 .new-project {
   padding: 8rem 0.5rem;

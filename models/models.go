@@ -23,7 +23,7 @@ import (
 type (
 	// Account stores user information
 	Account struct {
-		Id             int64     `toml:"-"`
+		Id             int64
 		UserName       string    `toml:"-" sql:"not null;unique"`
 		Company        string    `toml:"company_name" sql:"unique"`
 		Email          string    `toml:"email" sql:"unique"`
@@ -55,6 +55,9 @@ type (
 		LanguageCode string    `toml:"languageCode" sql:"-"`
 		Pages        []Page    `toml:"pages"`
 		AccountId    int64     `toml:"-" sql:"null"`
+		Param        Param     `toml:"params"`
+		ParamId      int64     `toml:"-"`
+		Copyright    string    `toml:"copyright"`
 		CreatedAt    time.Time `toml:"-"`
 		UpdatedAt    time.Time `toml:"-"`
 	}
@@ -65,7 +68,7 @@ type (
 		Title       string        `toml:"title"`
 		ProjectId   int64         `toml:"-" `
 		Content     string        `toml:"content" sql:"null;type:text"`
-		ContentHtml template.HTML `toml:"-" sql:"-""`
+		ContentHtml template.HTML `toml:"-" sql:"-"`
 		Slug        string        `toml:"slug" sql:"null"`
 		Draft       bool          `toml:"draft" sql:"null"`
 		Sections    []Section     `toml:"sections"`
@@ -79,26 +82,31 @@ type (
 		Id          int64
 		PageId      int64
 		Name        string        `toml:"name"`
+		Title       string        `toml:"title"`
+		Phone       string        `toml:"phone"`
+		Photo       string        `toml:"photo"`
+		Email       string        `toml:"email"`
+		Address     string        `toml:"address"`
 		Body        string        `toml:"body" sql:"null;type:text"`
 		BodyHtml    template.HTML `sql:"-"`
-		Pre         string
-		Pro         string
-		SubSections []SubSection
+		SubSections []SubSection  `toml:"subsections"`
 		CreatedAt   time.Time
 		UpdatedAt   time.Time
 	}
 	SubSection struct {
 		Id        int64
+		Name      string `toml:"name"`
+		Photo     string `toml:"photo"`
 		SectionId int64
-		Body      string
-		BodyHtml  template.HTML `sq;"-"`
-		Pre       string
-		Pro       string
+		Body      string        `toml:"body"`
+		BodyHtml  template.HTML `sql:"-"`
+		CreatedAt time.Time
+		UpdatedAt time.Time
 	}
 	Profile struct {
 		Id        int64
 		Phone     string
-		Photo     string `sql:"null`
+		Photo     string `sql:"null"`
 		Thumbnail string
 		UpdatedAt time.Time
 		CreatedAT time.Time
@@ -107,5 +115,19 @@ type (
 	Upload struct {
 		Id   int64
 		Path string
+	}
+	Param struct {
+		Id              int64
+		Slides          []Image `toml:"slides"`
+		Author          string  `toml:"author"`
+		Desctiption     string  `toml:"description"`
+		BackgroundImage string  `toml:"background"`
+		CreatedAt       time.Time
+		UpdatedAt       time.Time
+	}
+
+	Image struct {
+		Id   int64
+		Path string `toml:"path"`
 	}
 )

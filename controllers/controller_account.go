@@ -181,10 +181,11 @@ func (c *AccountController) Register() {
 			Phone: "+27769000000",
 		}
 		account := models.Account{
-			UserName: userName,
-			Email:    email,
-			Company:  company,
-			Profile:  profile,
+			UserName:       userName,
+			Email:          email,
+			Company:        company,
+			Profile:        profile,
+			ClearanceLevel: 6,
 		}
 		err = newAccountPassword(&account, password)
 		if err != nil {

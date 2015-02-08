@@ -56,13 +56,19 @@ func Rebuild(p *models.Page) error {
 			if len(sections) > 0 {
 				for key := range sections {
 					s := &sections[key]
+					s.Sanitize()
 					sub := []models.SubSection{}
 					db.Model(s).Related(&sub)
+					for k:=range sub {
+						subsec:=&sub[k]
+						subsec.Sanitize()
+					}
 					s.SubSections = sub
 				}
 				pj.Sections = sections
 			}
 			pj.Content = p.Content
+			pj.Sanitize()
 		}
 	}
 	err = project.SaveConfigFile()

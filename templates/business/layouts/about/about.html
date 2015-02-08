@@ -1,0 +1,7 @@
+{{range .Params.sections}}
+{{if .name "team" }}
+{{partial "team.html" .}}
+{{else}}
+{{partial "showcase" .}}
+{{end}}
+{{end}}

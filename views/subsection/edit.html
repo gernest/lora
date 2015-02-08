@@ -5,11 +5,24 @@
     <div class="row">
         <div class="twelve columns">
             <div class="edit">
-                <h4>{{ $subsection.Title }}</h4>
-
-                <form method="post" id="pageForm">
+                <h4>{{ $subsection.Name }}</h4>
+                <form method="post" id="pageForm" enctype="multipart/form-data">
+                    <div class="">
+                        <label for="last">Name</label>
+                        <input type="text" name="sectionName" placeholder="{{ $subsection.Name}}">
+                        {{ if .Errors.Company}}
+                        <aside class="form-message">{{ .Errors.Company}}</aside>
+                        {{ end }}
+                    </div>
+                    <div class="">
+                        <label for="last">Photo</label>
+                        <input type="file" name="sectionName" placeholder="{{ $subsection.Photo}}">
+                        {{ if .Errors.Company}}
+                        <aside class="form-message">{{ .Errors.Company}}</aside>
+                        {{ end }}
+                    </div>
                     <textarea name="content" class="content">
-                        {{ $subsection.ContentHtml }}
+                        {{ $subsection.BodyHtml }}
                     </textarea>
                     <button type="submit" name="SaveAndEdit"> Update</button>
                     <button name="saveAndPreview" value="1" type="submit">save and preview</button>

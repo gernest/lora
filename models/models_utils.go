@@ -68,14 +68,16 @@ func RunMigrations() {
 		beego.Info("Failed to initialize database with error ", err)
 		return
 	}
-	//db.LogMode(true)
+	db.LogMode(true)
 	db.DropTableIfExists(new(Account))
 	db.DropTableIfExists(new(Project))
 	db.DropTableIfExists(new(Page))
 	db.DropTableIfExists(new(Section))
 	db.DropTableIfExists(new(SubSection))
 	db.DropTableIfExists(new(Profile))
-	db.AutoMigrate(new(Account), new(Profile), new(Project), new(Page), new(Section), new(SubSection))
+	db.DropTableIfExists(new(Param))
+	db.DropTableIfExists(new(Image))
+	db.AutoMigrate(new(Account), new(Profile), new(Project), new(Page), new(Section), new(SubSection), new(Param), new(Image))
 	logThis.Success("migrations succeded")
 }
 

@@ -14,8 +14,15 @@
 
 package models
 
-import "html/template"
+import (
+	"html/template"
+	"time"
+)
 
 func (s *SubSection) Sanitize() {
 	s.BodyHtml = template.HTML(sanitizeHTMLField(s.Body))
+}
+
+func (s *SubSection) LastUpdate() string {
+	return s.UpdatedAt.Format(time.RFC822)
 }

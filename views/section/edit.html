@@ -6,7 +6,42 @@
         <div class="twelve columns">
             <div class="edit">
                 <h4 class="edit-title">{{ $section.Name }}</h4>
-                <form method="post" id="pageForm">
+                <form method="post" id="pageForm" enctype="multipart/form-data">
+                    <div class="">
+                        <label for="last">Name</label>
+                        <input type="text" name="sectionName" placeholder="{{ $section.Name}}">
+                        {{ if .Errors.Company}}
+                        <aside class="form-message">{{ .Errors.Company}}</aside>
+                        {{ end }}
+                    </div>
+                    <div class="">
+                        <label for="last">Title</label>
+                        <input type="text" name="sectionTitle" placeholder="{{ $section.Title}}">
+                        {{ if .Errors.Company}}
+                        <aside class="form-message">{{ .Errors.Company}}</aside>
+                        {{ end }}
+                    </div>
+                    <div class="">
+                        <label for="last">Phone</label>
+                        <input type="text" name="sectionPhone" placeholder="{{ $section.Phone}}">
+                        {{ if .Errors.Company}}
+                        <aside class="form-message">{{ .Errors.Company}}</aside>
+                        {{ end }}
+                    </div>
+                    <div class="">
+                        <label for="last">Photo</label>
+                        <input type="file" name="sectionPhoto" placeholder="{{ $section.Photo}}">
+                        {{ if .Errors.Company}}
+                        <aside class="form-message">{{ .Errors.Company}}</aside>
+                        {{ end }}
+                    </div>
+                    <div class="">
+                        <label for="last">Email</label>
+                        <input type="email" name="sectionEmail" placeholder="{{ $section.Email }}">
+                        {{ if .Errors.Company}}
+                        <aside class="form-message">{{ .Errors.Company}}</aside>
+                        {{ end }}
+                    </div>
                     <textarea name="content" class="content">
                         {{ $section.BodyHtml }}
                     </textarea>
@@ -27,7 +62,6 @@
                             </li>
                             <li>
                                 <a href="/subsection/{{ .SectionId }}/{{ .Id }}/update">edit</a>
-
                             </li>
                         </ul>
                     </div>

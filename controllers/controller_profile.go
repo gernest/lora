@@ -16,6 +16,7 @@ package controllers
 
 import (
 	"fmt"
+	"net/http"
 	"path/filepath"
 	"strings"
 
@@ -98,20 +99,32 @@ func (p *ProfileController) Edit() {
 			}
 		}
 		_, fileHeader, err := p.GetFile("profilePicture")
-		logThis.Debug("Filename *%s* fileHead *%s*", fileHeader.Filename, fileHeader.Header)
-		fileDestination := filepath.Join(uploadsDir, fileHeader.Filename)
-		logThis.Debug("destination is %s", fileDestination)
-		err = p.SaveToFile("profilePicture", fileDestination)
 		if err != nil {
-			errMap["profilePic"] = err.Error()
+			if err == http.ErrMissingFile {
+				logThis.Info("There is no uploaded file")
+			} else {
+				errMap["profilePic"] = err.Error()
+
+			}
 		}
+		if fileHeader != nil {
+			logThis.Debug("Filename *%s* fileHead *%s*", fileHeader.Filename, fileHeader.Header)
+			fileDestination := filepath.Join(uploadsDir, fileHeader.Filename)
+			logThis.Debug("destination is %s", fileDestination)
+			err = p.SaveToFile("profilePicture", fileDestination)
+
+			if err != nil {
+				logThis.Debug("Trouble Saving pic %v", err)
+			}
+			profile.Photo = "/" + fileDestination
+		}
+
 		if len(errMap) != 0 {
 			p.Data["Errors"] = errMap
 			return
 		}
 		a.Company = company
 		profile.Phone = phone
-		profile.Photo = "/" + fileDestination
 		db.Save(&a)
 		db.Save(&profile)
 

@@ -16,7 +16,6 @@ package models
 
 import (
 	"html/template"
-
 	"time"
 )
 

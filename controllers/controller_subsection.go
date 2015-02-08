@@ -23,23 +23,22 @@ type SubSectionController struct {
 	MainController
 }
 
-func (s SubSectionController) Update() {
-	sess := s.ActivateContent("section/edit")
+func (s *SubSectionController) Update() {
+	sess := s.ActivateContent("subsection/edit")
 	flash := beego.NewFlash()
 	lora := models.NewLoraObject()
 	s.LayoutSections["JScripts"] = "jscript/editor.html"
-
 	if sess == nil {
 		flash.Error("you need to login inorder to update this page")
 		flash.Store(&s.Controller)
 		return
 	}
-	subSectionID, _ := s.GetInt64(":subsectionID")
+	subSectionID, _ := s.GetInt64(":subSectionID")
 	sectionID, _ := s.GetInt64(":sectionID")
 	subSection := models.SubSection{}
 
 	db, err := models.Conn()
-	defer  db.Close()
+	defer db.Close()
 	if err != nil {
 		flash.Error("Whacko opening the database")
 		flash.Store(&s.Controller)
@@ -64,6 +63,19 @@ func (s SubSectionController) Update() {
 		subSectionContent := s.GetString("content")
 		subSection.Body = subSectionContent
 		db.Save(&subSection)
+
+		page := models.Page{}
+		section := models.Section{}
+
+		db.First(&section, subSection.SectionId)
+		db.First(&page, section.PageId)
+
+		err = Rebuild(&page)
+		if err != nil {
+			flash.Error(" WHacko ", err)
+			flash.Store(&s.Controller)
+			return
+		}
 
 		s.Redirect("/accounts", 302)
 	}

@@ -9,10 +9,68 @@
                 <div class="project-list">
                     <h3>pages</h3>
                     {{ range $lora.Pages }}
-                    <a href="/page/{{ $proj.Id }}/{{ .Id }}/update">{{ .Title }}</a>
+                    <a href="/page/{{ $proj.Id }}/{{ .Id }}/update">{{ .Title }}<i class="fa fa-2x fa-edit"></i></a>
                     {{ end }}
                 </div>
 			{{ end }}
+            </div>
+            <div class="four columns">
+                <div class="project-list">
+                    <h3>Website</h3>
+                </div>
+                <form method="post" action="/project/{{$proj.Id}}/update">
+                    <legend>
+                        Update : {{ $proj.Name }}
+                    </legend>
+                    <fieldset>
+                        <div class="">
+                            <label for="last">Title</label>
+                            <input type="text" name="userName" placeholder="{{ $proj.Title}}">
+                            {{ if .Errors.Company}}
+                            <aside class="form-message">{{ .Errors.Company}}</aside>
+                            {{ end }}
+                        </div>
+                        <div class="">
+                            <label for="last">Owner</label>
+                            <input type="text" name="paramAuthor" placeholder="owner">
+                            {{ if .Errors.Company}}
+                            <aside class="form-message">{{ .Errors.Company}}</aside>
+                            {{ end }}
+                        </div>
+                        <div class="">
+                            <label for="last">Description</label>
+                            <input type="text" name="paramDescription" placeholder="Short Description">
+                            {{ if .Errors.Company}}
+                            <aside class="form-message">{{ .Errors.Company}}</aside>
+                            {{ end }}
+                        </div>
+                        <div class="">
+                            <label for="last">Background Image</label>
+                            <select name="paramBackground">
+                                <option>coffe cup</option>
+                                <option>pin board</option>
+                                <option>Summer breeze</option>
+                            </select>
+                            {{ if .Errors.Company}}
+                            <aside class="form-message">{{ .Errors.Company}}</aside>
+                            {{ end }}
+                        </div>
+                        <div class="">
+                            <button type="submit" class="button button-flat button-primary button-large">Register</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="four columns">
+                <div class="project-list">
+                    <h3>Images</h3>
+                    <a href="#">background <i class="fa fa-2x fa-edit"></i></a>
+                    <a href="#">slide 1<i class="fa fa-2x fa-edit"></i></a>
+                    <a href="#">slide 2<i class="fa fa-2x fa-edit"></i></a>
+                    <a href="#"> slide 3<i class="fa fa-2x fa-edit"></i></a>
+                    <a href="#"> slide 4<i class="fa fa-2x fa-edit"></i></a>
+                    <a href="#"> slide 5<i class="fa fa-2x fa-edit"></i></a>
+                </div>
             </div>
         </div>
     </div>

@@ -14,6 +14,9 @@
 package controllers
 
 import (
+	"net/http"
+	"path/filepath"
+
 	"github.com/astaxie/beego"
 	"github.com/gernest/lora/models"
 )
@@ -56,7 +59,7 @@ func (s *SectonController) Update() {
 		return
 	}
 	subSections := []models.SubSection{}
-	db.Model(&section).Related(subSections)
+	db.Model(&section).Related(&subSections)
 	for k := range subSections {
 		n := &subSections[k]
 		n.Sanitize()
@@ -70,10 +73,59 @@ func (s *SectonController) Update() {
 
 	if s.Ctx.Input.Method() == "POST" {
 		sectionContent := s.GetString("content")
-		section.Body = sectionContent
-		db.Save(&section)
+		sectionTitle := s.GetString("sectionTitle")
+		sectionName := s.GetString("sectionName")
+		sectionPhone := s.GetString("sectionPhone")
+		sectionEmail := s.GetString("sectionEmail")
+		sectionAddress := s.GetString("sectionAddress")
+
 		page := new(models.Page)
 		db.Find(page, section.PageId)
+
+		project := models.Project{}
+		db.First(&project, page.ProjectId)
+
+		uploadsDir := "projects/" + project.Name + "/static/img"
+
+		if sectionTitle != "" {
+			section.Title = sectionTitle
+		}
+		if sectionName != "" {
+			section.Name = sectionName
+		}
+
+		if sectionPhone != "" {
+			section.Phone = sectionPhone
+		}
+		if sectionEmail != "" {
+			section.Email = sectionEmail
+		}
+		if sectionAddress != "" {
+			section.Address = sectionAddress
+		}
+		_, fileHeader, err := s.GetFile("sectionPhoto")
+		if err != nil {
+			if err == http.ErrMissingFile {
+				logThis.Info("There is no uploaded file")
+			} else {
+				logThis.Debug("Problem %v", err)
+			}
+		}
+		if fileHeader != nil {
+			logThis.Debug("Filename *%s* fileHead *%s*", fileHeader.Filename, fileHeader.Header)
+			fileDestination := filepath.Join(uploadsDir, fileHeader.Filename)
+			logThis.Debug("destination is %s", fileDestination)
+			err = s.SaveToFile("sectionPhoto", fileDestination)
+
+			if err != nil {
+				logThis.Debug("Trouble Saving pic %v", err)
+			}
+			section.Photo = "/img/" + fileHeader.Filename
+		}
+
+		section.Body = sectionContent
+		db.Save(&section)
+
 		err = Rebuild(page)
 		if err != nil {
 			flash.Error(" WHacko ", err)

@@ -1,0 +1,13 @@
+{{ partial "header.html" .}}
+
+<div class="container">
+{{ partial "slider.html" .}}
+{{range where .Data.Pages "Section" "home"}}
+    {{range .Params.sections }}
+        {{partial "showcase.html" .}}
+    {{end}}
+{{end}}
+</div>
+<!-- /.container -->
+
+{{partial "footer.html" .}}
