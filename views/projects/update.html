@@ -25,32 +25,28 @@
                     <fieldset>
                         <div class="">
                             <label for="last">Title</label>
-                            <input type="text" name="userName" placeholder="{{ $proj.Title}}">
+                            <input type="text" name="projectTitle" placeholder="{{ $proj.Title}}">
                             {{ if .Errors.Company}}
                             <aside class="form-message">{{ .Errors.Company}}</aside>
                             {{ end }}
                         </div>
                         <div class="">
                             <label for="last">Owner</label>
-                            <input type="text" name="paramAuthor" placeholder="owner">
+                            <input type="text" name="paramAuthor" placeholder="{{ $proj.Param.Author }}">
                             {{ if .Errors.Company}}
                             <aside class="form-message">{{ .Errors.Company}}</aside>
                             {{ end }}
                         </div>
                         <div class="">
                             <label for="last">Description</label>
-                            <input type="text" name="paramDescription" placeholder="Short Description">
+                            <input type="text" name="paramDescription" placeholder="{{ $proj.Param.Description}}">
                             {{ if .Errors.Company}}
                             <aside class="form-message">{{ .Errors.Company}}</aside>
                             {{ end }}
                         </div>
                         <div class="">
-                            <label for="last">Background Image</label>
-                            <select name="paramBackground">
-                                <option>coffe cup</option>
-                                <option>pin board</option>
-                                <option>Summer breeze</option>
-                            </select>
+                            <label for="last">Description</label>
+                            <input type="text" name="paramBrand" placeholder="{{ $proj.Param.Brand }}">
                             {{ if .Errors.Company}}
                             <aside class="form-message">{{ .Errors.Company}}</aside>
                             {{ end }}
@@ -58,6 +54,7 @@
                         <div class="">
                             <button type="submit" class="button button-flat button-primary button-large">Register</button>
                         </div>
+                        {{ $proj.Param.Brand }}
                     </fieldset>
                 </form>
             </div>

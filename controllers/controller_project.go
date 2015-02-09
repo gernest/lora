@@ -300,9 +300,63 @@ func (p *ProjectController) Update() {
 		flash.Store(&p.Controller)
 		return
 	}
+	param:=models.Param{}
+	db.First(&param, project.ParamId)
+	
+	project.Param=param
 	lora.Add(pages)
 	lora.Add(project)
 	p.Data["lora"] = lora
+	
+	if p.Ctx.Input.Method()=="POST" {
+		projectTitle:=p.GetString("projectTitle")
+		paramsAuthor:=p.GetString("paramAuthor")
+		paramDescription:=p.GetString("paramDescription")
+		paramBrand:=p.GetString("paramBrand")
+		
+		err=project.LoadConfigFile()
+		if err!=nil {
+			flash.Error("Fuck %s", err)
+			flash.Store(&p.Controller)
+			return
+		}
+				
+		if projectTitle!="" {
+			project.Title=projectTitle
+		}
+		if paramDescription!="" {
+			project.Param.Description=paramDescription
+		}
+		if paramsAuthor!="" {
+			project.Param.Author=paramsAuthor
+		}
+		if paramBrand!="" {
+			project.Param.Brand=paramBrand
+		}
+		
+		err=db.Save(&project).Error
+		if err!=nil {
+			flash.Error("Fuck %s", err)
+			flash.Store(&p.Controller)
+			return
+		}
+			
+		err=project.SaveConfigFile()
+		if err!=nil {
+			flash.Error("Fuck %s", err)
+			flash.Store(&p.Controller)
+			return
+		}
+			
+		err=project.Build()
+		if err!=nil {
+			flash.Error("Fuck %s", err)
+			flash.Store(&p.Controller)
+			return
+		}
+		
+		p.Redirect("/accounts", 302)		
+	}
 }
 
 // Deploy prepares and pushes the project to the cloud

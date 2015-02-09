@@ -90,18 +90,20 @@ type (
 		Body        string        `toml:"body" sql:"null;type:text"`
 		BodyHtml    template.HTML `sql:"-"`
 		SubSections []SubSection  `toml:"subsections"`
+		LastUpdate  string        `sql:"-" toml:"last_update"`
 		CreatedAt   time.Time
 		UpdatedAt   time.Time
 	}
 	SubSection struct {
-		Id        int64
-		Name      string `toml:"name"`
-		Photo     string `toml:"photo"`
-		SectionId int64
-		Body      string        `toml:"body"`
-		BodyHtml  template.HTML `sql:"-"`
-		CreatedAt time.Time
-		UpdatedAt time.Time
+		Id         int64
+		Name       string `toml:"name"`
+		Photo      string `toml:"photo"`
+		SectionId  int64
+		Body       string        `toml:"body"`
+		BodyHtml   template.HTML `sql:"-"`
+		LastUpdate string        `sql:"-" toml:"last_update"`
+		CreatedAt  time.Time
+		UpdatedAt  time.Time
 	}
 	Profile struct {
 		Id        int64
@@ -120,8 +122,9 @@ type (
 		Id              int64
 		Slides          []Image `toml:"slides"`
 		Author          string  `toml:"author"`
-		Desctiption     string  `toml:"description"`
+		Description     string  `toml:"description"`
 		BackgroundImage string  `toml:"background"`
+		Brand           string  `toml:"brand"`
 		CreatedAt       time.Time
 		UpdatedAt       time.Time
 	}

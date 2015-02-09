@@ -21,8 +21,9 @@ import (
 
 func (s *Section) Sanitize() {
 	s.BodyHtml = template.HTML(sanitizeHTMLField(s.Body))
+	s.LastUpdate = s.lastUpdate()
 }
 
-func (s *Section) LastUpdate() string {
-	return s.UpdatedAt.Format(time.RFC822)
+func (s *Section) lastUpdate() string {
+	return s.UpdatedAt.Format(time.ANSIC)
 }

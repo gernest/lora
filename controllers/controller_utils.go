@@ -49,7 +49,7 @@ func Rebuild(p *models.Page) error {
 	for k := range project.Pages {
 		pj := &project.Pages[k]
 		sections := []models.Section{}
-		db.Model(pj).Related(&sections)
+		db.Order("updated_at desc").Model(pj).Related(&sections)
 
 		if pj.Id == p.Id {
 
@@ -58,7 +58,7 @@ func Rebuild(p *models.Page) error {
 					s := &sections[key]
 					s.Sanitize()
 					sub := []models.SubSection{}
-					db.Model(s).Related(&sub)
+					db.Order("updated_at desc").Model(s).Related(&sub)
 					for k:=range sub {
 						subsec:=&sub[k]
 						subsec.Sanitize()
