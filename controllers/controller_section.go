@@ -28,7 +28,6 @@ type SectonController struct {
 func (s *SectonController) Update() {
 	sess := s.ActivateContent("section/edit")
 	flash := beego.NewFlash()
-	lora := models.NewLoraObject()
 	s.LayoutSections["JScripts"] = "jscript/editor.html"
 
 	if sess == nil {
@@ -38,7 +37,12 @@ func (s *SectonController) Update() {
 	}
 	pageID, _ := s.GetInt64(":pageID")
 	sectionID, _ := s.GetInt64(":sectionID")
+
 	section := models.Section{}
+	lora := models.NewLoraObject()
+	subSections := []models.SubSection{}
+	page := models.Page{}
+	project := models.Project{}
 
 	db, err := models.Conn()
 	defer db.Close()
@@ -58,7 +62,6 @@ func (s *SectonController) Update() {
 		flash.Store(&s.Controller)
 		return
 	}
-	subSections := []models.SubSection{}
 	db.Model(&section).Related(&subSections)
 	for k := range subSections {
 		n := &subSections[k]
@@ -72,6 +75,8 @@ func (s *SectonController) Update() {
 	s.Data["lora"] = lora
 
 	if s.Ctx.Input.Method() == "POST" {
+
+		// TODO: cleanup this mess and add validation
 		sectionContent := s.GetString("content")
 		sectionTitle := s.GetString("sectionTitle")
 		sectionName := s.GetString("sectionName")
@@ -79,10 +84,7 @@ func (s *SectonController) Update() {
 		sectionEmail := s.GetString("sectionEmail")
 		sectionAddress := s.GetString("sectionAddress")
 
-		page := new(models.Page)
-		db.Find(page, section.PageId)
-
-		project := models.Project{}
+		db.Find(&page, section.PageId)
 		db.First(&project, page.ProjectId)
 
 		uploadsDir := "projects/" + project.Name + "/static/img"
@@ -103,6 +105,8 @@ func (s *SectonController) Update() {
 		if sectionAddress != "" {
 			section.Address = sectionAddress
 		}
+
+		// Handle File uploads
 		_, fileHeader, err := s.GetFile("sectionPhoto")
 		if err != nil {
 			if err == http.ErrMissingFile {
@@ -126,7 +130,7 @@ func (s *SectonController) Update() {
 		section.Body = sectionContent
 		db.Save(&section)
 
-		err = Rebuild(page)
+		err = Rebuild(&page)
 		if err != nil {
 			flash.Error(" WHacko ", err)
 			flash.Store(&s.Controller)

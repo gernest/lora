@@ -25,14 +25,17 @@ func (c *LoraController) Services() {
 	c.ActivateView("lora/services")
 }
 func (c *LoraController) Contacts() {
-	c.ActivateView("notyet")
+	c.ActivateView("lora/contacts")
 }
 func (c *LoraController) Legal() {
-	c.ActivateContent("notyet")
+	c.ActivateContent("lora/legal")
 }
 func (c *LoraController) Terms() {
 	c.ActivateContent("lora/terms")
 }
 func (c *LoraController) Help() {
-	c.ActivateContent("notyet")
+	c.ActivateContent("lora/help")
+}
+func (c *LoraController) Companies() {
+	c.ActivateView("lora/companies")
 }

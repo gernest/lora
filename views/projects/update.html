@@ -6,47 +6,45 @@
         <div class="row">
             <div class="four columns">
 			{{ if $lora.HasPages }}
-                <div class="project-list">
+                <div class="settings">
                     <h3>pages</h3>
                     {{ range $lora.Pages }}
-                    <a href="/page/{{ $proj.Id }}/{{ .Id }}/update">{{ .Title }}<i class="fa fa-2x fa-edit"></i></a>
+                    <a href="/page/{{ $proj.Id }}/{{ .Id }}/update" class="button button-setting page-link">{{ .Title }}<i class="fa fa-edit"></i></a>
                     {{ end }}
                 </div>
 			{{ end }}
             </div>
             <div class="four columns">
-                <div class="project-list">
-                    <h3>Website</h3>
+                <div class="settings">
+                    <h3>{{ $proj.Name }}</h3>
                 </div>
                 <form method="post" action="/project/{{$proj.Id}}/update">
-                    <legend>
-                        Update : {{ $proj.Name }}
-                    </legend>
+
                     <fieldset>
                         <div class="">
-                            <label for="last">Title</label>
-                            <input type="text" name="projectTitle" placeholder="{{ $proj.Title}}">
+                            <label for="last">Title: <span style="color: blue">{{ $proj.Title }}</span></label>
+                            <input type="text" name="projectTitle" placeholder="Change Title">
                             {{ if .Errors.Company}}
                             <aside class="form-message">{{ .Errors.Company}}</aside>
                             {{ end }}
                         </div>
                         <div class="">
-                            <label for="last">Owner</label>
-                            <input type="text" name="paramAuthor" placeholder="{{ $proj.Param.Author }}">
+                            <label for="last">Owner: <span style="color: blue"> {{$proj.Param.Author }}</span></label>
+                            <input type="text" name="paramAuthor" placeholder="Change Owner">
                             {{ if .Errors.Company}}
                             <aside class="form-message">{{ .Errors.Company}}</aside>
                             {{ end }}
                         </div>
                         <div class="">
-                            <label for="last">Description</label>
-                            <input type="text" name="paramDescription" placeholder="{{ $proj.Param.Description}}">
+                            <label for="last">Description:<span style="color: blue">{{ $proj.Param.Description }}</span> </label>
+                            <input type="text" name="paramDescription" placeholder="Change description">
                             {{ if .Errors.Company}}
                             <aside class="form-message">{{ .Errors.Company}}</aside>
                             {{ end }}
                         </div>
                         <div class="">
-                            <label for="last">Description</label>
-                            <input type="text" name="paramBrand" placeholder="{{ $proj.Param.Brand }}">
+                            <label for="last">Brand: <span style="color: blue"> {{ $proj.Param.Brand }}</span></label>
+                            <input type="text" name="paramBrand" placeholder="Change Brand">
                             {{ if .Errors.Company}}
                             <aside class="form-message">{{ .Errors.Company}}</aside>
                             {{ end }}
@@ -54,20 +52,8 @@
                         <div class="">
                             <button type="submit" class="button button-flat button-primary button-large">Register</button>
                         </div>
-                        {{ $proj.Param.Brand }}
                     </fieldset>
                 </form>
-            </div>
-            <div class="four columns">
-                <div class="project-list">
-                    <h3>Images</h3>
-                    <a href="#">background <i class="fa fa-2x fa-edit"></i></a>
-                    <a href="#">slide 1<i class="fa fa-2x fa-edit"></i></a>
-                    <a href="#">slide 2<i class="fa fa-2x fa-edit"></i></a>
-                    <a href="#"> slide 3<i class="fa fa-2x fa-edit"></i></a>
-                    <a href="#"> slide 4<i class="fa fa-2x fa-edit"></i></a>
-                    <a href="#"> slide 5<i class="fa fa-2x fa-edit"></i></a>
-                </div>
             </div>
         </div>
     </div>

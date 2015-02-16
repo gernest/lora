@@ -91,7 +91,7 @@ html, body {
 .promo-section,
 .invitation-section,
 .lead-section, .delete-section {
-  padding: 8rem 0.5rem;
+  padding: 4rem 0.5rem;
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -105,7 +105,7 @@ html, body {
 }
 
 .lead-section {
-  background: #ffffff;
+  background: #6a8acd;
 }
 .lead-section .sand-box {
   box-sizing: border-box;
@@ -264,7 +264,9 @@ html, body {
   display: block;
 }
 .new-project .theme-box img, .new-project .template-box img {
-  display: block;
+  display: inline-block;
+  height: 200px;
+  width: 200px;
 }
 .new-project .theme-controls, .new-project .template-controls {
   display: block;
@@ -334,6 +336,14 @@ html, body {
   margin: 10px 5px;
 }
 
+.page-link {
+  color: blue;
+}
+.page-link i {
+  margin: 2px;
+  padding: 2px;
+}
+
 .flash {
   display: block;
   padding: 2px;
@@ -372,18 +382,12 @@ html, body {
 }
 .account .settings h3 {
   display: block;
-  border: 1px #1EAEDB solid;
+  border-bottom: 1px #1EAEDB solid;
   text-align: center;
 }
-.account .settings a {
-  text-decoration: none;
-  display: block;
-  box-sizing: border-box;
+.account .settings .button-setting {
   width: 100%;
-  margin: 2px 8px;
-  padding: 5px 8px;
-  border-left: 2px #1EAEDB solid;
-  text-transform: capitalize;
+  color: #000000;
 }
 
 .profile .profile-image {
@@ -505,6 +509,9 @@ html, body {
     padding: 0;
   }
 }
+.service .service-body {
+  display: block;
+}
 
 .login-spacer {
   display: block;
@@ -554,4 +561,31 @@ html, body {
 }
 .copyright span {
   padding: 0 5px;
+}
+
+.lead-header {
+  font-style: italic;
+  text-align: center;
+}
+
+.contact-box {
+  display: block;
+  border: 1px blue inset;
+  border-radius: 12px;
+}
+.contact-box .contact-heading {
+  background: lightblue;
+  color: #000000;
+  padding: 5px 0;
+  text-align: center;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+.contact-box .contact-info {
+  display: block;
+  padding: 5px 10px;
+}
+.contact-box .contact-info .contact-detail {
+  padding: 0 4px;
+  font-style: italic;
 }

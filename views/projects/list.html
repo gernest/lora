@@ -5,13 +5,13 @@
         <div class="row">
             {{ range $lora.Projects }}
             <div class="four columns">
-                <div class="project-list">
+                <div class="settings">
                     <h3>{{ .Name }}</h3>
-                    <a href="/project/{{ .Id }}/delete">delete</a>
-                    <a href="/project/{{ .Id }}/update">update</a>
-                    <a href="/project/{{ .Id }}/deploy">deploy</a>
-                    <a href="/project/{{ .Id }}/preview">preview</a>
-                    <a href="/project/{{ .Id }}/download">download</a>
+                    <a href="/project/{{ .Id }}/delete" class="button button-setting"><i class="fa fa-trash"></i> delete</a>
+                    <a href="/project/{{ .Id }}/update" class="button button-setting"><i class="fa fa-edit"></i> update</a>
+                    <a href="/project/{{ .Id }}/deploy" class="button button-setting"><i class="fa fa-cloud-upload"></i> deploy</a>
+                    <a href="/project/{{ .Id }}/preview" class="button button-setting"><i class="fa fa-folder-open"></i> preview</a>
+                    <!--<a href="/project/{{ .Id }}/download" class="button button-setting">download</a>-->
                 </div>
             </div>
             {{ end }}

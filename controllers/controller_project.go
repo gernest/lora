@@ -28,50 +28,39 @@ type ProjectController struct {
 type Resource struct {
 	Key   string
 	Value string
+	Image string
 }
 
 // NewProject Creates a new boilerplate hugo project and saves important data to database
 func (p *ProjectController) NewProject() {
 
-	var th, tmpl []Resource
-
 	sess := p.ActivateContent("projects/new")
 
+	// Get available themes and templates
 	themes, _ := models.GetAvailableThemes("")
-	logThis.Debug("%v", themes)
-
 	templates, _ := models.GetAvailableTemplates("")
-	logThis.Debug("%v", templates)
-	th = make([]Resource, len(themes))
-	tmpl = make([]Resource, len(templates))
-	for k, v := range themes {
-		th[k] = Resource{Key: v, Value: v}
-	}
-	for k, v := range templates {
-		tmpl[k] = Resource{Key: v, Value: v}
-	}
-	logThis.Info("Thems list %v", th)
-	logThis.Info("templateList %v", tmpl)
-	p.Data["themeList"] = &th
-	p.Data["templateList"] = &tmpl
+
+	p.Data["themeList"] = &themes
+	p.Data["templateList"] = &templates
 
 	if p.Ctx.Input.Method() == "POST" {
+
 		flash := beego.NewFlash()
 		projectName := p.GetString("projectName")
 		templeteName := p.GetString("templateName")
 		themeName := p.GetString("themeName")
-		logThis.Debug("Theme selected %s", themeName)
-		logThis.Debug("template selected %s", templeteName)
+
 		if sess == nil {
 			flash.Error("You need  to login inorder to create a new site")
 			flash.Store(&p.Controller)
 			return
 		}
+
 		db, err := models.Conn()
 		defer db.Close()
 		if err != nil {
-			logThis.Debug(":==> %v ", err)
-			flash.Error("some fish opening database")
+			logThis.Debug(" %v ", err)
+			flash.Error("There is a Problem, Try again")
 			flash.Store(&p.Controller)
 			return
 		}
@@ -82,6 +71,8 @@ func (p *ProjectController) NewProject() {
 			flash.Store(&p.Controller)
 			return
 		}
+
+		// Create a new project
 		project, err := models.NewLoraProject("", projectName, templeteName, themeName)
 		if err != nil {
 			logThis.Critical("Failed **%v**", err)
@@ -116,6 +107,8 @@ func (p *ProjectController) NewProject() {
 			flash.Store(&p.Controller)
 			return
 		}
+
+		// Create new database record for the whole project and save changes
 		if db.NewRecord(project) {
 			logThis.Debug("Failed to save into database %s", db.Error)
 			flash.Error("Problem saving the project")
@@ -123,7 +116,9 @@ func (p *ProjectController) NewProject() {
 			_ = project.Clean()
 			return
 		}
-		beego.Info("Inital Build")
+
+		// Build the project
+		logThis.Info("Inital Build")
 		err = project.Build()
 		if err != nil {
 			logThis.Info("Failed to Build %v", err)
@@ -133,7 +128,9 @@ func (p *ProjectController) NewProject() {
 			return
 		}
 
-		// serve public folder as static
+		// The following is an attempt to make the project preview possible
+		// I use the dymanic setting of static paths, to expose the www folder
+		// The project build site is inside the www folder
 		staticPath := filepath.Join(project.ProjectPath, "www")
 		previewPath := "/preview/" + project.Name
 		deployPath := "/apps/" + project.Name
@@ -149,14 +146,7 @@ func (p *ProjectController) NewProject() {
 
 }
 
-// Remove delets all project data from disc and database
 func (p *ProjectController) Remove() {
-	projectID, err := p.GetInt64(":id")
-	if err != nil {
-		beego.Info("some whacko %s", err)
-	}
-	beego.Info("project id is ", projectID)
-	p.Data["projectId"] = projectID
 	flash := beego.NewFlash()
 
 	sess := p.ActivateContent("projects/delete")
@@ -168,7 +158,16 @@ func (p *ProjectController) Remove() {
 		}
 
 	}
+
+	projectID, err := p.GetInt64(":id")
+	if err != nil {
+		logThis.Info("some whacko %s", err)
+	}
+	logThis.Info("project id is ", projectID)
+	p.Data["projectId"] = projectID
+
 	if p.Ctx.Input.Method() == "POST" {
+
 		projectName := p.GetString("projectName")
 		if sess == nil {
 			flash.Error("You need  to login inorder to delete a site")
@@ -204,15 +203,6 @@ func (p *ProjectController) Remove() {
 
 		logThis.Info("deleting project %s", project.Name)
 
-		// delete all pages
-		pages := []models.Page{}
-		query = db.Model(&project).Related(&pages)
-		logThis.Event("deleting pages")
-		for _, val := range pages {
-			logThis.Event("deleting page *%s*", val.Title)
-			db.Delete(&val)
-		}
-		logThis.Success("page deletion success")
 		logThis.Event("deleting project from disc")
 		err = project.Clean()
 		if err != nil {
@@ -220,7 +210,37 @@ func (p *ProjectController) Remove() {
 			flash.Store(&p.Controller)
 			return
 		}
-		logThis.Event("Removing database records")
+
+		logThis.Event("Removing project from database")
+		// delete all pages, sections and subsections
+		pages := []models.Page{}
+		paramsProject := []models.Param{}
+
+		db.Model(&project).Related(&pages)
+
+		logThis.Event("deleting pages")
+		for _, val := range pages {
+			sections := []models.Section{}
+			db.Model(&val).Related(&sections)
+			logThis.Event("deleting page *%s*", val.Title)
+			db.Delete(&val)
+
+			for _, section := range sections {
+				subsections := []models.SubSection{}
+				db.Model(&section).Related(&subsections)
+				db.Delete(&section)
+
+				for _, sub := range subsections {
+					db.Delete(sub)
+				}
+			}
+		}
+
+		// Deleting params
+		db.First(&paramsProject, project.ParamId)
+
+		db.Delete(&paramsProject)
+
 		err = db.Delete(&project).Error
 		if err != nil {
 			logThis.Debug(" WHammy %s", err)
@@ -228,8 +248,11 @@ func (p *ProjectController) Remove() {
 			flash.Store(&p.Controller)
 			return
 		}
+
+		// Update user
 		logThis.Event("Updading user")
 		db.Save(&a)
+
 		logThis.Success("Project was deleted successful")
 		flash.Notice("Your website has been deleted successful")
 		flash.Store(&p.Controller)
@@ -242,8 +265,9 @@ func (p *ProjectController) Remove() {
 func (p *ProjectController) Preview() {
 	projectID, err := p.GetInt64(":id")
 	if err != nil {
-		beego.Info("Whaacko %s", err)
+		logThis.Info("Whaacko %s", err)
 	}
+
 	project := new(models.Project)
 
 	db, err := models.Conn()
@@ -251,7 +275,6 @@ func (p *ProjectController) Preview() {
 	if err != nil {
 		beego.Info("Whacko whacko %s", err)
 	}
-	db.LogMode(true)
 	db.First(project, projectID)
 
 	previewLink := "/preview/" + project.Name
@@ -261,20 +284,23 @@ func (p *ProjectController) Preview() {
 
 // Update provides a restful project update
 func (p *ProjectController) Update() {
-	sess := p.ActivateContent("projects/update")
-
 	flash := beego.NewFlash()
-	lora := models.NewLoraObject()
+	sess := p.ActivateContent("projects/update")
 	if sess == nil {
 		flash.Error("You need  to login inorder to delete a site")
 		flash.Store(&p.Controller)
 		return
 	}
+
 	projectID, err := p.GetInt64(":id")
 	if err != nil {
 		beego.Info("Whaacko %s", err)
 	}
+
+	lora := models.NewLoraObject()
 	project := models.Project{}
+	pages := []models.Page{}
+	param := models.Param{}
 
 	db, err := models.Conn()
 	defer db.Close()
@@ -284,7 +310,7 @@ func (p *ProjectController) Update() {
 		flash.Store(&p.Controller)
 		return
 	}
-	db.LogMode(true)
+
 	err = db.First(&project, projectID).Error
 	if err != nil {
 		logThis.Debug("Whacko whacko %s", err)
@@ -292,7 +318,7 @@ func (p *ProjectController) Update() {
 		flash.Store(&p.Controller)
 		return
 	}
-	pages := []models.Page{}
+
 	err = db.Model(&project).Related(&pages).Error
 	if err != nil {
 		logThis.Debug("Whacko whacko %s", err)
@@ -300,62 +326,64 @@ func (p *ProjectController) Update() {
 		flash.Store(&p.Controller)
 		return
 	}
-	param:=models.Param{}
+
 	db.First(&param, project.ParamId)
-	
-	project.Param=param
+
+	project.Param = param
 	lora.Add(pages)
 	lora.Add(project)
 	p.Data["lora"] = lora
-	
-	if p.Ctx.Input.Method()=="POST" {
-		projectTitle:=p.GetString("projectTitle")
-		paramsAuthor:=p.GetString("paramAuthor")
-		paramDescription:=p.GetString("paramDescription")
-		paramBrand:=p.GetString("paramBrand")
-		
-		err=project.LoadConfigFile()
-		if err!=nil {
+
+	if p.Ctx.Input.Method() == "POST" {
+
+		// TODO: cleanup this mess and add validtion
+		projectTitle := p.GetString("projectTitle")
+		paramsAuthor := p.GetString("paramAuthor")
+		paramDescription := p.GetString("paramDescription")
+		paramBrand := p.GetString("paramBrand")
+
+		err = project.LoadConfigFile()
+		if err != nil {
 			flash.Error("Fuck %s", err)
 			flash.Store(&p.Controller)
 			return
 		}
-				
-		if projectTitle!="" {
-			project.Title=projectTitle
+
+		if projectTitle != "" {
+			project.Title = projectTitle
 		}
-		if paramDescription!="" {
-			project.Param.Description=paramDescription
+		if paramDescription != "" {
+			project.Param.Description = paramDescription
 		}
-		if paramsAuthor!="" {
-			project.Param.Author=paramsAuthor
+		if paramsAuthor != "" {
+			project.Param.Author = paramsAuthor
 		}
-		if paramBrand!="" {
-			project.Param.Brand=paramBrand
+		if paramBrand != "" {
+			project.Param.Brand = paramBrand
 		}
-		
-		err=db.Save(&project).Error
-		if err!=nil {
+
+		err = db.Save(&project).Error
+		if err != nil {
 			flash.Error("Fuck %s", err)
 			flash.Store(&p.Controller)
 			return
 		}
-			
-		err=project.SaveConfigFile()
-		if err!=nil {
+
+		err = project.SaveConfigFile()
+		if err != nil {
 			flash.Error("Fuck %s", err)
 			flash.Store(&p.Controller)
 			return
 		}
-			
-		err=project.Build()
-		if err!=nil {
+
+		err = project.Build()
+		if err != nil {
 			flash.Error("Fuck %s", err)
 			flash.Store(&p.Controller)
 			return
 		}
-		
-		p.Redirect("/accounts", 302)		
+
+		p.Redirect("/accounts", 302)
 	}
 }
 
@@ -366,10 +394,9 @@ func (p *ProjectController) Deploy() {
 }
 
 func (p *ProjectController) List() {
+	flash := beego.NewFlash()
 	sess := p.ActivateContent("projects/list")
 	p.SetNotice()
-	flash := beego.NewFlash()
-	lora := models.NewLoraObject()
 	if sess == nil {
 		flash.Error("You need to login to access this page")
 		flash.Store(&p.Controller)
@@ -377,6 +404,11 @@ func (p *ProjectController) List() {
 		p.Redirect("/accounts/login", 302)
 
 	}
+
+	lora := models.NewLoraObject()
+	a := models.Account{}
+	projects := []models.Project{}
+
 	db, err := models.Conn()
 	defer db.Close()
 	if err != nil {
@@ -386,7 +418,6 @@ func (p *ProjectController) List() {
 		return
 	}
 
-	a := models.Account{}
 	a.Email = sess["email"].(string)
 	query := db.Where("email= ?", a.Email).First(&a)
 	if query.Error != nil {
@@ -394,19 +425,7 @@ func (p *ProjectController) List() {
 		flash.Store(&p.Controller)
 		return
 	}
-
-	projects := []models.Project{}
 	db.Model(&a).Related(&projects)
 	lora.Add(projects)
-
-	if p.Ctx.Input.IsAjax() {
-		p.Data["json"] = lora
-		logThis.Info("AJAX Request")
-		p.ServeJson()
-	}
 	p.Data["lora"] = lora
-}
-
-func(p *ProjectController)Download(){
-	
 }

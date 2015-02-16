@@ -59,6 +59,7 @@ func init() {
 	beego.Router("/terms", &controllers.LoraController{}, "get:Terms")
 	beego.Router("/legal", &controllers.LoraController{}, "get:Legal")
 	beego.Router("/help", &controllers.LoraController{}, "get:Help")
+	beego.Router("/companies", &controllers.LoraController{}, "get:Companies")
 
 	// clearance
 	cls := filters.NewBaseClearance()

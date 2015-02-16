@@ -24,12 +24,10 @@ import (
 	"github.com/gernest/lora/models"
 )
 
-// AccountController hangles account related endpoints
 type AccountController struct {
 	MainController
 }
 
-// Index shows the accounts landing page
 func (c *AccountController) Index() {
 	sess := c.ActivateContent("accounts/home")
 	c.LayoutSections["JScripts"] = "jscript/rest.html"
@@ -55,7 +53,6 @@ func (c *AccountController) Index() {
 	c.Data["lora"] = lora
 }
 
-// Login athenticates the user
 func (c *AccountController) Login() {
 
 	sess := c.ActivateContent("accounts/login")
@@ -110,7 +107,6 @@ func (c *AccountController) Login() {
 
 }
 
-// Logout deletes the session cookies
 func (c *AccountController) Logout() {
 	c.DelSession("xshabe")
 	flash := beego.NewFlash()
@@ -119,7 +115,6 @@ func (c *AccountController) Logout() {
 	c.Redirect("/", 302)
 }
 
-// Register creates a new account
 func (c *AccountController) Register() {
 	flash := beego.NewFlash()
 
@@ -220,12 +215,3 @@ func (c *AccountController) Register() {
 	}
 
 }
-
-// Verify provides mechanism for account verification
-func (c *AccountController) Verify() {}
-
-// Profile shows and updates user infromation
-func (c *AccountController) Profile() {}
-
-// Remove deletes user account
-func (c *AccountController) Remove() {}

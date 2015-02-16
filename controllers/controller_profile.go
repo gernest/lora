@@ -98,6 +98,10 @@ func (p *ProfileController) Edit() {
 				errMap[s[0]] = err.Message
 			}
 		}
+		
+		// Handle profile picture upload
+		// If no file is chosen log and ignore
+		// returning other errors
 		_, fileHeader, err := p.GetFile("profilePicture")
 		if err != nil {
 			if err == http.ErrMissingFile {
@@ -127,9 +131,10 @@ func (p *ProfileController) Edit() {
 		profile.Phone = phone
 		db.Save(&a)
 		db.Save(&profile)
-
-		rd := fmt.Sprintf("/profile/%d/view", profile.Id)
-		p.Redirect(rd, 302)
+		
+		// Build a url leading back to profile view page
+		profileViewPath := fmt.Sprintf("/profile/%d/view", profile.Id)
+		p.Redirect(profileViewPath, 302)
 	}
 }
 

@@ -59,7 +59,9 @@
   .theme-box, .template-box{
     display: block;
     img{
-      display: block;
+      display: inline-block;
+      height: 200px;
+      width: 200px;
     }
   }
   .theme-controls, .template-controls{

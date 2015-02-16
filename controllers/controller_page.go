@@ -120,6 +120,7 @@ func (p *PageController) Update() {
 			return
 		}
 		if sp == 1 {
+			// Build a preview url and redirect
 			previewPath := fmt.Sprintf("/page/%d/%d/preview", page.ProjectId, page.Id)
 			p.Redirect(previewPath, 302)
 		}

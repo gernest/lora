@@ -28,7 +28,7 @@
                     </a>
                 <ul class="nav">
                     <li>
-                        <a href="/">home</a>
+                        <a href="/"><i class="fa fa-home"></i> home</a>
                     </li>
 
                     {{ if .InSession }}
@@ -36,7 +36,7 @@
                         <a href="/services">explore</a>
                     </li>
                     <li>
-                        <a href="/help" class="nav-link-primary">help</a>
+                        <a href="/help" class="nav-link-primary"><i class="fa fa-support"></i> help</a>
                     </li>
                     <li>
                         <a href="/terms">terms</a>
@@ -49,23 +49,23 @@
                         </li>
 
                     <li>
-                           <a href="/accounts/logout">logout</a>
+                           <a href="/accounts/logout" ><i class="fa fa-sign-out"></i> logout</a>
                        </li>
                     {{ else }}
                     <li>
                         <a href="/services">services</a>
                     </li>
                     <li>
-                        <a href="/pricing" class="nav-link-primary">pricing</a>
+                        <a href="/pricing" class="nav-link-primary"><i class="fa fa-dollar"></i> pricing</a>
                     </li>
                     <li>
-                        <a href="/contacts">contacts</a>
+                        <a href="/contacts"><i class="fa fa-phone"></i> contacts</a>
                     </li>
                     <li>
-                        <a href="/accounts/register"> SIGN UP</a>
+                        <a href="/accounts/register"><i class="fa fa-sign"></i> SIGN UP</a>
                     </li>
                     <li>
-                        <a href="/accounts/login">LOGIN</a>
+                        <a href="/accounts/login"><i class="fa fa-sign-in"></i> LOGIN</a>
                     </li>
                         {{ end }}
                 </ul>

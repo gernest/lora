@@ -60,3 +60,30 @@
   }
   color: #ffffff;
 }
+.lead-header {
+  font-style: italic;
+  text-align: center;
+}
+.contact-box{
+  display: block;
+  border: 1px blue inset;
+  border-radius: 12px;
+
+  .contact-heading {
+    background: lightblue;
+    color: #000000;
+    padding: 5px 0;
+    text-align: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+  .contact-info {
+    display: block;
+    padding: 5px 10px;
+
+    .contact-detail {
+      padding: 0 4px;
+      font-style: italic;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 baseurl = "http://yourSiteHere"
 languageCode = "en-us"
-title = "KaweKamo"
+title = "lora"
 copyright="lorratz"
 publishDir="www"
 
