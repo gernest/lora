@@ -63,7 +63,7 @@ func (p *Project) InitDir() error {
 		return err
 	}
 
-	// Making a first commit
+	// Making initial commit
 	err = sess.Command("git", "commit", "-m", "Initial Commit").Run()
 	if err != nil {
 		clean := p.Clean()
@@ -145,7 +145,7 @@ func (p *Project) Build() error {
 
 	err := sess.Command("hugo").Run()
 	if err != nil {
-		beego.Info("Oopa, failed to build", err)
+		logThis.Info("Oopa, failed to build", err)
 		clean := p.Clean()
 		if clean != nil {
 			return clean
@@ -175,7 +175,6 @@ func (p *Project) GenLorem() {
 
 		page.Content = buf.String()
 	}
-
 	logThis.Info(" finished adding dummy content")
 }
 
@@ -237,12 +236,11 @@ func initializeProject(p *Project, base string, name string, template string, th
 }
 
 func (p *Project) InstallTemplate(name, theme string) error {
-	err := installTemplate(p, name, theme)
-	return err
+	return installTemplate(p, name, theme)
+
 }
 func (p *Project) InstallTheme(theme string) error {
-	err := copyTheme(p, theme)
-	return err
+	return copyTheme(p, theme)
 }
 func installTemplate(p *Project, templatename string, theme string) error {
 	templatesDir := beego.AppConfig.String("templatesDir")

@@ -37,6 +37,12 @@ import (
 
 var logThis = logs.NewLoraLog()
 
+type Resource struct {
+	Name  string
+	Type  string
+	Image string
+}
+
 func connStr() string {
 	var dns string
 	db_host := beego.AppConfig.String("db_host")
@@ -115,13 +121,29 @@ func NewLoraProject(base string, name string, template string, theme string) (Pr
 	return *p, nil
 }
 
-func GetAvailableThemes(base string) ([]string, error) {
-	list, err := getResourceList("themes", base)
-	return list, err
+func GetAvailableThemes(base string) (list []Resource, err error) {
+	rList, err := getResourceList("themes", base)
+	list = []Resource{}
+	if len(rList) > 0 {
+		for _, v := range rList {
+			img := "/static/img/themes/" + v + ".png"
+			list = append(list, Resource{Name: v, Type: "theme", Image: img})
+		}
+	}
+
+	return
 }
-func GetAvailableTemplates(base string) ([]string, error) {
-	list, err := getResourceList("templates", base)
-	return list, err
+func GetAvailableTemplates(base string) (list []Resource, err error) {
+	rList, err := getResourceList("templates", base)
+	list = []Resource{}
+	if len(rList) > 0 {
+		for _, v := range rList {
+			img := "/static/img/templates/" + v + ".png"
+			list = append(list, Resource{Name: v, Type: "theme", Image: img})
+		}
+	}
+
+	return
 }
 
 func copyTheme(p *Project, name string) error {

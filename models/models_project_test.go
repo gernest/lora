@@ -108,6 +108,12 @@ var _ = Describe("Project", func() {
 			err = currentProject.LoadConfigFile()
 			Expect(err).Should(HaveOccurred())
 		})
+		It("Should create the project directory", func() {
+			_ = currentProject.GenScaffold()
+			file, err := os.Open(currentProject.ProjectPath)
+			defer file.Close()
+			Expect(err).ShouldNot(HaveOccurred())
+		})
 		PIt("Build", func() {
 			_ = currentProject.GenScaffold()
 			err = currentProject.Build()
