@@ -4,56 +4,81 @@
     <div class="container">
         {{ $proj:=$lora.Project }}
         <div class="row">
-            <div class="four columns">
-			{{ if $lora.HasPages }}
-                <div class="settings">
-                    <h3>pages</h3>
-                    {{ range $lora.Pages }}
-                    <a href="/page/{{ $proj.Id }}/{{ .Id }}/update" class="button button-setting page-link">{{ .Title }}<i class="fa fa-edit"></i></a>
+            <div class="twelve columns">
+                <div class="four columns">
+                    {{ if $lora.HasPages }}
+                    <div class="settings">
+                        <h3>pages</h3>
+                        {{ range $lora.Pages }}
+                        <a href="/page/{{ $proj.Id }}/{{ .Id }}/update" class="button button-setting page-link">{{ .Title }}<i class="fa fa-edit"></i></a>
+                        {{ end }}
+                    </div>
                     {{ end }}
                 </div>
-			{{ end }}
             </div>
-            <div class="four columns">
+            <div class="twelve columns">
                 <div class="settings">
                     <h3>{{ $proj.Name }}</h3>
                 </div>
-                <form method="post" action="/project/{{$proj.Id}}/update">
+                <div class="four columns">
+                    <form method="post" action="/project/{{$proj.Id}}/update">
+                        <fieldset>
+                            <div class="">
+                                <label for="last">Title</label>
+                                <input type="text" name="projectTitle" placeholder="Change Title">
+                                {{ if .Errors.Company}}
+                                <aside class="form-message">{{ .Errors.Company}}</aside>
+                                {{ end }}
+                            </div>
+                            <div class="">
+                                <label for="last">Owner</label>
+                                <input type="text" name="paramAuthor" placeholder="Change Owner">
+                                {{ if .Errors.Company}}
+                                <aside class="form-message">{{ .Errors.Company}}</aside>
+                                {{ end }}
+                            </div>
+                            <div class="">
+                                <label for="last">Description </label>
+                                <input type="text" name="paramDescription" placeholder="Change description">
+                                {{ if .Errors.Company}}
+                                <aside class="form-message">{{ .Errors.Company}}</aside>
+                                {{ end }}
+                            </div>
+                            <div class="">
+                                <label for="last">Brand</label>
+                                <input type="text" name="paramBrand" placeholder="Change Brand">
+                                {{ if .Errors.Company}}
+                                <aside class="form-message">{{ .Errors.Company}}</aside>
+                                {{ end }}
+                            </div>
+                            <div class="">
+                                <button type="submit" class="button button-flat button-primary button-large">Register</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
 
-                    <fieldset>
-                        <div class="">
-                            <label for="last">Title: <span style="color: blue">{{ $proj.Title }}</span></label>
-                            <input type="text" name="projectTitle" placeholder="Change Title">
-                            {{ if .Errors.Company}}
-                            <aside class="form-message">{{ .Errors.Company}}</aside>
-                            {{ end }}
-                        </div>
-                        <div class="">
-                            <label for="last">Owner: <span style="color: blue"> {{$proj.Param.Author }}</span></label>
-                            <input type="text" name="paramAuthor" placeholder="Change Owner">
-                            {{ if .Errors.Company}}
-                            <aside class="form-message">{{ .Errors.Company}}</aside>
-                            {{ end }}
-                        </div>
-                        <div class="">
-                            <label for="last">Description:<span style="color: blue">{{ $proj.Param.Description }}</span> </label>
-                            <input type="text" name="paramDescription" placeholder="Change description">
-                            {{ if .Errors.Company}}
-                            <aside class="form-message">{{ .Errors.Company}}</aside>
-                            {{ end }}
-                        </div>
-                        <div class="">
-                            <label for="last">Brand: <span style="color: blue"> {{ $proj.Param.Brand }}</span></label>
-                            <input type="text" name="paramBrand" placeholder="Change Brand">
-                            {{ if .Errors.Company}}
-                            <aside class="form-message">{{ .Errors.Company}}</aside>
-                            {{ end }}
-                        </div>
-                        <div class="">
-                            <button type="submit" class="button button-flat button-primary button-large">Register</button>
-                        </div>
-                    </fieldset>
-                </form>
+                <div class="six columns">
+                    <ul class="update-preview">
+                        <span class="current-info">Current Info</span>
+                        <li>
+                            Website Title : <span>{{ $proj.Title }}</span>
+                        </li>
+                        <li>
+                            Website Owner : <span>{{ $proj.Param.Author }}</span>
+                        </li>
+                        <li>
+                            Website Description:
+                            <p>
+                                {{ $proj.Param.Description }}
+                            </p>
+                        </li>
+                        <li>
+                            Website Brand : <span>{{ $proj.Param.Brand }}</span>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>

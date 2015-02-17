@@ -298,6 +298,27 @@ html, body {
   }
 }
 
+.update-preview {
+  display: block;
+  list-style: none;
+  margin: 20px 15px;
+  padding: 5px;
+  background: lightblue;
+  border-radius: 12px;
+}
+.update-preview li {
+  display: block;
+  padding: 10px;
+}
+.update-preview li span, .update-preview li p {
+  color: blue;
+}
+.update-preview .current-info {
+  display: block;
+  font-weight: bold;
+  text-align: center;
+}
+
 .page-heading {
   display: block;
   width: 100%;
