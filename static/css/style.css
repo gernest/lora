@@ -117,7 +117,6 @@ html, body {
   margin: 5px;
   padding-top: 20px;
   padding-bottom: 20px;
-  border: 1px #1EAEDB solid;
 }
 .lead-section .sand-box .title h5 {
   padding: 10px;
@@ -129,9 +128,10 @@ html, body {
 }
 .lead-section .sand-box p {
   display: block;
+  font-style: italic;
   text-align: center;
+  color: black;
   font-size: 24px;
-  border-bottom: 2px solid #1EAEDB;
 }
 
 .promo-section .fact-box {
@@ -162,13 +162,14 @@ html, body {
   text-align: center;
   color: black;
   margin: 5px;
-  border: 1px #1EAEDB solid;
+  border: 2px white solid;
   padding: 20px;
   font-size: 24px;
 }
 @media screen and (max-width: 479px) {
   .invitation-section .shout-out a {
-    padding: 0;
+    padding: 10px;
+    margin: 2px;
   }
 }
 .invitation-section .shout-out a:hover {

@@ -12,47 +12,48 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-$(document).ready(function(){
-
-
+$(document).ready(function () {
+    $(".lead-section").geopattern("loraa");
+    $('.shout-out a').geopattern("lora");
+    $('.lead-title').geopattern('titles')
 // Animate the home page
 
-    var animateParagraph=function(){
-        var boxes =$(".sand-box p");
-        var pos=boxes.position();
+    var animateParagraph = function () {
+        var boxes = $(".sand-box p");
+        var pos = boxes.position();
         boxes.snabbt({
-            position:[pos.top,pos.left,0],
-            rotation:[0,0,2*Math.PI],
-            easing:'spring',
-            spring_constant:0.9,
-            spring_decceleration:0.1,
-            loop:1,
-            delay:500
+            position: [pos.top, pos.left, 0],
+            rotation: [0, 0, 2 * Math.PI],
+            easing: 'spring',
+            spring_constant: 0.9,
+            spring_decceleration: 0.1,
+            loop: 1,
+            delay: 500
         }).then({
-            from_position:[pos.top,pos.left,0],
-            postition:[0,pos.left,0],
-            easing:'linear'
+            from_position: [pos.top, pos.left, 0],
+            postition: [0, pos.left, 0],
+            easing: 'linear'
         });
     }
-    var animateTitles=function(){
-        $(".title span").each(function(idx, element) {
+    var animateTitles = function () {
+        $(".title span").each(function (idx, element) {
             var x = 20;
-            var title=$(".title")
-            var title_height=title.height
-            var z = title.length/2 * x - Math.abs((title.length/2 - idx) * x);
+            var title = $(".title")
+            var title_height = title.height
+            var z = title.length / 2 * x - Math.abs((title.length / 2 - idx) * x);
             snabbt(element, {
-                from_rotation: [0, 0, -8*Math.PI],
+                from_rotation: [0, 0, -8 * Math.PI],
                 //perspective: 70,
                 delay: 1000 + idx * 100,
                 duration: 1000,
                 easing: 'ease',
-                callback: function() {
-                    if(idx == title.length - 1) {
+                callback: function () {
+                    if (idx == title.length - 1) {
                         $(".title").snabbt({
                             offset: [0, -title_height, 0],
                             from_position: [0, title_height, 0],
                             position: [0, title_height, 0],
-                            rotation: [-Math.PI/4, 0, 0],
+                            rotation: [-Math.PI / 4, 0, 0],
                             perspective: 100,
                             easing: 'linear',
                             delay: 400,

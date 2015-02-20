@@ -40,6 +40,7 @@ func init() {
 	// make sure we will preview our shitty sites
 	loadProjectPreview()
 	loadDeployedApps()
+
 }
 
 var logThis = logs.NewLoraLog()
