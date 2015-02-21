@@ -235,7 +235,7 @@ func (p *ProjectController) Remove() {
 		logThis.Success("Project was deleted successful")
 		flash.Notice("Your website has been deleted successful")
 		flash.Store(&p.Controller)
-		p.Redirect("/accounts", 302)
+		p.Redirect("/web/accounts", 302)
 
 	}
 }
