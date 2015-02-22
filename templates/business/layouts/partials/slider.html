@@ -12,13 +12,9 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     {{ $site:=.Site}}
-                    {{range first 1 .Site.Params.slides}}
-                    <div class="item active">
-                        <img class="img-responsive img-full" src="{{$site.BaseUrl}}{{.path}}" alt="">
-                    </div>
-                    {{ end }}
-                    {{range first 2 .Site.Params.slides}}
-                    <div class="item">
+
+                    {{range .Site.Params.slides}}
+                    <div class="item {{.class}}">
                         <img class="img-responsive img-full" src="{{$site.BaseUrl}}{{.path}}" alt="">
                     </div>
                     {{ end }}

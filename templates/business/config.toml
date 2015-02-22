@@ -11,6 +11,7 @@ publishDir="www"
     background="/img/intro-pic.jpg"
     [[params.slides]]
         path="/img/slide-1.jpg"
+        class="active"
     [[params.slides]]
         path="/img/slide-2.jpg"
     [[params.slides]]

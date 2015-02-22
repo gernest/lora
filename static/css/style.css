@@ -117,7 +117,6 @@ html, body {
   margin: 5px;
   padding-top: 20px;
   padding-bottom: 20px;
-  border: 1px #1EAEDB solid;
 }
 .lead-section .sand-box .title h5 {
   padding: 10px;
@@ -129,9 +128,10 @@ html, body {
 }
 .lead-section .sand-box p {
   display: block;
+  font-style: italic;
   text-align: center;
+  color: black;
   font-size: 24px;
-  border-bottom: 2px solid #1EAEDB;
 }
 
 .promo-section .fact-box {
@@ -162,13 +162,14 @@ html, body {
   text-align: center;
   color: black;
   margin: 5px;
-  border: 1px #1EAEDB solid;
+  border: 2px white solid;
   padding: 20px;
   font-size: 24px;
 }
 @media screen and (max-width: 479px) {
   .invitation-section .shout-out a {
-    padding: 0;
+    padding: 10px;
+    margin: 2px;
   }
 }
 .invitation-section .shout-out a:hover {
@@ -365,6 +366,28 @@ html, body {
   padding: 2px;
 }
 
+.edit {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+.edit .edit-title {
+  display: block;
+  width: 100%;
+  font-size: 24px;
+  color: black;
+  background: lightblue;
+}
+.edit .edit-title span {
+  padding: 10px 30px 10px 10px;
+}
+.edit .edit-section-btn {
+  display: none;
+}
+.edit .edit-section {
+  display: none;
+}
+
 .flash {
   display: block;
   padding: 2px;
@@ -552,26 +575,6 @@ html, body {
 .title span {
   padding: 5px;
   display: inline-block;
-}
-
-.edit {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-}
-.edit .edit-title {
-  display: block;
-  width: 100%;
-  margin: 4px 2px;
-  padding: 2px 10px;
-  font-size: 24px;
-  color: blue;
-}
-.edit .edit-section-btn {
-  display: none;
-}
-.edit .edit-section {
-  display: none;
 }
 
 .copyright {

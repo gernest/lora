@@ -116,7 +116,9 @@ func NewLoraProject(base string, name string, template string, theme string) (Pr
 		return *p, err
 	}
 
-	p.GenLorem() // fill content with dummy data
+	//if you want to fill content field with dummy data
+	//uncomment the line below
+	//p.GenLorem()
 
 	return *p, nil
 }

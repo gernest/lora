@@ -130,7 +130,8 @@ type (
 	}
 
 	Image struct {
-		Id   int64
-		Path string `toml:"path"`
+		Id    int64
+		Path  string `toml:"path"`
+		Class string `toml:"class"`
 	}
 )
