@@ -13,13 +13,13 @@ type User struct {
 	sessName string
 }
 
-func (u *User) ClearanceLevel() int {
+func (u *User) ClearanceLevel() (int, error ){
 	err := u.loadAccount()
 	if err != nil {
 		logThis.Info("Fuck thhe user is not there, failed t %v", err)
-		return 0
+		return 0, err
 	}
-	return u.account.ClearanceLevel
+	return u.account.ClearanceLevel, nil
 }
 func (u *User) NewContext(ctx *context.Context) {
 	u.ctx = ctx
@@ -47,6 +47,7 @@ func (u *User) loadAccount() error {
 	u.account = &a
 	return nil
 }
+
 func NewUser(sess string) *User {
 	return &User{
 		sessName: sess,

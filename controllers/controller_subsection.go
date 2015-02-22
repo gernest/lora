@@ -79,6 +79,6 @@ func (s *SubSectionController) Update() {
 			return
 		}
 
-		s.Redirect("/accounts", 302)
+		s.Redirect("/web/accounts", 302)
 	}
 }

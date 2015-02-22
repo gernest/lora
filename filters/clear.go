@@ -15,6 +15,7 @@
 package filters
 
 import (
+	"github.com/gernest/lora/models"
 	"github.com/gernest/lora/utils/logs"
 
 	"github.com/astaxie/beego"
@@ -33,56 +34,22 @@ const (
 
 var logThis = logs.NewLoraLog()
 
-type ResourceClearance interface {
-	Clear()
+func AuthLevelSix(ctx *context.Context) {
+	clearByLevel(LEVEL_SIX, ctx)
 }
+func clearByLevel(perm int, ctx *context.Context) {
+	sessName := beego.AppConfig.String("sessionname")
+	usr := &User{}
+	usr.ctx = ctx
+	usr.sessName = sessName
 
-type ClearanceObject interface {
-	ClearanceLevel() int
-	NewContext(*context.Context)
-}
-
-type BaseClearance struct {
-	Ctx     *context.Context
-	Objects []*baseClearanceObject
-}
-type baseClearanceObject struct {
-	object ClearanceObject
-	level  int
-	pos    int
-	route  string
-}
-
-func (o *baseClearanceObject) Clear() {
-	beego.InsertFilter(o.route, o.pos, func(ctx *context.Context) {
-		o.object.NewContext(ctx)
-		if o.object.ClearanceLevel() < o.level {
-			logThis.Info("No Permission level is %d", o.level)
-			logThis.Info("Object level is %d", o.object.ClearanceLevel())
-			return
-		}
-		logThis.Info("Permitted")
-	})
-}
-
-func (b *BaseClearance) Register(o ClearanceObject, level int, route string) *BaseClearance {
-	base := &baseClearanceObject{
-		object: o,
-		level:  level,
-		pos:    beego.BeforeRouter,
-		route:  route,
+	level, err := usr.ClearanceLevel()
+	if err != nil {
+		ctx.Input.SetData("user", &models.Account{})
+		return
 	}
-	objects := append(b.Objects, base)
-	b.Objects = objects
-	return b
-}
-
-func (b *BaseClearance) ClearUp() {
-	for _, ob := range b.Objects {
-		ob.Clear()
+	if level >= perm {
+		ctx.Input.SetData("user", usr.account)
+		return
 	}
-}
-
-func NewBaseClearance() *BaseClearance {
-	return &BaseClearance{}
 }

@@ -27,10 +27,7 @@ _testmain.go
 
 .sass-cache
 .idea
-Godeps/_workspace
-
-static/css/vendors
-
 
 lora
-projects/wudang/content
+
+projects

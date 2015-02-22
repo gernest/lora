@@ -50,14 +50,14 @@ func (p *PageController) Preview() {
 		beego.Info("whacko", err)
 		flash.Error("Broken preview link")
 		flash.Store(&p.Controller)
-		p.Redirect("/accounts", 302)
+		p.Redirect("/web/accounts", 302)
 	}
 	err = db.First(page, pageID).Error
 	if err != nil {
 		beego.Info("whacko", err)
 		flash.Error("Broken preview link")
 		flash.Store(&p.Controller)
-		p.Redirect("/accounts", 302)
+		p.Redirect("/web/accounts", 302)
 	}
 	link := "/preview/" + project.Name + "/" + page.Title
 	p.Redirect(link, 302)
@@ -121,7 +121,7 @@ func (p *PageController) Update() {
 		}
 		if sp == 1 {
 			// Build a preview url and redirect
-			previewPath := fmt.Sprintf("/page/%d/%d/preview", page.ProjectId, page.Id)
+			previewPath := fmt.Sprintf("/web/page/%d/%d/preview", page.ProjectId, page.Id)
 			p.Redirect(previewPath, 302)
 		}
 		lora.Add(page)

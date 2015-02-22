@@ -57,3 +57,26 @@
     padding: 2px;
   }
 }
+.edit {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  .edit-title {
+    display: block;
+    width: 100%;
+    font-size: $medium-font-size;
+    color: black;
+    background: lightblue;
+//    padding: 10px 10px 10px 10px;
+    span{
+      padding: 10px 30px 10px 10px;
+    }
+  }
+  .edit-section-btn{
+    display: none;
+  }
+  .edit-section{
+    display: none;
+  }
+}

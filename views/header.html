@@ -9,11 +9,12 @@
     {{ end }}
     <title> Lora: Oh, the sweet like website solution </title>
     <link rel="shortcut icon" href="/static/img/favicon.png" />
-    <link rel="stylesheet" href="/static/css/vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/css/vendors/normalize.css">
-    <link rel="stylesheet" href="/static/css/vendors/skeleton.css">
+    <link rel="stylesheet" href="/static/css/fontawesome/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/hover-min.css">
+    <link rel="stylesheet" href="/static/css/skeleton.css">
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/vendors/trumbowyg.min.css">
+    <link rel="stylesheet" href="/static/css/trumbowyg.min.css">
     <script src="/static/js/jquery-2.1.1.min.js"></script>
 </head>
 
@@ -33,39 +34,39 @@
 
                     {{ if .InSession }}
                     <li>
-                        <a href="/services">explore</a>
+                        <a href="/site/pages/services">explore</a>
                     </li>
                     <li>
-                        <a href="/help" class="nav-link-primary"><i class="fa fa-support"></i> help</a>
+                        <a href="/site/pages/help" class="nav-link-primary"><i class="fa fa-support"></i> help</a>
                     </li>
                     <li>
-                        <a href="/terms">terms</a>
+                        <a href="/site/pages/terms">terms</a>
                     </li>
                         <li>
-                    <a href="/accounts" class="thumbnail">
+                    <a href="/web/accounts" class="thumbnail">
                         <img src="{{.avatar.Thumbnail}}">
                         <span>{{ .acc.UserName }}</span>
                     </a>
                         </li>
 
                     <li>
-                           <a href="/accounts/logout" ><i class="fa fa-sign-out"></i> logout</a>
+                           <a href="/web/accounts/logout" ><i class="fa fa-sign-out"></i> logout</a>
                        </li>
                     {{ else }}
                     <li>
-                        <a href="/services">services</a>
+                        <a href="/site/pages/services">services</a>
                     </li>
                     <li>
-                        <a href="/pricing" class="nav-link-primary"><i class="fa fa-dollar"></i> pricing</a>
+                        <a href="/site/pages/pricing" class="nav-link-primary"><i class="fa fa-dollar"></i> pricing</a>
                     </li>
                     <li>
-                        <a href="/contacts"><i class="fa fa-phone"></i> contacts</a>
+                        <a href="/site/pages/contacts"><i class="fa fa-phone"></i> contacts</a>
                     </li>
                     <li>
-                        <a href="/accounts/register"><i class="fa fa-sign"></i> SIGN UP</a>
+                        <a href="/web/accounts/register"><i class="fa fa-sign"></i> SIGN UP</a>
                     </li>
                     <li>
-                        <a href="/accounts/login"><i class="fa fa-sign-in"></i> LOGIN</a>
+                        <a href="/web/accounts/login"><i class="fa fa-sign-in"></i> LOGIN</a>
                     </li>
                         {{ end }}
                 </ul>

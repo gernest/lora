@@ -1,48 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
+    {{ partial "meta.html" .}}
     <title>{{ .Title }}</title>
-    <link rel="stylesheet" href="/static/css/vendors/normalize.css">
-    <link rel="stylesheet" href="/static/css/vendors/skeleton.css">
-    <link rel="stylesheet" href="/static/css/custom.css">
-    <script src="/static/js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript">
-        var footerDown=function(){
-            var winHeight=$(window).height();
-            var docHeight=$(document).height();
-            var footer=$(".footer");
-            if(docHeight<=winHeight){
-                p=winHeight-docHeight;
-                footer.offset({
-                    left:0,
-                    top: docHeight-footer.height()+p,
-                });
-            }
-        };
-        $(document).ready(function(){
-            footerDown();
-            $(window).resize(function(){
-                footerDown();
-            });
-        });
-    </script>
+
+    <link href="{{.Site.BaseUrl}}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{.Site.BaseUrl}}/css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+
+        body {
+            font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+            background: url('{{.Site.BaseUrl}}/{{.Site.Params.background}}') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+        }
+
+    </style>
 </head>
 <body>
-<div class="container">
-    <!--Navbaar-->
-    <nav class="navbar">
-        <div class="container">
-            <ul class="navbar-list">
-                <li class="navbar-item"><a class="navbar-link" href="{{ .Site.BaseUrl }}/home">home</a></li>
-                <li class="navbar-item">
-                    <a class="navbar-link" href="{{ .Site.BaseUrl }}/products">Producss</a>
+<div class="aurora">
+    <!--Section base website heading-->
+    <div class="brand">{{.Site.Title }}</div>
+    <div class="address-bar">{{ .Site.Params.description }}</div>
+</div>
+
+<!--EEND base website heading-->
+
+<!-- Section Navigation -->
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+            <a class="navbar-brand" href="index.html">{{.Site.Params.brand}}</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{{.Site.BaseUrl}}">Home</a>
                 </li>
-                <li class="navbar-item"><a class="navbar-link" href="{{ .Site.BaseUrl }}/contact">contacts</a></li>
-                <li class="navbar-item">
-                    <a class="navbar-link" href="{{ .Site.BaseUrl }}/about">about</a>
+                <li>
+                    <a href="{{.Site.BaseUrl}}/about">About</a>
+                </li>
+                <li>
+                    <a href="{{.Site.BaseUrl}}/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="{{.Site.BaseUrl}}/contact">Contact</a>
                 </li>
             </ul>
         </div>
-    </nav>
-</div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!--End Navigation-->

@@ -37,34 +37,33 @@ func (c *MainController) ActivateContent(view string) map[string]interface{} {
 	c.Layout = "base.html"
 
 	logThis.Info("Checking session")
-	sess := c.GetSession("xshabe")
+	sess := c.Ctx.Input.GetData("user")
 	if sess != nil {
-		m := sess.(map[string]interface{})
-		c.Data["Username"] = m["username"]
-		logThis.Success("Session found *%v*", m["username"])
+		a := sess.(*models.Account)
+		if a.Id == 0 {
+			logThis.Info("No session found")
+			return nil
+		}
+		m := make(map[string]interface{})
+		m["account"] = sess
+		c.Data["Username"] = a.UserName
+		logThis.Success("Session found *%v*", a.UserName)
 
 		db, err := models.Conn()
 		defer db.Close()
-		em := m["email"]
-		a := models.Account{}
-		a.Email = em.(string)
-		err = db.Where("email= ?", a.Email).First(&a).Error
-		if err != nil {
-			return nil
-		}
+
 		prof := models.Profile{}
 		err = db.First(&prof, a.ProfileId).Error
 		if err != nil {
 			return nil
 		}
-
 		c.Data["InSession"] = 1
 		c.Data["avatar"] = &prof
 		c.Data["acc"] = &a
+
 		return m
 
 	}
-	logThis.Warning("No session found")
 	return nil
 }
 
