@@ -1,11 +1,26 @@
-<div class="footer">
+
+<footer>
     <div class="container">
         <div class="row">
-            <div class="twelve columns">
-                <a href="/" class="powered-by">Poerered by lora</a>
+            <div class="col-lg-12 text-center">
+                <p>Copyright &copy; {{.Site.Copyright }} 2014</p>
             </div>
         </div>
     </div>
-</div>
+</footer>
+
+<!-- jQuery -->
+<script src="{{.Site.BaseUrl}}/js/jquery-2.1.1.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{{.Site.BaseUrl}}/js/bootstrap.min.js"></script>
+
+<script src="{{.Site.BaseUrl}}/js/geopattern.min.js"></script>
+<script src="{{.Site.BaseUrl}}/js/custom.js"></script>
+<script type="text/javascript">
+    $('.aurora').geopattern("{{.Site.Title}}");
+    $('.navbar').geopattern("fuck isis");
+</script>
 </body>
+
 </html>

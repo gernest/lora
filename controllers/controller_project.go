@@ -65,12 +65,7 @@ func (p *ProjectController) NewProject() {
 			return
 		}
 
-		a, err := checkUserByEmail(sess["email"].(string))
-		if err != nil {
-			flash.Error("Sorry problem idenfying your acount please try again")
-			flash.Store(&p.Controller)
-			return
-		}
+		a := sess["account"].(*models.Account)
 
 		// Create a new project
 		project, err := models.NewLoraProject("", projectName, templeteName, themeName)
@@ -108,14 +103,7 @@ func (p *ProjectController) NewProject() {
 			return
 		}
 
-		// Create new database record for the whole project and save changes
-		if db.NewRecord(project) {
-			logThis.Debug("Failed to save into database %s", db.Error)
-			flash.Error("Problem saving the project")
-			flash.Store(&p.Controller)
-			_ = project.Clean()
-			return
-		}
+		db.Save(project)
 
 		// Build the project
 		logThis.Info("Inital Build")
@@ -140,8 +128,7 @@ func (p *ProjectController) NewProject() {
 
 		flash.Notice("your website has successful been created")
 		flash.Store(&p.Controller)
-		p.Redirect("/projects/list", 302)
-
+		p.Redirect("/web/project/list", 302)
 	}
 
 }
@@ -183,18 +170,10 @@ func (p *ProjectController) Remove() {
 			return
 		}
 
-		em := sess["email"]
-		a := models.Account{}
-		a.Email = em.(string)
-		query := db.Where("email= ?", a.Email).First(&a)
-		if query.Error != nil {
-			flash.Error("Sorry problem idenfying your acount please try again")
-			flash.Store(&p.Controller)
-			return
-		}
+		a := sess["account"].(*models.Account)
 
 		project := models.Project{}
-		query = db.Model(&a).Related(&project)
+		db.Model(a).Related(&project)
 		if project.Id != projectID || project.Name != projectName {
 			flash.Error("project name mismatch  please try again with the correct name")
 			flash.Store(&p.Controller)
@@ -251,12 +230,12 @@ func (p *ProjectController) Remove() {
 
 		// Update user
 		logThis.Event("Updading user")
-		db.Save(&a)
+		db.Save(a)
 
 		logThis.Success("Project was deleted successful")
 		flash.Notice("Your website has been deleted successful")
 		flash.Store(&p.Controller)
-		p.Redirect("/accounts", 302)
+		p.Redirect("/web/accounts", 302)
 
 	}
 }
@@ -268,14 +247,14 @@ func (p *ProjectController) Preview() {
 		logThis.Info("Whaacko %s", err)
 	}
 
-	project := new(models.Project)
+	project := models.Project{}
 
 	db, err := models.Conn()
 	defer db.Close()
 	if err != nil {
 		beego.Info("Whacko whacko %s", err)
 	}
-	db.First(project, projectID)
+	db.First(&project, projectID)
 
 	previewLink := "/preview/" + project.Name
 	p.Redirect(previewLink, 302)
@@ -383,7 +362,7 @@ func (p *ProjectController) Update() {
 			return
 		}
 
-		p.Redirect("/accounts", 302)
+		p.Redirect("/web/accounts", 302)
 	}
 }
 
@@ -402,11 +381,12 @@ func (p *ProjectController) List() {
 		flash.Store(&p.Controller)
 		beego.Info("Session not set yet")
 		p.Redirect("/accounts/login", 302)
+		return
 
 	}
+	a := sess["account"].(*models.Account)
 
 	lora := models.NewLoraObject()
-	a := models.Account{}
 	projects := []models.Project{}
 
 	db, err := models.Conn()
@@ -417,15 +397,7 @@ func (p *ProjectController) List() {
 		flash.Store(&p.Controller)
 		return
 	}
-
-	a.Email = sess["email"].(string)
-	query := db.Where("email= ?", a.Email).First(&a)
-	if query.Error != nil {
-		flash.Error("Sorry problem idenfying your acount please try again")
-		flash.Store(&p.Controller)
-		return
-	}
-	db.Model(&a).Related(&projects)
+	db.Model(a).Related(&projects)
 	lora.Add(projects)
 	p.Data["lora"] = lora
 }

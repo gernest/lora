@@ -51,15 +51,7 @@ func (p *ProfileController) Edit() {
 		flash.Store(&p.Controller)
 		return
 	}
-	em := sess["email"]
-	a := models.Account{}
-	a.Email = em.(string)
-	query := db.Where("email= ?", a.Email).First(&a)
-	if query.Error != nil {
-		flash.Error("Sorry problem idenfying your acount please try again")
-		flash.Store(&p.Controller)
-		return
-	}
+	a := sess["account"].(*models.Account)
 
 	err = db.First(&profile, profileID).Error
 	if err != nil {
@@ -129,11 +121,11 @@ func (p *ProfileController) Edit() {
 		}
 		a.Company = company
 		profile.Phone = phone
-		db.Save(&a)
+		db.Save(a)
 		db.Save(&profile)
 		
 		// Build a url leading back to profile view page
-		profileViewPath := fmt.Sprintf("/profile/%d/view", profile.Id)
+		profileViewPath := fmt.Sprintf("/web/accounts/profile/%d/view", profile.Id)
 		p.Redirect(profileViewPath, 302)
 	}
 }
@@ -159,16 +151,7 @@ func (p *ProfileController) Display() {
 		flash.Store(&p.Controller)
 		return
 	}
-	em := sess["email"]
-	a := models.Account{}
-	a.Email = em.(string)
-	query := db.Where("email= ?", a.Email).First(&a)
-	if query.Error != nil {
-		flash.Error("Sorry problem idenfying your acount please try again")
-		flash.Store(&p.Controller)
-		return
-	}
-
+	a :=sess["account"].(*models.Account)
 	err = db.First(&profile, profileID).Error
 	if err != nil {
 		flash.Error("WHacko ", err)
@@ -181,9 +164,9 @@ func (p *ProfileController) Display() {
 		return
 	}
 	lora := models.NewLoraObject()
-	lora.Add(a)
+	lora.Add(*a)
 	lora.Add(profile)
-	p.Data["user"] = &a
+	p.Data["user"] = a
 	p.Data["profile"] = &profile
 	p.Data["lora"] = lora
 }

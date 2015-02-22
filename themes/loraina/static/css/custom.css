@@ -159,6 +159,7 @@ footer p {
 
     .nav>li>a {
         padding: 35px;
+        color: #000000 !important;
     }
 
     .navbar-nav>li>a {

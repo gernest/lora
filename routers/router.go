@@ -24,19 +24,15 @@ func init() {
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/notice", &controllers.MainController{}, "get:Notice")
 
-	// Namespaced Account Router
-	accountsNamespace := beego.NewNamespace("accounts",
-		beego.NSRouter("/", &controllers.AccountController{}, "*:Index"),
-		beego.NSRouter("/register", &controllers.AccountController{}, "get,post:Register"),
-		beego.NSRouter("/login", &controllers.AccountController{}, "get,post:Login"),
-		beego.NSRouter("/logout", &controllers.AccountController{}, "get:Logout"),
-	)
+	// Accounts
+	beego.Router("/accounts", &controllers.AccountController{}, "*:Index")
+	beego.Router("/accounts/register", &controllers.AccountController{}, "get,post:Register")
+	beego.Router("/accounts/login", &controllers.AccountController{}, "get,post:Login")
+	beego.Router("/accounts/logout", &controllers.AccountController{}, "get:Logout")
 
-	// Namespaced Profile Router
-	profileNamespace := beego.NewNamespace("profile",
-		beego.NSRouter("/:profileID:int/edit", &controllers.ProfileController{}, "get,post:Edit"),
-		beego.NSRouter("/:profileID:int/view", &controllers.ProfileController{}, "get:Display"),
-	)
+	// Profile
+	beego.Router("/profile/:profileID:int/edit", &controllers.ProfileController{}, "get,post:Edit")
+	beego.Router("/profile/:profileID:int/view", &controllers.ProfileController{}, "get:Display")
 
 	// Projects
 	beego.Router("/project/new", &controllers.ProjectController{}, "get,post:NewProject")
@@ -69,8 +65,4 @@ func init() {
 	cls := filters.NewBaseClearance()
 	cls.Register(filters.NewUser("xshabe"), filters.LEVEL_SIX, "/")
 	cls.ClearUp()
-
-	// Register Namespaces
-	beego.AddNamespace(accountsNamespace)
-	beego.AddNamespace(profileNamespace)
 }

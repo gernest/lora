@@ -136,6 +136,6 @@ func (s *SectonController) Update() {
 			flash.Store(&s.Controller)
 			return
 		}
-		s.Redirect("/accounts", 302)
+		s.Redirect("/web/accounts", 302)
 	}
 }

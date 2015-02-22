@@ -30,7 +30,6 @@ type AccountController struct {
 
 func (c *AccountController) Index() {
 	sess := c.ActivateContent("accounts/home")
-	c.LayoutSections["JScripts"] = "jscript/rest.html"
 	c.SetNotice()
 
 	flash := beego.NewFlash()
@@ -40,16 +39,10 @@ func (c *AccountController) Index() {
 		flash.Error("You need to login to access this page")
 		flash.Store(&c.Controller)
 		c.Redirect("/accounts/login", 302)
-
-	}
-	a, err := checkUserByEmail(sess["email"].(string))
-	if err != nil {
-		logThis.Debug("User indentity trouble * %v", err)
-		flash.Error("No such user")
-		flash.Store(&c.Controller)
 		return
 	}
-	lora.Add(a)
+	a := sess["account"].(*models.Account)
+	lora.Add(*a)
 	c.Data["lora"] = lora
 }
 
@@ -102,7 +95,7 @@ func (c *AccountController) Login() {
 		flash.Notice(notice)
 		flash.Store(&c.Controller)
 
-		c.Redirect("/accounts", 302)
+		c.Redirect("/web/accounts", 302)
 	}
 
 }
@@ -124,6 +117,7 @@ func (c *AccountController) Register() {
 		flash.Notice("You have already registered an account")
 		flash.Store(&c.Controller)
 		c.Redirect("/", 302)
+		return
 	}
 
 	if c.Ctx.Input.Method() == "POST" {
@@ -211,7 +205,7 @@ func (c *AccountController) Register() {
 		}
 		flash.Notice("Your Account has been created successful you can login and enjoy")
 		flash.Store(&c.Controller)
-		c.Redirect("/accounts/login", 302)
+		c.Redirect("/web/accounts/login", 302)
 	}
 
 }
