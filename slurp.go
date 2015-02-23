@@ -16,8 +16,11 @@
 package main
 
 import (
+	"fmt"
+
 	sh "github.com/codeskyblue/go-sh"
 	"github.com/omeid/slurp"
+	"github.com/omeid/slurp/stages/fs"
 )
 
 var BuildDIr string
@@ -25,7 +28,7 @@ var ProjectDir string
 
 func init() {
 	ProjectDir = "/home/gernest/gosrc/src/github.com/gernest/lora"
-	BuildDIr = "/home/gernest/builds/"
+	BuildDIr = "/home/gernest/builds/lora"
 }
 func Slurp(b *slurp.Build) {
 	b.Task("clean", nil, func(c *slurp.C) error {
@@ -44,6 +47,13 @@ func Slurp(b *slurp.Build) {
 	b.Task("test", nil, func(c *slurp.C) error {
 		test := NewSession(ProjectDir)
 		return test.Command("ginkgo", "-r").Run()
+	})
+	b.Task("views", nil, func(c *slurp.C) error {
+		return fs.Src(c,
+			fmt.Sprintf("%s/views/*", ProjectDir),
+		).Then(
+			fs.Dest(c, fmt.Sprintf("%s/views", BuildDIr)),
+		)
 	})
 }
 
