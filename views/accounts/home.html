@@ -10,6 +10,10 @@
                     <h3>Tasks</h3>
                     <a href="/web/project/new" class="button button-setting"><i class="fa fa-link"></i> create website</a>
                     <a href="/web/project/list" id="proj-list" class="button button-setting"><i class="fa fa-link"></i> manage websites</a>
+                    <a href="/web/accounts/files/upload" id="proj-list" class="button button-setting"><i class="fa fa-link"></i>upload files</a>
+                    {{ if $lora.IsAdmin }}
+                    <a href="/web/admin/" id="proj-list" class="button button-setting"><i class="fa fa-link"></i>Admin</a>
+                    {{ end }}
                 </div>
             </div>
             <div class="four columns">

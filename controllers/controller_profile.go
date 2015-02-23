@@ -90,7 +90,7 @@ func (p *ProfileController) Edit() {
 				errMap[s[0]] = err.Message
 			}
 		}
-		
+
 		// Handle profile picture upload
 		// If no file is chosen log and ignore
 		// returning other errors
@@ -123,7 +123,7 @@ func (p *ProfileController) Edit() {
 		profile.Phone = phone
 		db.Save(a)
 		db.Save(&profile)
-		
+
 		// Build a url leading back to profile view page
 		profileViewPath := fmt.Sprintf("/web/accounts/profile/%d/view", profile.Id)
 		p.Redirect(profileViewPath, 302)
@@ -151,7 +151,7 @@ func (p *ProfileController) Display() {
 		flash.Store(&p.Controller)
 		return
 	}
-	a :=sess["account"].(*models.Account)
+	a := sess["account"].(*models.Account)
 	err = db.First(&profile, profileID).Error
 	if err != nil {
 		flash.Error("WHacko ", err)

@@ -59,8 +59,8 @@ func Rebuild(p *models.Page) error {
 					s.Sanitize()
 					sub := []models.SubSection{}
 					db.Order("updated_at desc").Model(s).Related(&sub)
-					for k:=range sub {
-						subsec:=&sub[k]
+					for k := range sub {
+						subsec := &sub[k]
 						subsec.Sanitize()
 					}
 					s.SubSections = sub
@@ -135,6 +135,7 @@ func checkUserByName(sess map[string]interface{}) (models.Account, error) {
 	}
 	return usr, err
 }
+
 func checkUserByEmail(email string) (models.Account, error) {
 	usr := models.Account{}
 	db, err := models.Conn()
