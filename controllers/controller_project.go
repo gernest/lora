@@ -314,8 +314,6 @@ func (p *ProjectController) Update() {
 	p.Data["lora"] = lora
 
 	if p.Ctx.Input.Method() == "POST" {
-
-		// TODO: cleanup this mess and add validtion
 		projectTitle := p.GetString("projectTitle")
 		paramsAuthor := p.GetString("paramAuthor")
 		paramDescription := p.GetString("paramDescription")
@@ -367,7 +365,6 @@ func (p *ProjectController) Update() {
 }
 
 // Deploy prepares and pushes the project to the cloud
-// TODO
 func (p *ProjectController) Deploy() {
 	p.ActivateView("notyet")
 }
