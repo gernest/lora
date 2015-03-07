@@ -1,6 +1,4 @@
-/**
- * Created by gernest on 1/10/15.
- */
+
 $(document).ready(function () {
     var footerDown = function () {
         var winHeight = $(window).height();

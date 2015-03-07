@@ -16,47 +16,79 @@
 package main
 
 import (
-	"fmt"
+	"os"
+	"path/filepath"
 
 	sh "github.com/codeskyblue/go-sh"
 	"github.com/omeid/slurp"
 	"github.com/omeid/slurp/stages/fs"
+	"github.com/slurp-contrib/jsmin"
+	"github.com/slurp-contrib/watch"
 )
 
-var BuildDIr string
-var ProjectDir string
-
-func init() {
+var (
 	ProjectDir = "/home/gernest/gosrc/src/github.com/gernest/lora"
-	BuildDIr = "/home/gernest/builds/lora"
-}
+	BuildDIr   = "/home/gernest/builds/lora"
+	shell      = sh.NewSession().SetDir(ProjectDir)
+)
+
 func Slurp(b *slurp.Build) {
 	b.Task("clean", nil, func(c *slurp.C) error {
-		sess := NewSession(ProjectDir)
-		return sess.Command("bundle", "exec", "compass", "clean").Run()
-	})
-
-	b.Task("compass", []string{"clean"}, func(c *slurp.C) error {
-		compass := NewSession(ProjectDir)
-		return compass.Command("bundle", "exec", "compass", "watch").Run()
+		return fs.Src(c,
+			"static/css/*.css",
+			"static/js/*.js",
+		).Then(
+			Remove(c),
+		)
 	})
 	b.Task("dev", nil, func(c *slurp.C) error {
-		bee := NewSession(ProjectDir)
-		return bee.Command("bee", "run").Run()
+		return shell.Command("bee", "run").Run()
 	})
 	b.Task("test", nil, func(c *slurp.C) error {
-		test := NewSession(ProjectDir)
-		return test.Command("ginkgo", "-r").Run()
+		return shell.Command("ginkgo", "-r").Run()
 	})
-	b.Task("views", nil, func(c *slurp.C) error {
-		return fs.Src(c,
-			fmt.Sprintf("%s/views/*", ProjectDir),
-		).Then(
-			fs.Dest(c, fmt.Sprintf("%s/views", BuildDIr)),
+	b.Task("jslibs", nil, func(c *slurp.C) error {
+		return fs.Src(c, "assets/js/libs/*.js").Then(
+			fs.Dest(c, "static/js"),
 		)
+	})
+	b.Task("js", nil, func(c *slurp.C) error {
+		return fs.Src(c, "assets/js/frontend/*.js").Then(
+			slurp.Concat(c, "lora.min.js"),
+			jsmin.JSMin(c),
+			fs.Dest(c, "static/js"),
+		)
+	})
+	b.Task("css", nil, func(c *slurp.C) error {
+		return fs.Src(c, "assets/css/*.css").Then(
+			slurp.Concat(c, "lorastyle.css"),
+			fs.Dest(c, "static/css"),
+		)
+	})
+	b.Task("frontend", []string{"clean", "jslibs", "js", "css"}, func(c *slurp.C) error {
+		return nil
+	})
+	b.Task("watch", []string{"frontend"}, func(c *slurp.C) error {
+		j := watch.Watch(c, func(string) { b.Run(c, "js") }, "assets/js/frontend/*.js")
+		css := watch.Watch(c, func(string) { b.Run(c, "css") }, "assets/css/*.css")
+		b.Defer(func() {
+			j.Close()
+			css.Close()
+		})
+		b.Wait()
+		return nil
 	})
 }
 
-func NewSession(path string) *sh.Session {
-	return sh.NewSession().SetDir(path)
+func Remove(c *slurp.C) slurp.Stage {
+	return func(in <-chan slurp.File, out chan<- slurp.File) {
+		for file := range in {
+			err := os.Remove(file.Path)
+			if err != nil {
+				c.Println(err)
+				return
+			}
+			c.Printf("Removed %s", filepath.Base(file.Path))
+		}
+	}
 }

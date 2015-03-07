@@ -25,10 +25,12 @@ _testmain.go
 *.test
 *.prof
 
-.sass-cache
 .idea
 
 lora
 
 projects
 Godeps/_workspace
+
+# Avoiding dupication, all the folders whose contents are auto generated are ignored
+static/js
