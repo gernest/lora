@@ -16,7 +16,6 @@ package controllers
 
 import (
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/astaxie/beego"
@@ -33,17 +32,15 @@ func (c *AccountController) Index() {
 	c.SetNotice()
 
 	flash := beego.NewFlash()
-	lora := models.NewLoraObject()
 	if sess == nil {
-		logThis.Info(" Attempt to access restircted page")
-		flash.Error("You need to login to access this page")
+		flash.Error("You tried to access restricted page without permission")
 		flash.Store(&c.Controller)
 		c.Redirect("/accounts/login", 302)
 		return
 	}
 	a := sess["account"].(*models.Account)
-	lora.Add(*a)
-	c.Data["lora"] = lora
+	c.Data["user"] = a
+	c.Data["Title"] = "Account"
 }
 
 func (c *AccountController) Login() {
@@ -53,33 +50,36 @@ func (c *AccountController) Login() {
 	if sess != nil {
 		c.Redirect("/", 302)
 	}
+	c.Data["Title"] = "login"
 	if c.Ctx.Input.Method() == "POST" {
+		loginForm := models.LoginForm{}
 		flash := beego.NewFlash()
-		email := c.GetString("email")
-		password := c.GetString("password")
+
+		if err := c.ParseForm(&loginForm); err != nil {
+			logThis.Debug("%v", err)
+		}
 		valid := validation.Validation{}
-		valid.Email(email, "email")
-		valid.Required(password, "password")
-		if valid.HasErrors() {
-			errormap := make(map[string]string)
-			for _, err := range valid.Errors {
-				errormap[err.Key] = err.Message
+
+		if b, _ := valid.Valid(&loginForm); !b {
+			errMap := make(map[string]string)
+			for _, v := range valid.Errors {
+				errMap[v.Field] = v.Message
+				logThis.Dump(v)
 			}
-			c.Data["Errors"] = errormap
+			c.Data["FormErrors"] = &errMap
 			return
 		}
-
-		a, err := checkUserByEmail(email)
+		a, err := checkUserByEmail(loginForm.Email)
 		if err != nil || a.Id == 0 {
 			logThis.Debug(" %v", err)
 			flash.Error("Sorry wrong username or password")
 			flash.Store(&c.Controller)
 			return
 		}
-		err = verifyPassword(&a, password)
+		err = verifyPassword(&a, loginForm.Password)
 		if err != nil {
 			logThis.Debug("%v ", err)
-			flash.Error("Incorrect Password")
+			flash.Error("Wrong username or password")
 			flash.Store(&c.Controller)
 			return
 		}
@@ -113,46 +113,35 @@ func (c *AccountController) Register() {
 
 	sess := c.ActivateContent("accounts/register")
 	if sess != nil {
-		logThis.Info("Session is still valid")
 		flash.Notice("You have already registered an account")
 		flash.Store(&c.Controller)
 		c.Redirect("/", 302)
 		return
 	}
+	c.Data["Title"] = "signup"
 
 	if c.Ctx.Input.Method() == "POST" {
-		userName := c.GetString("userName")
-		company := c.GetString("company")
-		logThis.Debug("Company name %s", company)
-		email := c.GetString("email")
-		password := c.GetString("password")
-		password2 := c.GetString("password2")
+		usr := models.Account{}
+		if err := c.ParseForm(&usr); err != nil {
+			logThis.Debug("%v", err)
+		}
 		terms := c.GetString("cb")
 		if terms != "1" {
 			flash.Error(" Please you need to accept terms of service in order to create a new account")
 			flash.Store(&c.Controller)
 			return
 		}
-
-		a := models.RegistrationForm{
-			UserName: userName,
-			Company:  company,
-			Email:    email,
-			Password: password,
-			Confirm:  password2,
-		}
-
 		valid := validation.Validation{}
-		if b, _ := valid.Valid(&a); !b {
-			errormap := make(map[string]string)
-			for _, err := range valid.Errors {
-				s := strings.Split(err.Key, ".")
-				errormap[s[0]] = err.Message
+		if b, _ := valid.Valid(&usr); !b {
+			errMap := make(map[string]string)
+			for _, v := range valid.Errors {
+				errMap[v.Field] = v.Message
+				logThis.Dump(v)
 			}
-			c.Data["Errors"] = errormap
+			c.Data["FormErrors"] = &errMap
 			return
 		}
-		if password != password2 {
+		if usr.Password != usr.ConfirmPassword {
 			flash.Error("Password Does not Match")
 			flash.Store(&c.Controller)
 			return
@@ -169,40 +158,27 @@ func (c *AccountController) Register() {
 		profile := models.Profile{
 			Phone: "+27769000000",
 		}
-		account := models.Account{
-			UserName:       userName,
-			Email:          email,
-			Company:        company,
-			Profile:        profile,
-			ClearanceLevel: 6,
-		}
-		err = newAccountPassword(&account, password)
-		if err != nil {
+		usr.ClearanceLevel = 6
+		usr.Profile = profile
+
+		if err = newAccountPassword(&usr, usr.Password); err != nil {
 			logThis.Info("%v", err)
 			flash.Error("some fish opening database")
 			flash.Store(&c.Controller)
 			return
 		}
+		pf := &usr.Profile
+		if err = pf.GenerateIdenticon("", usr.UserName); err != nil {
+			logThis.Debug("%v", err)
+		}
 
-		query := db.Where("email= ?", account.Email).First(&account)
-		if query.Error == nil {
-			logThis.Debug("Trouble querying %s", query.Error.Error())
-			flash.Error(email + "Already Registered")
-			flash.Store(&c.Controller)
-			return
-		}
-		pf := &account.Profile
-		err = pf.GenerateIdenticon("", userName)
-		if err != nil {
-			logThis.Debug("%s", err)
-		}
-		db.Create(&account)
-		if db.Error != nil {
+		if err = db.Create(&usr).Error; err != nil {
 			logThis.Info("%v", err)
 			flash.Error("Sorry Internal Problems Occured, try again later")
 			flash.Store(&c.Controller)
 			return
 		}
+
 		flash.Notice("Your Account has been created successful you can login and enjoy")
 		flash.Store(&c.Controller)
 		c.Redirect("/web/accounts/login", 302)

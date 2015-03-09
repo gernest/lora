@@ -1,0 +1,25 @@
+.jumbotron-legacy{
+    display: block;
+    height: 200px;
+    width: 100%;
+    background-color: #967ADC;
+    margin: 0 0 4px;
+    padding: 0;
+    z-index: 2000;
+}
+
+.jumbotron-legacy .page-title{
+    box-sizing: border-box;
+    padding: 20px;
+    font-weight: 300;
+    color: #ffffff;
+    font-size: 32px;
+}
+.jumbotron-legacy .message{
+    display: block;
+    box-sizing: border-box;
+    margin: 4px 3px;
+}
+.message p{
+    font-size: 12px;
+}

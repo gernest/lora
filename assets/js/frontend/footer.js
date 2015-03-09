@@ -1,41 +1,19 @@
-
-$(document).ready(function () {
-    var footerDown = function () {
-        var winHeight = $(window).height();
-        var docHeight = $(document).height();
-        var footer = $(".footer-section");
-        if (docHeight <= winHeight) {
-            p = winHeight - docHeight;
-            footer.offset({
-                left: 0,
-                top: docHeight - footer.height() + p,
-            });
+// footer
+$(document).ready(function(){
+    var footer=function(){
+        var windowHeight=$(window).height();
+        var documentHeight=$(document).height();
+        var currentFooter=$('#footer');
+        if (documentHeight<=windowHeight){
+            p=windowHeight-documentHeight;
+            currentFooter.offset({
+                left:0,
+                top:documentHeight-currentFooter.height()+p
+            })
         }
-    };
-
-    var thumbNail=function(){
-        var thumb=$(".thumbnail")
-        var thumbImg=$(".thumbnail img")
-        cPos=thumb.position();
-        if(thumbImg.position()){
-            iPos=thumbImg.position();
-            console.log(iPos)
-            console.log(cPos)
-            diff=(thumb.height()-thumbImg.height())/2;
-            l=iPos.left
-            t=cPos.top+diff;
-            console.log(l);
-            off=thumbImg.offset();
-            thumbImg.offset({top:off.top+diff, let: off.left});
-
-            console.log(thumbImg.offset());
-        }
-        console.log("Hatarii");
-
     }
-    footerDown();
-    thumbNail();
-    $(window).resize(function () {
-        footerDown();
+    footer();
+    $(window).resize(function(){
+        footer();
     });
-})
+});

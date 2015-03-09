@@ -22,7 +22,6 @@ import (
 	sh "github.com/codeskyblue/go-sh"
 	"github.com/omeid/slurp"
 	"github.com/omeid/slurp/stages/fs"
-	"github.com/slurp-contrib/jsmin"
 	"github.com/slurp-contrib/watch"
 )
 
@@ -52,10 +51,9 @@ func Slurp(b *slurp.Build) {
 			fs.Dest(c, "static/js"),
 		)
 	})
-	b.Task("js", nil, func(c *slurp.C) error {
+	b.Task("js", []string{"jslibs"}, func(c *slurp.C) error {
 		return fs.Src(c, "assets/js/frontend/*.js").Then(
 			slurp.Concat(c, "lora.min.js"),
-			jsmin.JSMin(c),
 			fs.Dest(c, "static/js"),
 		)
 	})
@@ -65,7 +63,7 @@ func Slurp(b *slurp.Build) {
 			fs.Dest(c, "static/css"),
 		)
 	})
-	b.Task("frontend", []string{"clean", "jslibs", "js", "css"}, func(c *slurp.C) error {
+	b.Task("frontend", []string{"clean", "js", "css"}, func(c *slurp.C) error {
 		return nil
 	})
 	b.Task("watch", []string{"frontend"}, func(c *slurp.C) error {

@@ -8,99 +8,125 @@
     <title>{{ .Title }}</title>
     {{ end }}
     <title> Lora: Oh, the sweet like website solution </title>
-    <link rel="shortcut icon" href="/static/img/favicon.png" />
     <link rel="stylesheet" href="/static/css/fontawesome/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/css/normalize.css">
-    <link rel="stylesheet" href="/static/css/hover-min.css">
-    <link rel="stylesheet" href="/static/css/skeleton.css">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/trumbowyg.min.css">
-    <script src="/static/js/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootflat/css/bootflat.min.css">
+    <link rel="stylesheet" href="/static/css/lorastyle.css">
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/css/bootstrap/bootstrap.min.js"></script>
+    <script src="/static/js/lora.min.js"></script>
 </head>
 
 <body>
-<!--Navigation-->
-<div class="container">
-    <div class="row">
-        <div class="twelve columns">
-            <div class="navbar">
-                    <a href="/" class="title">
-                        <span>l</span><span>o</span><span>r</span><span>a</span>
-                    </a>
-                <ul class="nav">
-                    <li>
-                        <a href="/"><i class="fa fa-home"></i> home</a>
-                    </li>
-
+    <nav class="navbar navbar-default navbar-custom" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-target="navbar-collapse" data-toggle="collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">
+                    <span class="brand">lora</span><span class="brand-sub">Platform</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
                     {{ if .InSession }}
                     <li>
+                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
                         <a href="/site/pages/services">explore</a>
                     </li>
                     <li>
-                        <a href="/site/pages/help" class="nav-link-primary"><i class="fa fa-support"></i> help</a>
+                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                        <a href="/site/pages/help" class="nav-link-primary"> help</a>
                     </li>
                     <li>
+                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
                         <a href="/site/pages/terms">terms</a>
                     </li>
-                        <li>
-                    <a href="/web/accounts" class="thumbnail">
-                        <img src="{{.avatar.Thumbnail}}">
-                        <span>{{ .acc.UserName }}</span>
-                    </a>
-                        </li>
+                    <li>
+                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget -->
+                        <a href="/web/accounts" class="avatar">
+                            <!--suppress HtmlUnknownTarget -->
+                            <img src="{{.avatar.Photo}}">
+                            <span>{{ .acc.UserName }}</span>
+                        </a>
+                    </li>
 
                     <li>
-                           <a href="/web/accounts/logout" ><i class="fa fa-sign-out"></i> logout</a>
-                       </li>
+                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                        <a href="/web/accounts/logout" > logout</a>
+                    </li>
                     {{ else }}
                     <li>
+                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
                         <a href="/site/pages/services">services</a>
                     </li>
                     <li>
-                        <a href="/site/pages/pricing" class="nav-link-primary"><i class="fa fa-dollar"></i> pricing</a>
+                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                        <a href="/site/pages/pricing" class="nav-link-primary">pricing</a>
                     </li>
                     <li>
-                        <a href="/site/pages/contacts"><i class="fa fa-phone"></i> contacts</a>
+                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                        <a href="/site/pages/contacts">contacts</a>
                     </li>
                     <li>
-                        <a href="/web/accounts/register"><i class="fa fa-sign"></i> SIGN UP</a>
+                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                        <a href="/web/accounts/register">SIGN UP</a>
                     </li>
                     <li>
-                        <a href="/web/accounts/login"><i class="fa fa-sign-in"></i> LOGIN</a>
+                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                        <a href="/web/accounts/login"> LOGIN</a>
                     </li>
-                        {{ end }}
+                    {{ end }}
                 </ul>
             </div>
         </div>
-    </div>
-</div>
+    </nav>
 <!--end of navigation-->
-<div class="container">
-    <div class="row">
-        <div class="twelve columns">
-            {{ if .notice }}
-            <div class="flash">
-                <p class="notice">
-                    {{ .notice }}
-                </p>
-            </div>
-            {{ end }}
-            {{ if .flash.error }}
-            <div class="flash">
-                <p class="error">
-                    {{ .flash.error }}
-                </p>
-            </div>
-            {{ end }}
+<div class="jumbotron-legacy">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="messages">
+                    {{ if .notice }}
+                    <div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <p>
+                            {{ .notice }}
+                        </p>
+                    </div>
+                    {{ end }}
+                    {{ if .flash.error }}
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <p>
+                            {{ .flash.error }}
+                        </p>
+                    </div>
+                    {{ end }}
 
-            {{ if .flash.warning }}
-            <div class="flash">
-                <p class="error">
-                    {{ .flash.warning }}
-                </p>
+                    {{ if .flash.warning }}
+                    <div class="alert alert-warning alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <p>
+                            {{ .flash.warning }}
+                        </p>
+                    </div>
+                    {{ end }}
+                </div>
             </div>
-            {{ end }}
-
         </div>
+        {{ if .Title }}
+        <div class="row">
+            <div class="col-md-8 col-md-push-2">
+                <div class="page-title text-center text-capitalize">
+                    {{ .Title }}
+                </div>
+            </div>
+        </div>
+        {{ end }}
     </div>
 </div>

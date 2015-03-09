@@ -1,40 +1,45 @@
-<div class="profile">
-    <div class="container">
-        <div class="row">
-            <div class="twelve columns">
-                <form enctype="multipart/form-data" method="post">
-                    <legend>
-                        Account Details
-                    </legend>
-                    <fieldset>
-                        <div class="">
-                            <label for="company">Company Name:</label>
-                            <input type="text" name="company" value="{{ .user.Company }}">
-                            {{ if .Errors.Company}}
-                            <aside class="form-message">{{ .Errors.Company}}</aside>
-                            {{ end }}
-                        </div>
-                        <div class="">
-                            <label for="phone">Phone number:</label>
-                            <input type="text" name="phone" value="{{ .profile.Phone }}">
-                            {{ if .Errors.Company}}
-                            <aside class="form-message">{{ .Errors.Company}}</aside>
-                            {{ end }}
-                        </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="lora-form">
+                <form enctype="multipart/form-data" method="post" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="company" class="control-label col-sm-2">Company Name:</label>
 
-                        <div class="">
-                            <label for="pic">Change Profile Picture:</label>
-                            <input type="file" name="profilePicture">
-                            {{ if .Errors.Company}}
-                            <aside class="form-message">{{ .Errors.Company}}</aside>
-                            {{ end }}
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="company" value="{{ .user.Company }}">
                         </div>
-                        <div class="">
-                            <button type="submit" class="button button-flat button-primary button-large">Update</button>
+                        {{ if .FormErrors.Company }}
+                        <span class="form-message">*{{ .FormErrors.Company}}</span>
+                        {{ end }}
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="control-label col-sm-2">Phone number:</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="phone" value="{{ .profile.Phone }}">
                         </div>
-                    </fieldset>
+                        {{ if .FormErrors.Phone }}
+                        <span class="form-message">*{{ .FormErrors.Phone}}</span>
+                        {{ end }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pic" class="control-label col-sm-2">Profile Picture:</label>
+
+                        <div class="col-sm-4">
+                            <input type="file"  name="profilePicture">
+                        </div>
+                        {{ if .profilePic }}
+                        <span class="form-message">*{{ .profilePic}}</span>
+                        {{ end }}
+                    </div>
+                    <div class="col-sm-4 col-sm-push-2">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
                 </form>
             </div>
+
         </div>
     </div>
 </div>

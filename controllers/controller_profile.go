@@ -18,7 +18,6 @@ import (
 	"fmt"
 	"net/http"
 	"path/filepath"
-	"strings"
 
 	"github.com/astaxie/beego/validation"
 
@@ -47,7 +46,7 @@ func (p *ProfileController) Edit() {
 	db, err := models.Conn()
 	defer db.Close()
 	if err != nil {
-		flash.Error("Whacko opening the database")
+		flash.Error("We encountered some problems, please try again later")
 		flash.Store(&p.Controller)
 		return
 	}
@@ -66,28 +65,24 @@ func (p *ProfileController) Edit() {
 	}
 	p.Data["user"] = &a
 	p.Data["profile"] = &profile
+	p.Data["Title"] = "Edit Profile"
 
 	if p.Ctx.Input.Method() == "POST" {
 		company := p.GetString("company")
 		phone := p.GetString("phone")
-		uForm := models.UserForm{Company: company}
-		uProfile := models.UserProfileForm{Phone: phone}
-		uploadsDir := beego.AppConfig.String("uploadsDir")
-
-		v1 := validation.Validation{}
-		v2 := validation.Validation{}
-		errMap := make(map[string]string)
-		if b, _ := v1.Valid(&uForm); !b {
-			for _, err := range v1.Errors {
-				s := strings.Split(err.Key, ".")
-				fmt.Println(s)
-				errMap[s[0]] = err.Message
-			}
+		uProfile := models.UserProfileForm{
+			Company: company,
+			Phone:   phone,
 		}
-		if b, _ := v2.Valid(&uProfile); !b {
-			for _, err := range v2.Errors {
-				s := strings.Split(err.Key, ".")
-				errMap[s[0]] = err.Message
+
+		uploadsDir := beego.AppConfig.String("uploadsDir")
+		errMap := make(map[string]string)
+
+		valid := validation.Validation{}
+		if b, _ := valid.Valid(&uProfile); !b {
+
+			for _, v := range valid.Errors {
+				errMap[v.Field] = v.Message
 			}
 		}
 
@@ -107,16 +102,16 @@ func (p *ProfileController) Edit() {
 			logThis.Debug("Filename *%s* fileHead *%s*", fileHeader.Filename, fileHeader.Header)
 			fileDestination := filepath.Join(uploadsDir, fileHeader.Filename)
 			logThis.Debug("destination is %s", fileDestination)
-			err = p.SaveToFile("profilePicture", fileDestination)
 
-			if err != nil {
+			if err = p.SaveToFile("profilePicture", fileDestination); err != nil {
 				logThis.Debug("Trouble Saving pic %v", err)
 			}
+
 			profile.Photo = "/" + fileDestination
 		}
 
 		if len(errMap) != 0 {
-			p.Data["Errors"] = errMap
+			p.Data["FormErrors"] = errMap
 			return
 		}
 		a.Company = company
@@ -163,10 +158,7 @@ func (p *ProfileController) Display() {
 		flash.Store(&p.Controller)
 		return
 	}
-	lora := models.NewLoraObject()
-	lora.Add(*a)
-	lora.Add(profile)
 	p.Data["user"] = a
 	p.Data["profile"] = &profile
-	p.Data["lora"] = lora
+	p.Data["Title"] = "Profile"
 }
