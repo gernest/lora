@@ -16,18 +16,13 @@ package models
 
 type (
 	// RegistrationForm has info strings for verification during registration process
-	RegistrationForm struct {
-		UserName string `valid:"Required"`
-		Company  string `valid:"Required"`
-		Email    string `valid:"Email"`
-		Password string `valid:"MinSize(6)"`
-		Confirm  string `valid:"Required"`
+	LoginForm struct {
+		Email    string `form:"email" valid:"Required;Email"`
+		Password string `form:"password" valid:"Required;MinSize(6)"`
 	}
 
-	UserForm struct {
-		Company string `valid:"Required"`
-	}
 	UserProfileForm struct {
-		Phone string `valic:"Required`
+		Company string `valid:"Required"`
+		Phone   string `valid:"Required;Phone"`
 	}
 )
