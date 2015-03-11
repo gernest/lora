@@ -49,9 +49,9 @@ type (
 		Template     string    `toml:"templateName"`
 		Theme        string    `toml:"theme"`
 		PublishDir   string    `toml:"publishDir"`
-		ProjectPath  string    `toml:"-"`
+		ProjectPath  string    `toml:"projectPath"`
 		TemplatePath string    `toml:"-"`
-		BaseUrl      string    `toml:"baseurl" sql:"-"`
+		BaseUrl      string    `toml:"baseurl"`
 		HomeUrl      string    `toml:"-" sql:"-"`
 		LanguageCode string    `toml:"languageCode" sql:"-"`
 		Pages        []Page    `toml:"pages"`

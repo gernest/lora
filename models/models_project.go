@@ -269,3 +269,13 @@ func installTemplate(p *Project, templatename string, theme string) error {
 	p.Theme = theme
 	return nil
 }
+
+func getLocalHost() string {
+	port := beego.AppConfig.String("httpport")
+	if port == "" {
+		return ""
+	}
+	host := "localhost"
+	scheme := fmt.Sprintf("http://%s:%s", host, port)
+	return scheme
+}
