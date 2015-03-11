@@ -22,7 +22,6 @@ import (
 	"github.com/gernest/lora/models"
 	"github.com/gernest/lora/utils/logs"
 
-	_ "github.com/gernest/lora/models"
 	_ "github.com/gernest/lora/routers"
 )
 

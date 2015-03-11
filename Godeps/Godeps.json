@@ -46,16 +46,21 @@
 			"Rev": "7a1ecf31d357d6725db2110109de1795a5b4b14a"
 		},
 		{
-			"ImportPath": "github.com/disintegration/imaging",
-			"Rev": "84b56db342ea12fca9772218ee345bb11fdfe82c"
-		},
-		{
 			"ImportPath": "github.com/drhodes/golorem",
 			"Rev": "6e38d8d5e45580c1715d4dc7e4808be379788a2e"
 		},
 		{
 			"ImportPath": "github.com/jinzhu/gorm",
 			"Rev": "a29ac54e484be3c027d28090b59118be79dd4864"
+		},
+		{
+			"ImportPath": "github.com/kr/pretty",
+			"Comment": "go.weekly.2011-12-22-24-gf31442d",
+			"Rev": "f31442d60e51465c69811e2107ae978868dbea5c"
+		},
+		{
+			"ImportPath": "github.com/kr/text",
+			"Rev": "6807e777504f54ad073ecef66747de158294b639"
 		},
 		{
 			"ImportPath": "github.com/lib/pq",
@@ -73,14 +78,6 @@
 		{
 			"ImportPath": "github.com/shurcooL/go/github_flavored_markdown/sanitized_anchor_name",
 			"Rev": "86f96ac7292d298d9bc82341e1792069d70d2c6d"
-		},
-		{
-			"ImportPath": "golang.org/x/image/bmp",
-			"Rev": "7f6859d3853a76e5c6de50cac970173a9b803517"
-		},
-		{
-			"ImportPath": "golang.org/x/image/tiff",
-			"Rev": "7f6859d3853a76e5c6de50cac970173a9b803517"
 		},
 		{
 			"ImportPath": "golang.org/x/net/html",

@@ -77,5 +77,6 @@ func init() {
 	beego.AddNamespace(ns)
 	beego.AddNamespace(nsLora)
 
-	beego.InsertFilter("/", beego.BeforeRouter, filters.AuthLevelSix)
+	beego.InsertFilter("/", beego.BeforeRouter, filters.StaticProxy)
+	beego.InsertFilter("/*", beego.BeforeRouter, filters.StaticProxy)
 }

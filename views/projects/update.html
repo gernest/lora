@@ -1,119 +1,110 @@
-{{ $lora:=.lora}}
-{{if $lora.HasProject}}
-<div class="promo-section account">
-    <div class="container">
-        {{ $proj:=$lora.Project }}
-        <div class="row">
-            <div class="twelve columns">
-                <div class="four columns">
-                    {{ if $lora.HasPages }}
-                    <div class="settings">
-                        <h3>pages</h3>
-                        {{ range $lora.Pages }}
-                        <a href="/web/page/{{ $proj.Id }}/{{ .Id }}/update" class="button button-setting page-link">{{ .Title }}<i class="fa fa-edit"></i></a>
-                        {{ end }}
-                    </div>
+<div class="container">
+    {{ $proj:=.project }}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">pages</div>
+                <ul class="list-group">
+                    {{ range .pages }}
+                    <li class="list-group-item">
+                        <a href="/web/page/{{ $proj.Id }}/{{ .Id }}/update" class="button button-setting page-link">{{.Title }}</a>
+                    </li>
                     {{ end }}
-                </div>
-            </div>
-            <div class="twelve columns">
-                <div class="settings">
-                    <h3>{{ $proj.Name }}</h3>
-                </div>
-                <div class="four columns">
-                    <form method="post" action="/web/project/{{$proj.Id}}/update">
-                        <fieldset>
-                            <div class="">
-                                <label for="last">Title</label>
-                                <input type="text" name="projectTitle" placeholder="Change Title">
-                                {{ if .Errors.Company}}
-                                <aside class="form-message">{{ .Errors.Company}}</aside>
-                                {{ end }}
-                            </div>
-                            <div class="">
-                                <label for="last">Owner</label>
-                                <input type="text" name="paramAuthor" placeholder="Change Owner">
-                                {{ if .Errors.Company}}
-                                <aside class="form-message">{{ .Errors.Company}}</aside>
-                                {{ end }}
-                            </div>
-                            <div class="">
-                                <label for="last">Description </label>
-                                <input type="text" name="paramDescription" placeholder="Change description">
-                                {{ if .Errors.Company}}
-                                <aside class="form-message">{{ .Errors.Company}}</aside>
-                                {{ end }}
-                            </div>
-                            <div class="">
-                                <label for="last">Brand</label>
-                                <input type="text" name="paramBrand" placeholder="Change Brand">
-                                {{ if .Errors.Company}}
-                                <aside class="form-message">{{ .Errors.Company}}</aside>
-                                {{ end }}
-                            </div>
-                            <div class="">
-                                <button type="submit" class="button button-flat button-primary button-large">Register</button>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-
-                <div class="six columns">
-                    <ul class="update-preview">
-                        <span class="current-info">Current Info</span>
-                        <li>
-                            Website Title : <span>{{ $proj.Title }}</span>
-                        </li>
-                        <li>
-                            Website Owner : <span>{{ $proj.Param.Author }}</span>
-                        </li>
-                        <li>
-                            Website Description:
-                            <p>
-                                {{ $proj.Param.Description }}
-                            </p>
-                        </li>
-                        <li>
-                            Website Brand : <span>{{ $proj.Param.Brand }}</span>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <div class="twelve columns">
-                <div class="settings">
-                    <h3>Background Image</h3>
-                </div>
-                <div class="four columns">
-                    <img id="preview" src="/preview/{{$proj.Name}}/{{$proj.Param.BackgroundImage}}" height="200" width="250">
-                </div>
-                <div class="four columns">
-
-                    <form action="/web/files">
-                        <label>Upload new background</label>
-                        <input type="file" id="imgfile">
-                        <button type="submit" class="button button-flat button-primary button-large">Save</button>
-                    </form>
-                </div>
-            </div>
-            <div class="twelve columns">
-                <div class="settings">
-                    <h3>slider images</h3>
-                </div>
+                </ul>
             </div>
         </div>
     </div>
+    <div class="row">
+            <div class="col-md-4">
+                <div class="well">{{ $proj.Name }} details</div>
+                <form method="post" action="/web/project/{{$proj.Id}}/update" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Title</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="projectTitle" placeholder="Change Title">
+                            {{ if .Errors.Company}}
+                            <aside class="form-message">{{ .Errors.Company}}</aside>
+                            {{ end }}
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Owner</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="paramAuthor" placeholder="Change Owner">
+                            {{ if .Errors.Company}}
+                            <aside class="form-message">{{ .Errors.Company}}</aside>
+                            {{ end }}
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Description </label>
+
+                        <div>
+                            <input type="text" class="form-control" name="paramDescription"
+                                   placeholder="Change description">
+                            {{ if .Errors.Company}}
+                            <aside class="form-message">{{ .Errors.Company}}</aside>
+                            {{ end }}
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Brand</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="paramBrand" placeholder="Change Brand">
+                            {{ if .Errors.Company}}
+                            <aside class="form-message">{{ .Errors.Company}}</aside>
+                            {{ end }}
+                        </div>
+
+                    </div>
+                    <div class="">
+                        <button type="submit" class="btn btn-primarye">Register</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="col-md-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            Current Info
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                Title:<span>{{ $proj.Title }}</span>
+                            </li>
+                            <li class="list-group-item">
+                                Owner : <span>{{ $proj.Param.Author }}</span>
+                            </li>
+                            <li class="list-group-item">
+                                Description:
+                                <p>
+                                    {{ $proj.Param.Description }}
+                                </p>
+                            </li>
+                            <li class="list-group-item">
+                                Brand : <span>{{ $proj.Param.Brand }}</span>
+                            </li>
+                        </ul>
+            </div>
+
+        </div>
+    </div>
 </div>
- <script type="text/javascript">
-     $("#imgfile").change(function(){
-         if (this.files && this.files[0]) {
-             var reader = new FileReader();
-             reader.onload = function (e) {
-                 $('#preview').attr('src', e.target.result);
-             }
-             reader.readAsDataURL(this.files[0]);
-         }
-     });
- </script>
-{{ end }}
+<script type="text/javascript">
+    $("#imgfile").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#preview').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+</script>

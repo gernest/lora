@@ -48,7 +48,7 @@ func (c *AccountController) Login() {
 	sess := c.ActivateContent("accounts/login")
 	c.SetNotice()
 	if sess != nil {
-		c.Redirect("/", 302)
+		c.Redirect("/web/accounts", 302)
 	}
 	c.Data["Title"] = "login"
 	if c.Ctx.Input.Method() == "POST" {
@@ -115,7 +115,7 @@ func (c *AccountController) Register() {
 	if sess != nil {
 		flash.Notice("You have already registered an account")
 		flash.Store(&c.Controller)
-		c.Redirect("/", 302)
+		c.Redirect("/web/accounts", 302)
 		return
 	}
 	c.Data["Title"] = "signup"

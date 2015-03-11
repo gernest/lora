@@ -42,6 +42,7 @@ func (p *ProjectController) NewProject() {
 
 	p.Data["themeList"] = &themes
 	p.Data["templateList"] = &templates
+	p.Data["Title"]="Creating a new Website"
 
 	if p.Ctx.Input.Method() == "POST" {
 
@@ -95,6 +96,9 @@ func (p *ProjectController) NewProject() {
 			return
 		}
 		project.SetBaseUrl()
+		// Set the base Url of the project
+		
+		
 		err = ps.SaveConfigFile()
 		if err != nil {
 			logThis.Debug("holly shit check this mess %s", db.Error)
@@ -276,7 +280,6 @@ func (p *ProjectController) Update() {
 		beego.Info("Whaacko %s", err)
 	}
 
-	lora := models.NewLoraObject()
 	project := models.Project{}
 	pages := []models.Page{}
 	param := models.Param{}
@@ -309,9 +312,9 @@ func (p *ProjectController) Update() {
 	db.First(&param, project.ParamId)
 
 	project.Param = param
-	lora.Add(pages)
-	lora.Add(project)
-	p.Data["lora"] = lora
+	p.Data["project"] = &project
+	p.Data["pages"]=&pages
+	p.Data["Title"]=project.Name
 
 	if p.Ctx.Input.Method() == "POST" {
 		projectTitle := p.GetString("projectTitle")
@@ -383,7 +386,6 @@ func (p *ProjectController) List() {
 	}
 	a := sess["account"].(*models.Account)
 
-	lora := models.NewLoraObject()
 	projects := []models.Project{}
 
 	db, err := models.Conn()
@@ -395,6 +397,6 @@ func (p *ProjectController) List() {
 		return
 	}
 	db.Model(a).Related(&projects)
-	lora.Add(projects)
-	p.Data["lora"] = lora
+	p.Data["projects"] =&projects 
+	p.Data["Title"]="List of my websites"
 }

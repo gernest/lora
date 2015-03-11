@@ -3,7 +3,7 @@
         <div class="col-md-4">
             <form method="post">
                 <div class="form-group">
-                    <label class="control-label col-sm-2">website name</label>
+                    <label class="control-label col-sm-2">Name</label>
                     <div class="col-sm-6">
                         <input name="projectName" placeholder="website name" class="form-control" type="text">
                     </div>
@@ -33,15 +33,16 @@
         </div>
         <div class="col-md-4">
             <div class="theme-select">
-                <button class="theme-select-btn">Select theme </button>
+                <div class="well"> Select Theme</div>
                 {{ range .themeList }}
-                <div class="theme-box" t-id="{{ .Name }}">
-                    <h5>{{ .Name }}</h5>
-                    <img src="{{ .Image }}">
-
-                    <div class="theme-controls">
-                        <button class="pick-theme">select</button>
-                        <button class="theme-demo">demo</button>
+                <div class="theme-box thumbnail" t-id="{{ .Name }}">
+                    <img class="img-rounded" src="{{ .Image }}">
+                    <div class="caption text-center">
+                        <h5>{{ .Name }}</h5>
+                        <p>
+                            <button class="pick-theme btn btn-primary">select</button>
+                            <button class="theme-demo btn btn-default">demo</button>
+                        </p>
                     </div>
                 </div>
                 {{ end }}
@@ -49,15 +50,16 @@
         </div>
         <div class="col-md-4">
             <div class="template-select">
-                <button class="template-select-btn">Select Template <i class="fa fa-chevron-down"></i></button>
+                <div class="well">Select Template</div>
                 {{ range .templateList }}
-                <div class="template-box" t-id="{{ .Name }}">
-                    <h5>{{ .Name }}</h5>
-                    <img src="{{ .Image }}">
-
-                    <div class="template-controls">
-                        <button class="pick-template">select</button>
-                        <button class="template-demo">demo</button>
+                <div class="template-box thumbnail" t-id="{{ .Name }}">
+                    <img class="img-rounded" src="{{ .Image }}">
+                    <div class="caption text-center">
+                        <h5>{{ .Name }}</h5>
+                        <p>
+                            <button class="pick-template btn btn-primary">select</button>
+                            <button class="template-demo btn btn-default">demo</button>
+                        </p>
                     </div>
                 </div>
                 {{ end }}
