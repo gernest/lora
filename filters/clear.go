@@ -37,6 +37,27 @@ var logThis = logs.NewLoraLog()
 func AuthLevelSix(ctx *context.Context) {
 	clearByLevel(LEVEL_SIX, ctx)
 }
+
+func AuthLevelFive(ctx *context.Context) {
+	clearByLevel(LEVEL_FIVE, ctx)
+}
+
+func AuthLevelFour(ctx *context.Context) {
+	clearByLevel(LEVEL_FOUR, ctx)
+}
+
+func AuthLevelThree(ctx *context.Context) {
+	clearByLevel(LEVEL_THREE, ctx)
+}
+
+func AuthLevelTwo(ctx *context.Context) {
+	clearByLevel(LEVEL_TWO, ctx)
+}
+
+func AuthLevelOne(ctx *context.Context) {
+	clearByLevel(LEVEL_ONE, ctx)
+}
+
 func clearByLevel(perm int, ctx *context.Context) {
 	sessName := beego.AppConfig.String("sessionname")
 	usr := &User{}

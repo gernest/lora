@@ -18,5 +18,13 @@ $(document).ready(function(){
             $(this).text("Selected");
         });
     }
+
     install();
+
+    $('.content').summernote();
+    $('.editor-form').onsubmit(function(){
+        content=$('.content');
+        content.val(md(content.val()));
+    });
+
 });

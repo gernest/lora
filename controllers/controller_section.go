@@ -28,7 +28,6 @@ type SectonController struct {
 func (s *SectonController) Update() {
 	sess := s.ActivateContent("section/edit")
 	flash := beego.NewFlash()
-	s.LayoutSections["JScripts"] = "jscript/editor.html"
 
 	if sess == nil {
 		flash.Error("you need to login inorder to update this page")
@@ -39,7 +38,6 @@ func (s *SectonController) Update() {
 	sectionID, _ := s.GetInt64(":sectionID")
 
 	section := models.Section{}
-	lora := models.NewLoraObject()
 	subSections := []models.SubSection{}
 	page := models.Page{}
 	project := models.Project{}
@@ -67,12 +65,10 @@ func (s *SectonController) Update() {
 		n := &subSections[k]
 		n.Sanitize()
 	}
-	if len(subSections) > 0 {
-		lora.Add(subSections)
-	}
+	
 	section.Sanitize()
-	lora.Add(section)
-	s.Data["lora"] = lora
+	s.Data["section"] = &section
+	s.Data["subsections"]=&subSections
 
 	if s.Ctx.Input.Method() == "POST" {
 

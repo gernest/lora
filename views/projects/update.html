@@ -7,104 +7,115 @@
                 <ul class="list-group">
                     {{ range .pages }}
                     <li class="list-group-item">
-                        <a href="/web/page/{{ $proj.Id }}/{{ .Id }}/update" class="button button-setting page-link">{{.Title }}</a>
+                        <a href="/web/page/{{ $proj.Id }}/{{ .Id }}/update" class="button button-setting page-link">{{.Title}}</a>
                     </li>
                     {{ end }}
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="row">
-            <div class="col-md-4">
-                <div class="well">{{ $proj.Name }} details</div>
+
+        <div class="col-md-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    Current Info
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        Title:<span>{{ $proj.Title }}</span>
+                    </li>
+                    <li class="list-group-item">
+                        Owner : <span>{{ $proj.Param.Author }}</span>
+                    </li>
+                    <li class="list-group-item">
+                        Description:
+                        <p>
+                            {{ $proj.Param.Description }}
+                        </p>
+                    </li>
+                    <li class="list-group-item">
+                        Brand : <span>{{ $proj.Param.Brand }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">Update {{ $proj.Name }} details</div>
                 <form method="post" action="/web/project/{{$proj.Id}}/update" class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Title</label>
+                    <ul class="list-group">
+                        <div class="list-group-item">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Title</label>
 
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="projectTitle" placeholder="Change Title">
-                            {{ if .Errors.Company}}
-                            <aside class="form-message">{{ .Errors.Company}}</aside>
-                            {{ end }}
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="projectTitle"
+                                           placeholder="Change Title">
+                                    {{ if .Errors.Company}}
+                                    <aside class="form-message">{{ .Errors.Company}}</aside>
+                                    {{ end }}
+                                </div>
+
+                            </div>
                         </div>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Owner</label>
 
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Owner</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="paramAuthor"
+                                           placeholder="Change Owner">
+                                    {{ if .Errors.Company}}
+                                    <aside class="form-message">{{ .Errors.Company}}</aside>
+                                    {{ end }}
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 text-center">Description </label>
 
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="paramAuthor" placeholder="Change Owner">
-                            {{ if .Errors.Company}}
-                            <aside class="form-message">{{ .Errors.Company}}</aside>
-                            {{ end }}
-                        </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="paramDescription"
+                                           placeholder="Change description">
+                                    {{ if .Errors.Company}}
+                                    <aside class="form-message">{{ .Errors.Company}}</aside>
+                                    {{ end }}
+                                </div>
 
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Description </label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Brand</label>
 
-                        <div>
-                            <input type="text" class="form-control" name="paramDescription"
-                                   placeholder="Change description">
-                            {{ if .Errors.Company}}
-                            <aside class="form-message">{{ .Errors.Company}}</aside>
-                            {{ end }}
-                        </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="paramBrand"
+                                           placeholder="Change Brand">
+                                    {{ if .Errors.Company}}
+                                    <aside class="form-message">{{ .Errors.Company}}</aside>
+                                    {{ end }}
+                                </div>
 
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Brand</label>
-
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="paramBrand" placeholder="Change Brand">
-                            {{ if .Errors.Company}}
-                            <aside class="form-message">{{ .Errors.Company}}</aside>
-                            {{ end }}
-                        </div>
-
-                    </div>
-                    <div class="">
-                        <button type="submit" class="btn btn-primarye">Register</button>
-                    </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </li>
+                    </ul>
                 </form>
-
             </div>
-
-            <div class="col-md-4">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            Current Info
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                Title:<span>{{ $proj.Title }}</span>
-                            </li>
-                            <li class="list-group-item">
-                                Owner : <span>{{ $proj.Param.Author }}</span>
-                            </li>
-                            <li class="list-group-item">
-                                Description:
-                                <p>
-                                    {{ $proj.Param.Description }}
-                                </p>
-                            </li>
-                            <li class="list-group-item">
-                                Brand : <span>{{ $proj.Param.Brand }}</span>
-                            </li>
-                        </ul>
-            </div>
-
         </div>
     </div>
-</div>
-<script type="text/javascript">
-    $("#imgfile").change(function () {
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#preview').attr('src', e.target.result);
-            };
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
-</script>
+    <script type="text/javascript">
+        $("#imgfile").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#preview').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    </script>
