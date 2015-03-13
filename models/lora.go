@@ -42,8 +42,8 @@ type Lora struct {
 	HasSections    bool
 	HasSubSections bool
 	HasProfiles    bool
-	
-	IsAdmin      bool
+
+	IsAdmin bool
 }
 
 func (l *Lora) Add(v interface{}) {
@@ -61,8 +61,8 @@ func (l *Lora) addObject(v interface{}) {
 	case Account:
 		l.Account = v.(Account)
 		l.HasAccount = true
-		if l.Account.ClearanceLevel==6{
-			l.IsAdmin=true
+		if l.Account.ClearanceLevel == 6 {
+			l.IsAdmin = true
 		}
 	case Profile:
 		l.Profile = v.(Profile)

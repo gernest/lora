@@ -36,10 +36,6 @@ var _ = Describe("Profile", func() {
 		_ = prof.GenerateIdenticon(base, "kilimahewa")
 		Expect(prof.Photo).ShouldNot(BeEmpty())
 	})
-	It("thumbs", func() {
-		_ = prof.GenerateIdenticon(base, "kilimahewa")
-		Expect(prof.Thumbnail).ShouldNot(BeEmpty())
-	})
 	It("crash", func() {
 		err = prof.GenerateIdenticon("/", "kilimahewa")
 		Expect(err).Should(HaveOccurred())

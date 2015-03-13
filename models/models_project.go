@@ -195,6 +195,7 @@ func (p *Project) SetBaseUrl() {
 func(p *Project)SaveDataFiles()error{
 	for _,page:=range p.Pages {
 		if err:=page.SaveDataFile(p.ProjectPath);err!=nil {
+			logThis.Debug("Trouble %v", err)
 			return err
 		}
 		
