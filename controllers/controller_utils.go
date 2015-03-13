@@ -79,6 +79,10 @@ func Rebuild(p *models.Page) error {
 	if err != nil {
 		return err
 	}
+	err = project.SaveDataFiles()
+	if err != nil {
+		return err
+	}
 	err = project.Build()
 	if err != nil {
 		return err

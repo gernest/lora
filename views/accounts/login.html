@@ -1,33 +1,35 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-push-2">
-            <div class="lora-form">
-                <form method="post" class="form-horizontal">
-                    <div class="form-group">
-                        <label for="email" class="control-label col-sm-2">Email</label>
-                        <div class="col-sm-5">
-                            <input type="email" name="email" class="form-control" placeholder="email address">
-                            {{ if .FormErrors.Email }}
-                            <span class="form-message">{{ .FormErrors.Email}}</span>
-                            {{ end}}
+<div class="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-push-2">
+                <div class="lora-form">
+                    <form method="post" class="form-horizontal">
+                        <div class="form-group">
+                            <label for="email" class="control-label col-sm-2">Email</label>
+                            <div class="col-sm-5">
+                                <input type="email" name="email" class="form-control" placeholder="email address">
+                                {{ if .FormErrors.Email }}
+                                <span class="form-message">{{ .FormErrors.Email}}</span>
+                                {{ end}}
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="control-label col-sm-2">Password</label>
-                        <div class="col-sm-5">
-                            <input type="password" name="password" class="form-control" placeholder="password">
-                            {{ if .FormErrors.Password }}
-                            <span class="form-message">{{ .FormErrors.Password}}</span>
-                            {{ end}}
+                        <div class="form-group">
+                            <label for="password" class="control-label col-sm-2">Password</label>
+                            <div class="col-sm-5">
+                                <input type="password" name="password" class="form-control" placeholder="password">
+                                {{ if .FormErrors.Password }}
+                                <span class="form-message">{{ .FormErrors.Password}}</span>
+                                {{ end}}
+                            </div>
                         </div>
-                    </div>
-                    <div class="pure-controls">
-                        <div class="col-sm-8 col-sm-push-2">
-                            <button type="submit" class="btn btn-primary">Login</button>
-                            <a href="/web/accounts/register">or Register</a>
+                        <div class="pure-controls">
+                            <div class="col-sm-8 col-sm-push-2">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                                <a href="/web/accounts/register">or Register</a>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

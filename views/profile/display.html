@@ -1,31 +1,33 @@
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <img src="{{ .profile.Photo }}" class="img-rounded">
+<div class="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img src="{{ .profile.Photo }}" class="img-rounded">
 
-                <div class="caption text-center">
-                    <h5>{{.user.UserName }}</h5>
+                    <div class="caption text-center">
+                        <h5>{{.user.UserName }}</h5>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    Profile Info
+            <div class="col-sm-6 col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        Profile Info
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            {{ .user.Email }}
+                        </li>
+                        <li class="list-group-item">
+                            {{ .user.Company }}
+                        </li>
+                        <li class="list-group-item">
+                            {{ .profile.Phone }}
+                        </li>
+                    </ul>
+                    <a href="/web/accounts/profile/{{ .profile.Id }}/edit" class="btn btn-primary">Update Details</a>
                 </div>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        {{ .user.Email }}
-                    </li>
-                    <li class="list-group-item">
-                        {{ .user.Company }}
-                    </li>
-                    <li class="list-group-item">
-                        {{ .profile.Phone }}
-                    </li>
-                </ul>
-                <a href="/web/accounts/profile/{{ .profile.Id }}/edit" class="btn btn-primary">Update Details</a>
             </div>
         </div>
     </div>

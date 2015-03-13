@@ -4,132 +4,113 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="keywords" content="">
     <meta name="description" content="A Simple Business Friendly, cloud based Website Solution">
+    <meta name="author" content="geofrey ernest" />
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <![endif]-->
     {{ if .Title }}
     <title>{{ .Title }}</title>
     {{ end }}
     <title> Lora: Oh, the sweet like website solution </title>
-    <link rel="stylesheet" href="/static/css/fontawesome/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/bootflat/css/bootflat.min.css">
+    <link rel="stylesheet" href="/static/css/fontawesome/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/ionicons.css">
+    <link rel="stylesheet" href="/static/js/lightwave/source/jquery.fancybox.css">
+    <link rel="stylesheet" href="/static/css/lightwave/animations.min.css">
+    <link rel="stylesheet" href="/static/css/lightwave/style-green.css">
     <link rel="stylesheet" href="/static/editor/summernote.css">
     <link rel="stylesheet" href="/static/css/lorastyle.css">
     <script src="/static/js/jquery.js"></script>
-    <script src="/static/css/bootstrap/bootstrap.min.js"></script>
-    <script src="/static/editor/summernote.min.js"></script>
-    <script src="/static/js/md.min.js"></script>
-    <script src="/static/js/lora.min.js"></script>
+    <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
-<body>
-    <nav class="navbar navbar-default navbar-custom" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button class="navbar-toggle" data-target="navbar-collapse" data-toggle="collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="/" class="navbar-brand">
-                    <span class="brand">lora</span><span class="brand-sub">Platform</span>
-                </a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    {{ if .InSession }}
-                    <li>
-                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
-                        <a href="/site/pages/services">explore</a>
-                    </li>
-                    <li>
-                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
-                        <a href="/site/pages/help" class="nav-link-primary"> help</a>
-                    </li>
-                    <li>
-                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
-                        <a href="/site/pages/terms">terms</a>
-                    </li>
-                    <li>
-                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget -->
-                        <a href="/web/accounts" class="avatar">
-                            <!--suppress HtmlUnknownTarget -->
-                            <img src="{{.avatar.Photo}}">
-                            <span>{{ .acc.UserName }}</span>
-                        </a>
-                    </li>
+<body data-spy="scroll" data-target="#menu-section">
 
-                    <li>
-                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
-                        <a href="/web/accounts/logout" > logout</a>
-                    </li>
-                    {{ else }}
-                    <li>
-                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
-                        <a href="/site/pages/services">services</a>
-                    </li>
-                    <li>
-                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
-                        <a href="/site/pages/pricing" class="nav-link-primary">pricing</a>
-                    </li>
-                    <li>
-                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
-                        <a href="/site/pages/contacts">contacts</a>
-                    </li>
-                    <li>
-                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
-                        <a href="/web/accounts/register">SIGN UP</a>
-                    </li>
-                    <li>
-                        <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
-                        <a href="/web/accounts/login"> LOGIN</a>
-                    </li>
-                    {{ end }}
-                </ul>
-            </div>
+<body data-spy="scroll" data-target="#menu-section">
+<!--MENU SECTION START-->
+<div class="navbar navbar-inverse navbar-fixed-top scroll-me" id="menu-section">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <span class="brand">lora</span><span class="brand-sub">Platform</span>
+            </a>
         </div>
-    </nav>
-<!--end of navigation-->
-<div class="jumbotron-legacy">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {{ if .InSession }}
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="#home">HOME</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="/site/pages/help"> help</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="/site/pages/terms">terms</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="/web/accounts" class="avatar">
+                        <!--suppress HtmlUnknownTarget -->
+                        <img src="{{.avatar.Photo}}">
+                        <span>{{ .acc.UserName }}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="/web/accounts/logout" > logout</a>
+                </li>
+                {{ else }}
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="#home">HOME</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="#services">FEATURES</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="#contacts">contacts</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="/web/accounts/register">SIGN UP</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="/web/accounts/login"> LOGIN</a>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+
+    </div>
+</div>
+<!--MENU SECTION END-->
+{{ if .InSession }}
+{{ if .Title }}
+<div class="title-section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="messages">
-                    {{ if .notice }}
-                    <div class="alert alert-info alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <p>
-                            {{ .notice }}
-                        </p>
-                    </div>
-                    {{ end }}
-                    {{ if .flash.error }}
-                    <div class="alert alert-danger alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <p>
-                            {{ .flash.error }}
-                        </p>
-                    </div>
-                    {{ end }}
-
-                    {{ if .flash.warning }}
-                    <div class="alert alert-warning alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <p>
-                            {{ .flash.warning }}
-                        </p>
-                    </div>
-                    {{ end }}
-                </div>
+                <h1 class="text-center text-capitalize">{{ .Title }}</h1>
             </div>
         </div>
-        {{ if .Title }}
-        <div class="row">
-            <div class="col-md-8 col-md-push-2">
-                <div class="page-title text-center text-capitalize">
-                    {{ .Title }}
-                </div>
-            </div>
-        </div>
-        {{ end }}
     </div>
 </div>
+{{ end }}
+{{ end }}

@@ -19,7 +19,7 @@
                 <div class="panel-heading">
                     Current Info
                 </div>
-                <ul class="list-group">
+                <ul class="list-group text-danger">
                     <li class="list-group-item">
                         Title:<span>{{ $proj.Title }}</span>
                     </li>
@@ -42,7 +42,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">Update {{ $proj.Name }} details</div>
                 <form method="post" action="/web/project/{{$proj.Id}}/update" class="form-horizontal">
-                    <ul class="list-group">
+                    <ul class="list-group text-info">
                         <div class="list-group-item">
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Title</label>

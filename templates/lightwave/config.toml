@@ -1,0 +1,174 @@
+Id = 1
+title = "lora light wave"
+projectName = "wudang"
+templateName = "lightwave"
+publishDir = "www"
+[[pages]]
+  title = "home"
+  content = "## Cor tot desuper meo distorta.\nDepromi affectu at hi sua captus carthaginem me mutant.\n\nPericulo me nam, lux tam tibi cor seu demonstrasti amo periculosa. Deo da tobis dixi ea prece, agatur caro infirmitas aut da ita humana.\n\nNota laude actionibus nescio cor tria odoratus delectat ita. Moderatum vi plena subditus mearum hoc piae quam consuevit exemplo varias evacuaret re re impium. Attamen re direxi hymno ab oboritur video pro re.\n\nEa quibusdam gero, facere, ita per e munerum principes gustandi talia. Contra dicentem sonuerit tot humana hi pro sapientiae rei fit adsurgere pecco laetandis os radiavit. Diligi dici ita ipsa veritatem te. Me at iugo putem dabis pater en, enim nec mavult re.\n\n"
+  slug = "slug"
+  draft = false
+
+  [[pages.sections]]
+    PageId = 1
+    name = "section-1"
+    title = "Build a Website worthy visiting"
+    phone = ""
+    photo = ""
+    email = ""
+    address = ""
+    body = "OMG"
+    BodyHtml = ""
+    last_update = ""
+    CreatedAt = 2015-03-13T06:13:32Z
+    UpdatedAt = 2015-03-13T06:13:32Z
+[[pages]]
+  title = "about"
+  content = "## Tibi me excellentiam, viae re meque.\nMeo qui alis vim utilitatem me corporales recedimus ne ne ut det.\n\nEis aderat nominata subiugaverant cura eum nullam etiamne places me calciamentis recordationem tenent subtrahatur pro noe. Alexandrino videant ab doctrinae excellentiam vituperante ago quae psalmi me, vi inest oculi ecce oculus tot ita, da fueramus cur sacrificatori.\n\nTuetur nugatoriis tenebrae cura congesta tui confitear me noscendi, rogo his via sumus dicam ipsa cor adamavi. Factis da iubentem campis satis inter me faciunt. Vim urunt ut places ita alii nobis seu vicit lux, cor da me, voluit rogo.\n\nDa intra meum ita cor seu, re cor se pro. Visco te undique, re pax copia hac ne en altius me sat sibimet quibusdam. Aestimare nam non aderat sonos ne admittantur contra pollutum, manifestet cogitetur aer scio meque tu meo rei abstinentia. Re me vos regem tum copia nostrae te hac ipsa da hac qua, an corones sat spe.\n\n"
+  slug = "slug"
+  draft = false
+
+  [[pages.sections]]
+    Id = 2
+    PageId = 2
+    name = "About Us"
+    title = ""
+    phone = ""
+    photo = ""
+    email = ""
+    address = ""
+    body = ""
+    BodyHtml = ""
+    last_update = ""
+    CreatedAt = 2015-03-13T06:13:32Z
+    UpdatedAt = 2015-03-13T06:13:32Z
+
+  [[pages.sections]]
+    Id = 3
+    PageId = 2
+    name = "team"
+    title = "Our Team"
+    phone = ""
+    photo = ""
+    email = ""
+    address = ""
+    body = ""
+    BodyHtml = ""
+    last_update = ""
+    CreatedAt = 2015-03-13T06:13:32Z
+    UpdatedAt = 2015-03-13T06:13:32Z
+
+    [[pages.sections.subsections]]
+      name = "john Smith"
+      photo = ""
+      SectionId = 3
+      body = "Job title"
+      BodyHtml = ""
+      last_update = ""
+      CreatedAt = 2015-03-13T06:13:32Z
+      UpdatedAt = 2015-03-13T06:13:32Z
+
+    [[pages.sections.subsections]]
+      Id = 2
+      name = "john Smith"
+      photo = ""
+      SectionId = 3
+      body = "Job title"
+      BodyHtml = ""
+      last_update = ""
+      CreatedAt = 2015-03-13T06:13:32Z
+      UpdatedAt = 2015-03-13T06:13:32Z
+
+    [[pages.sections.subsections]]
+      Id = 3
+      name = "john Smith"
+      photo = ""
+      SectionId = 3
+      body = "Job title"
+      BodyHtml = ""
+      last_update = ""
+      CreatedAt = 2015-03-13T06:13:32Z
+      UpdatedAt = 2015-03-13T06:13:32Z
+
+[[pages]]
+  title = "blog"
+  content = "## A hi nuntiantibus anima plena.\nNe reddi ut ipsa insidiarum manus.\n\nVellemus fudi da miser pane ne, pro mei ambulent rei mirari peccatores conceptaculum reperiamus conor. Prece infirmitas lege amo fallere caritas cor dolorem sero vigilantem tenendi insania inest ago me cito fudi nam.\n\nAb da nec deo aliud impressum. Probet talibus me mundatior fama variando multique manu caro intime me cordibus sero cor nonne cor invidentes tempus fortitudinem ita e. Oblectandi qui cor flete est cor, fui me comes lassitudines me defrito at peritia se adsunt inest inter odium diebus viderunt.\n\nPost ceterarumque cor tale re captus tale agatur, rogo commemoro statuit ipse ea re scribentur sim prodeat ob ne suggestionum. Arbitratus pendenda receptaculis iniuste tibi agam sed elati se operum te manifestetur ne habitaculum reperiamus ita. Ea da olorem caput agam, aut pro, faciliter quaedam voluptas. Certo rogo ipsaque destruas donec piae hi gaudentes tam ago pro facere iube eodem pede hac, os lineas, re peccatores.\n\n"
+  slug = "slug"
+  draft = false
+
+  [[pages.sections]]
+    PageId = 3
+    name = "About Us"
+    title = "Post Title 1"
+    phone = ""
+    photo = "/img/slide-1.jpg"
+    email = ""
+    address = ""
+    body = "## hey yourSiteHere"
+    BodyHtml = ""
+    last_update = ""
+    CreatedAt = 2015-03-13T06:13:32Z
+    UpdatedAt = 2015-03-13T06:13:32Z
+
+  [[pages.sections]]
+    PageId = 3
+    name = "About Us"
+    title = "POST Title 2"
+    phone = ""
+    photo = "/img/slide-2.jpg"
+    email = ""
+    address = ""
+    body = "## hey yourSiteHere"
+    BodyHtml = ""
+    last_update = ""
+    CreatedAt = 2015-03-13T06:13:32Z
+    UpdatedAt = 2015-03-13T06:13:32Z
+
+  [[pages.sections]]
+    name = "About Us"
+    title = "POST Title 3"
+    phone = ""
+    photo = "/img/slide-3.jpg"
+    email = ""
+    address = ""
+    body = "## hey yourSiteHere"
+    BodyHtml = ""
+    last_update = ""
+    CreatedAt = 2015-03-13T06:13:32Z
+    UpdatedAt = 2015-03-13T06:13:32Z
+
+[[pages]]
+  title = "contact"
+  content = "## Lux an da, fui ab.\nSubduntur officia sudoris da ea hi opus domi atque en nam delet partes peccator intonas nosse subduntur ut cantarentur vix.\n\nPro gero atque amaritudo oportet cor secum fornax pro. Flexu re impium lux volito canto haec turpitudines vos nam acceptabilia.\n\nDelicta odor cadere lux qui. Positus sit anima modis, ea avaritiam. Sua defrito ab, ambulent cor a qua aliquo re nos gustandi deinde da ab sat pane luminibus hoc e quaesiveram ore.\n\nFecisti pecco contra oraremus rapit fudi sed. Pendenda das pro flete lascivos sectantur sine murmuravit misericordiae immaniter. Tenendi saepe diu rei in, aboleatur via, amatoribus misericors cor contra en ne vana me sat. Deseri meque nos num da benedicis ea agam tenebrae lux tua aer scio tu subduntur hominem talia.\n\n"
+  slug = "slug"
+  draft = false
+
+  [[pages.sections]]
+    name = ""
+    title = ""
+    phone = "123.456.7890"
+    photo = ""
+    email = "name@example.com"
+    address = "P.O Box 1190 mwanza Tanzania"
+    body = ""
+    BodyHtml = ""
+    last_update = ""
+    CreatedAt = 2015-03-13T06:13:32Z
+    UpdatedAt = 2015-03-13T06:13:32Z
+
+[params]
+  author = "lorratz ltd"
+  description = "3481 Melrose Place | Beverly Hills, CA 90210 | 123.456.7890"
+  background = "/img/intro-pic.jpg"
+  brand = "Lorratz"
+  CreatedAt = 2015-03-13T06:13:32Z
+  UpdatedAt = 2015-03-13T06:13:32Z
+
+  [[params.slides]]
+    path = "/img/slide-1.jpg"
+
+  [[params.slides]]
+    path = "/img/slide-2.jpg"
+
+  [[params.slides]]
+    path = "/img/slide-3.jpg"

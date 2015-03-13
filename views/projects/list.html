@@ -1,25 +1,28 @@
-<div class="container">
-    <div class="row">
-        {{ range .projects }}
-        <div class="col-md-4">
-            <div class="panel panel-success">
-                <div class="panel-heading">{{ .Name }}</div>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="/web/project/{{ .Id }}/delete"> delete</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/web/project/{{ .Id }}/update">update</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/web/project/{{ .Id }}/deploy">deploy</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/web/project/{{ .Id }}/preview">preview</a>
-                    </li>
-                </ul>
+<div class="home-section">
+    <div class="container">
+        <div class="row">
+            {{ range .projects }}
+            <div class="col-md-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">{{ .Name }}</div>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="/web/project/{{ .Id }}/delete"> delete</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/web/project/{{ .Id }}/update">update</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/web/project/{{ .Id }}/deploy">deploy</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/web/project/{{ .Id }}/preview">preview</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+            {{ end }}
         </div>
-        {{ end }}
     </div>
+
 </div>

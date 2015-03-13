@@ -32,7 +32,6 @@ type ProfileController struct {
 func (p *ProfileController) Edit() {
 	sess := p.ActivateContent("profile/edit")
 	flash := beego.NewFlash()
-	p.LayoutSections["JScripts"] = "jscript/editor.html"
 
 	if sess == nil {
 		flash.Error("you need to login inorder to update this page")
@@ -128,7 +127,6 @@ func (p *ProfileController) Edit() {
 func (p *ProfileController) Display() {
 	sess := p.ActivateContent("profile/display")
 	flash := beego.NewFlash()
-	p.LayoutSections["JScripts"] = "jscript/editor.html"
 
 	if sess == nil {
 		flash.Error("you need to login inorder to update this page")

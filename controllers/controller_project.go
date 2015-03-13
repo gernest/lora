@@ -89,13 +89,14 @@ func (p *ProjectController) NewProject() {
 			return
 		}
 		ps := &project
-		err = ps.GenContent()
-		if err != nil {
-			logThis.Debug("holly shit check this mess %s", err.Error())
-			flash.Error("some fish happened")
-			flash.Store(&p.Controller)
-			return
-		}
+		// Pending for removal
+		//err = ps.GenContent()
+		//if err != nil {
+		//	logThis.Debug("holly shit check this mess %s", err.Error())
+		//	flash.Error("some fish happened")
+		//	flash.Store(&p.Controller)
+		//	return
+		//}
 		project.SetBaseUrl()
 		// Set the base Url of the project
 
