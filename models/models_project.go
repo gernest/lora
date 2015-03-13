@@ -191,6 +191,16 @@ func (p *Project) SetBaseUrl() {
 	}
 
 }
+
+func(p *Project)SaveDataFiles()error{
+	for _,page:=range p.Pages {
+		if err:=page.SaveDataFile(p.ProjectPath);err!=nil {
+			return err
+		}
+		
+	}
+	return nil
+}
 func initializeProject(p *Project, base string, name string, template string, theme string) error {
 	var projectsDir, templatesDir string
 	projectsDir = beego.AppConfig.String("projectsDir")
