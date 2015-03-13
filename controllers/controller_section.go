@@ -65,10 +65,10 @@ func (s *SectonController) Update() {
 		n := &subSections[k]
 		n.Sanitize()
 	}
-	
+
 	section.Sanitize()
 	s.Data["section"] = &section
-	s.Data["subsections"]=&subSections
+	s.Data["subsections"] = &subSections
 
 	if s.Ctx.Input.Method() == "POST" {
 

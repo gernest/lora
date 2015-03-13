@@ -27,22 +27,22 @@ func (c *AdminController) Index() {
 		return
 	}
 	db.Find(&accounts)
-	for key:=range accounts {
-		v:=&accounts[key]
-		projects:=[]models.Project{}
-		profile:=models.Profile{}
-		
+	for key := range accounts {
+		v := &accounts[key]
+		projects := []models.Project{}
+		profile := models.Profile{}
+
 		// Check profile
 		db.First(&profile, v.ProfileId)
-		
+
 		// Check projects
 		db.Model(v).Related(&projects)
-		
+
 		// Attach objects to the account
-		v.Profile=profile
-		v.Projects=projects
+		v.Profile = profile
+		v.Projects = projects
 	}
-	c.Data["users"]=&accounts
+	c.Data["users"] = &accounts
 }
 
 func (c *AdminController) CreateAccounts() {}

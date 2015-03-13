@@ -36,14 +36,19 @@ func Rebuild(p *models.Page) error {
 	db, err := models.Conn()
 	defer db.Close()
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
 		return err
 	}
 	err = db.Find(project, p.ProjectId).Error
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
+
 		return err
 	}
 	err = project.LoadConfigFile()
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
+
 		return err
 	}
 	for k := range project.Pages {
@@ -73,18 +78,26 @@ func Rebuild(p *models.Page) error {
 	}
 	err = project.SaveConfigFile()
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
+
 		return err
 	}
 	err = project.GenContent()
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
+
 		return err
 	}
 	err = project.SaveDataFiles()
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
+
 		return err
 	}
 	err = project.Build()
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
+
 		return err
 	}
 	logThis.Success(" *** done  building %s***", p.Title)

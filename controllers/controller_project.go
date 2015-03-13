@@ -89,18 +89,26 @@ func (p *ProjectController) NewProject() {
 			return
 		}
 		ps := &project
-		// Pending for removal
-		//err = ps.GenContent()
-		//if err != nil {
-		//	logThis.Debug("holly shit check this mess %s", err.Error())
-		//	flash.Error("some fish happened")
-		//	flash.Store(&p.Controller)
-		//	return
-		//}
-		project.SetBaseUrl()
+		err = ps.GenContent()
+		if err != nil {
+			logThis.Debug("holly shit check this mess %s", err.Error())
+			flash.Error("some fish happened")
+			flash.Store(&p.Controller)
+			return
+		}
 		// Set the base Url of the project
+		project.SetBaseUrl()
+
+		err = project.SaveConfigFile()
+		if err != nil {
+			logThis.Debug("holly shit check this mess %s", db.Error)
+			flash.Error("some fish happened sorry")
+			flash.Store(&p.Controller)
+			return
+		}
 
 		err = ps.SaveConfigFile()
+
 		if err != nil {
 			logThis.Debug("holly shit check this mess %s", db.Error)
 			flash.Error("some fish happened sorry")
@@ -157,6 +165,7 @@ func (p *ProjectController) Remove() {
 	}
 	logThis.Info("project id is ", projectID)
 	p.Data["projectId"] = projectID
+	p.Data["Title"]="Deleting Your Website"
 
 	if p.Ctx.Input.Method() == "POST" {
 
