@@ -40,7 +40,7 @@ Dont forget to chance content of the file `conf/app.conf` to suit your settings.
 Instructions for installing godep can be found [here](https://github.com/tools/godep)
 
 
-
+Fork it, play nice with it!
 
 
 # Author
