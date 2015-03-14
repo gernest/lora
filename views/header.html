@@ -4,102 +4,141 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="keywords" content="">
     <meta name="description" content="A Simple Business Friendly, cloud based Website Solution">
+    <meta name="author" content="geofrey ernest" />
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <![endif]-->
     {{ if .Title }}
     <title>{{ .Title }}</title>
     {{ end }}
     <title> Lora: Oh, the sweet like website solution </title>
-    <link rel="shortcut icon" href="/static/img/favicon.png" />
-    <link rel="stylesheet" href="/static/css/vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/css/vendors/normalize.css">
-    <link rel="stylesheet" href="/static/css/vendors/skeleton.css">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/vendors/trumbowyg.min.css">
-    <script src="/static/js/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/fontawesome/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/ionicons.css">
+    <link rel="stylesheet" href="/static/js/lightwave/source/jquery.fancybox.css">
+    <link rel="stylesheet" href="/static/css/lightwave/animations.min.css">
+    <link rel="stylesheet" href="/static/css/lightwave/style-green.css">
+    <link rel="stylesheet" href="/static/editor/summernote.css">
+    <link rel="stylesheet" href="/static/css/lorastyle.css">
+    <script src="/static/js/jquery.js"></script>
+    <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
-<body>
-<!--Navigation-->
-<div class="container">
-    <div class="row">
-        <div class="twelve columns">
-            <div class="navbar">
-                    <a href="/" class="title">
-                        <span>l</span><span>o</span><span>r</span><span>a</span>
-                    </a>
-                <ul class="nav">
-                    <li>
-                        <a href="/"><i class="fa fa-home"></i> home</a>
-                    </li>
+<body data-spy="scroll" data-target="#menu-section">
 
-                    {{ if .InSession }}
-                    <li>
-                        <a href="/services">explore</a>
-                    </li>
-                    <li>
-                        <a href="/help" class="nav-link-primary"><i class="fa fa-support"></i> help</a>
-                    </li>
-                    <li>
-                        <a href="/terms">terms</a>
-                    </li>
-                        <li>
-                    <a href="/accounts" class="thumbnail">
-                        <img src="{{.avatar.Thumbnail}}">
+<body data-spy="scroll" data-target="#menu-section">
+<!--MENU SECTION START-->
+<div class="navbar navbar-inverse navbar-fixed-top scroll-me" id="menu-section">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <span class="brand">lora</span><span class="brand-sub">Platform</span>
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {{ if .InSession }}
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="#home">HOME</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="/site/pages/help"> help</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="/site/pages/terms">terms</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="/web/accounts" class="avatar">
+                        <!--suppress HtmlUnknownTarget -->
+                        <img src="{{.avatar.Photo}}">
                         <span>{{ .acc.UserName }}</span>
                     </a>
-                        </li>
+                </li>
 
-                    <li>
-                           <a href="/accounts/logout" ><i class="fa fa-sign-out"></i> logout</a>
-                       </li>
-                    {{ else }}
-                    <li>
-                        <a href="/services">services</a>
-                    </li>
-                    <li>
-                        <a href="/pricing" class="nav-link-primary"><i class="fa fa-dollar"></i> pricing</a>
-                    </li>
-                    <li>
-                        <a href="/contacts"><i class="fa fa-phone"></i> contacts</a>
-                    </li>
-                    <li>
-                        <a href="/accounts/register"><i class="fa fa-sign"></i> SIGN UP</a>
-                    </li>
-                    <li>
-                        <a href="/accounts/login"><i class="fa fa-sign-in"></i> LOGIN</a>
-                    </li>
-                        {{ end }}
-                </ul>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="/web/accounts/logout" > logout</a>
+                </li>
+                {{ else }}
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="#home">HOME</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="#services">FEATURES</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="#contacts">contacts</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="/web/accounts/register">SIGN UP</a>
+                </li>
+                <li>
+                    <!--suppress HtmlUnknownTarget, HtmlUnknownTarget, HtmlUnknownTarget -->
+                    <a href="/web/accounts/login"> LOGIN</a>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+
+    </div>
+</div>
+<!--MENU SECTION END-->
+{{ if .InSession }}
+<div class="notice-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {{ if .notice }}
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Hey !</strong>{{ .notice }}
+                </div>
+                {{ end }}
+                {{ if .flash.error }}
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Hey !</strong>{{ .flash.error }}
+                </div>
+                {{ end }}
+
+                {{ if .flash.warning }}
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Hey !</strong>{{ .flash.warning }}
+                </div>
+                {{ end }}
+
             </div>
         </div>
     </div>
 </div>
-<!--end of navigation-->
-<div class="container">
-    <div class="row">
-        <div class="twelve columns">
-            {{ if .notice }}
-            <div class="flash">
-                <p class="notice">
-                    {{ .notice }}
-                </p>
+{{ if .Title }}
+<div class="title-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center text-capitalize">{{ .Title }}</h1>
             </div>
-            {{ end }}
-            {{ if .flash.error }}
-            <div class="flash">
-                <p class="error">
-                    {{ .flash.error }}
-                </p>
-            </div>
-            {{ end }}
-
-            {{ if .flash.warning }}
-            <div class="flash">
-                <p class="error">
-                    {{ .flash.warning }}
-                </p>
-            </div>
-            {{ end }}
-
         </div>
     </div>
 </div>
+{{ end }}
+{{ end }}

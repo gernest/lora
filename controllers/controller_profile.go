@@ -18,7 +18,6 @@ import (
 	"fmt"
 	"net/http"
 	"path/filepath"
-	"strings"
 
 	"github.com/astaxie/beego/validation"
 
@@ -33,7 +32,6 @@ type ProfileController struct {
 func (p *ProfileController) Edit() {
 	sess := p.ActivateContent("profile/edit")
 	flash := beego.NewFlash()
-	p.LayoutSections["JScripts"] = "jscript/editor.html"
 
 	if sess == nil {
 		flash.Error("you need to login inorder to update this page")
@@ -47,7 +45,7 @@ func (p *ProfileController) Edit() {
 	db, err := models.Conn()
 	defer db.Close()
 	if err != nil {
-		flash.Error("Whacko opening the database")
+		flash.Error("We encountered some problems, please try again later")
 		flash.Store(&p.Controller)
 		return
 	}
@@ -66,31 +64,27 @@ func (p *ProfileController) Edit() {
 	}
 	p.Data["user"] = &a
 	p.Data["profile"] = &profile
+	p.Data["Title"] = "Edit Profile"
 
 	if p.Ctx.Input.Method() == "POST" {
 		company := p.GetString("company")
 		phone := p.GetString("phone")
-		uForm := models.UserForm{Company: company}
-		uProfile := models.UserProfileForm{Phone: phone}
-		uploadsDir := beego.AppConfig.String("uploadsDir")
+		uProfile := models.UserProfileForm{
+			Company: company,
+			Phone:   phone,
+		}
 
-		v1 := validation.Validation{}
-		v2 := validation.Validation{}
+		uploadsDir := beego.AppConfig.String("uploadsDir")
 		errMap := make(map[string]string)
-		if b, _ := v1.Valid(&uForm); !b {
-			for _, err := range v1.Errors {
-				s := strings.Split(err.Key, ".")
-				fmt.Println(s)
-				errMap[s[0]] = err.Message
+
+		valid := validation.Validation{}
+		if b, _ := valid.Valid(&uProfile); !b {
+
+			for _, v := range valid.Errors {
+				errMap[v.Field] = v.Message
 			}
 		}
-		if b, _ := v2.Valid(&uProfile); !b {
-			for _, err := range v2.Errors {
-				s := strings.Split(err.Key, ".")
-				errMap[s[0]] = err.Message
-			}
-		}
-		
+
 		// Handle profile picture upload
 		// If no file is chosen log and ignore
 		// returning other errors
@@ -107,23 +101,23 @@ func (p *ProfileController) Edit() {
 			logThis.Debug("Filename *%s* fileHead *%s*", fileHeader.Filename, fileHeader.Header)
 			fileDestination := filepath.Join(uploadsDir, fileHeader.Filename)
 			logThis.Debug("destination is %s", fileDestination)
-			err = p.SaveToFile("profilePicture", fileDestination)
 
-			if err != nil {
+			if err = p.SaveToFile("profilePicture", fileDestination); err != nil {
 				logThis.Debug("Trouble Saving pic %v", err)
 			}
+
 			profile.Photo = "/" + fileDestination
 		}
 
 		if len(errMap) != 0 {
-			p.Data["Errors"] = errMap
+			p.Data["FormErrors"] = errMap
 			return
 		}
 		a.Company = company
 		profile.Phone = phone
 		db.Save(a)
 		db.Save(&profile)
-		
+
 		// Build a url leading back to profile view page
 		profileViewPath := fmt.Sprintf("/web/accounts/profile/%d/view", profile.Id)
 		p.Redirect(profileViewPath, 302)
@@ -133,7 +127,6 @@ func (p *ProfileController) Edit() {
 func (p *ProfileController) Display() {
 	sess := p.ActivateContent("profile/display")
 	flash := beego.NewFlash()
-	p.LayoutSections["JScripts"] = "jscript/editor.html"
 
 	if sess == nil {
 		flash.Error("you need to login inorder to update this page")
@@ -151,7 +144,7 @@ func (p *ProfileController) Display() {
 		flash.Store(&p.Controller)
 		return
 	}
-	a :=sess["account"].(*models.Account)
+	a := sess["account"].(*models.Account)
 	err = db.First(&profile, profileID).Error
 	if err != nil {
 		flash.Error("WHacko ", err)
@@ -163,10 +156,7 @@ func (p *ProfileController) Display() {
 		flash.Store(&p.Controller)
 		return
 	}
-	lora := models.NewLoraObject()
-	lora.Add(*a)
-	lora.Add(profile)
 	p.Data["user"] = a
 	p.Data["profile"] = &profile
-	p.Data["lora"] = lora
+	p.Data["Title"] = "Profile"
 }

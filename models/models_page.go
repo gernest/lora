@@ -16,8 +16,10 @@ package models
 
 import (
 	"bytes"
+	"fmt"
 	"html/template"
 	"io/ioutil"
+	"os"
 
 	"path/filepath"
 	"time"
@@ -37,15 +39,24 @@ func (p *Page) LastUpdate() string {
 // Generate creates a markdown file for the given page
 func (p *Page) Generate(project *Project) error {
 	var fm string
-	contentPath := filepath.Join(project.ProjectPath, "content")
-	contentFile := p.Title + "/" + p.Title + ".md"
+	contentPath := filepath.Join(project.ProjectPath, fmt.Sprintf("content/%s", p.Title))
+	info, err := os.Stat(project.ProjectPath)
+	if err != nil {
+		return err
+	}
+	err = os.MkdirAll(contentPath, info.Mode())
+	if err != nil {
+		return err
+	}
+
+	contentFile := p.Title + ".md"
 	pageFilePath := filepath.Join(contentPath, contentFile)
 	content := p.Content
 
 	buf := new(bytes.Buffer)
 	fullPage := new(bytes.Buffer)
 	p.Content = ""
-	err := toml.NewEncoder(buf).Encode(&p)
+	err = toml.NewEncoder(buf).Encode(&p)
 	if err != nil {
 		clean := project.Clean()
 		if clean != nil {
@@ -67,10 +78,44 @@ func (p *Page) Generate(project *Project) error {
 		return err
 	}
 	p.ContentPath = pageFilePath
+	err = p.SaveDataFile(project.ProjectPath)
+	if err != nil {
+		clean := project.Clean()
+		if clean != nil {
+			return clean
+		}
+		return err
+	}
 	return nil
 
 }
 
+func (p *Page) SaveDataFile(dest string) error {
+	datatPath := filepath.Join(dest, fmt.Sprintf("data/%s", p.Title))
+	info, err := os.Stat(dest)
+	if err != nil {
+		return err
+	}
+	err = os.MkdirAll(datatPath, info.Mode())
+	if err != nil {
+		logThis.Debug("Trouble %v", err)
+		return err
+	}
+	contentFile := p.Title + ".toml"
+	dataFilePath := filepath.Join(datatPath, contentFile)
+
+	buf := new(bytes.Buffer)
+	err = toml.NewEncoder(buf).Encode(&p)
+	if err != nil {
+		return err
+	}
+	err = ioutil.WriteFile(dataFilePath, buf.Bytes(), 0660)
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
 func frontmatter(s string) string {
 	separator := "+++"
 	buf := new(bytes.Buffer)

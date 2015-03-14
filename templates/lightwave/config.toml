@@ -1,0 +1,45 @@
+title = "lora light wave"
+templateName = "lightwave"
+publishDir = "www"
+[[pages]]
+  title = "home"
+  content = "## Cor tot desuper meo distorta.\nDepromi affectu at hi sua captus carthaginem me mutant.\n\nPericulo me nam, lux tam tibi cor seu demonstrasti amo periculosa. Deo da tobis dixi ea prece, agatur caro infirmitas aut da ita humana.\n\nNota laude actionibus nescio cor tria odoratus delectat ita. Moderatum vi plena subditus mearum hoc piae quam consuevit exemplo varias evacuaret re re impium. Attamen re direxi hymno ab oboritur video pro re.\n\nEa quibusdam gero, facere, ita per e munerum principes gustandi talia. Contra dicentem sonuerit tot humana hi pro sapientiae rei fit adsurgere pecco laetandis os radiavit. Diligi dici ita ipsa veritatem te. Me at iugo putem dabis pater en, enim nec mavult re.\n\n"
+  slug = "slug"
+  draft = false
+
+  [[pages.sections]]
+    name = "section-1"
+    title = "Build a Website worthy visiting"
+
+[[pages]]
+  title = "about"
+  content = "## Tibi me excellentiam, viae re meque.\nMeo qui alis vim utilitatem me corporales recedimus ne ne ut det.\n\nEis aderat nominata subiugaverant cura eum nullam etiamne places me calciamentis recordationem tenent subtrahatur pro noe. Alexandrino videant ab doctrinae excellentiam vituperante ago quae psalmi me, vi inest oculi ecce oculus tot ita, da fueramus cur sacrificatori.\n\nTuetur nugatoriis tenebrae cura congesta tui confitear me noscendi, rogo his via sumus dicam ipsa cor adamavi. Factis da iubentem campis satis inter me faciunt. Vim urunt ut places ita alii nobis seu vicit lux, cor da me, voluit rogo.\n\nDa intra meum ita cor seu, re cor se pro. Visco te undique, re pax copia hac ne en altius me sat sibimet quibusdam. Aestimare nam non aderat sonos ne admittantur contra pollutum, manifestet cogitetur aer scio meque tu meo rei abstinentia. Re me vos regem tum copia nostrae te hac ipsa da hac qua, an corones sat spe.\n\n"
+  slug = "slug"
+  draft = false
+
+  [[pages.sections]]
+    name = "About Us"
+  [[pages.sections]]
+    name = "team"
+    title = "Our Team"
+    phone = ""
+
+
+    [[pages.sections.subsections]]
+      name = "john Smith"
+
+    [[pages.sections.subsections]]
+      name = "john Smith"
+
+
+    [[pages.sections.subsections]]
+      name = "john Smith"
+      photo = ""
+      body = "Job title"
+
+[[pages]]
+  title = "contact"
+  content = "## Lux an da, fui ab.\nSubduntur officia sudoris da ea hi opus domi atque en nam delet partes peccator intonas nosse subduntur ut cantarentur vix.\n\nPro gero atque amaritudo oportet cor secum fornax pro. Flexu re impium lux volito canto haec turpitudines vos nam acceptabilia.\n\nDelicta odor cadere lux qui. Positus sit anima modis, ea avaritiam. Sua defrito ab, ambulent cor a qua aliquo re nos gustandi deinde da ab sat pane luminibus hoc e quaesiveram ore.\n\nFecisti pecco contra oraremus rapit fudi sed. Pendenda das pro flete lascivos sectantur sine murmuravit misericordiae immaniter. Tenendi saepe diu rei in, aboleatur via, amatoribus misericors cor contra en ne vana me sat. Deseri meque nos num da benedicis ea agam tenebrae lux tua aer scio tu subduntur hominem talia.\n\n"
+  slug = "slug"
+  draft = false
+

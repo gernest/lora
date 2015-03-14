@@ -1,0 +1,18 @@
+ /*---------------------------*
+   brand
+  *--------------------------*/
+
+ .brand{
+     text-transform: uppercase;
+     font-weight: 900;
+     letter-spacing: 2px;
+     color: #ffffff;
+     margin: auto;
+ }
+
+ .brand-sub{
+     color: #ffffff;
+     font-weight: 200;
+     letter-spacing: 1px;
+     padding: 0 4px;
+ }

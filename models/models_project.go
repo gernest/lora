@@ -191,6 +191,17 @@ func (p *Project) SetBaseUrl() {
 	}
 
 }
+
+func(p *Project)SaveDataFiles()error{
+	for _,page:=range p.Pages {
+		if err:=page.SaveDataFile(p.ProjectPath);err!=nil {
+			logThis.Debug("Trouble %v", err)
+			return err
+		}
+		
+	}
+	return nil
+}
 func initializeProject(p *Project, base string, name string, template string, theme string) error {
 	var projectsDir, templatesDir string
 	projectsDir = beego.AppConfig.String("projectsDir")
@@ -268,4 +279,14 @@ func installTemplate(p *Project, templatename string, theme string) error {
 	p.Template = templatename
 	p.Theme = theme
 	return nil
+}
+
+func getLocalHost() string {
+	port := beego.AppConfig.String("httpport")
+	if port == "" {
+		return ""
+	}
+	host := "localhost"
+	scheme := fmt.Sprintf("http://%s:%s", host, port)
+	return scheme
 }

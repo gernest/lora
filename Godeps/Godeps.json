@@ -1,0 +1,88 @@
+{
+	"ImportPath": "github.com/gernest/lora",
+	"GoVersion": "go1.3.3",
+	"Deps": [
+		{
+			"ImportPath": "bitbucket.org/kardianos/osext",
+			"Comment": "null-15",
+			"Rev": "44140c5fc69ecf1102c5ef451d73cd98ef59b178"
+		},
+		{
+			"ImportPath": "code.google.com/p/go.crypto/bcrypt",
+			"Comment": "null-231",
+			"Rev": "88f995681294397936c136182f54e1f6891db323"
+		},
+		{
+			"ImportPath": "code.google.com/p/go.crypto/blowfish",
+			"Comment": "null-231",
+			"Rev": "88f995681294397936c136182f54e1f6891db323"
+		},
+		{
+			"ImportPath": "github.com/1l0/identicon",
+			"Rev": "16c9a8c4394055e6b92f171f739fa1df4c9d2ef9"
+		},
+		{
+			"ImportPath": "github.com/BurntSushi/toml",
+			"Comment": "v0.1.0-9-g3883ac1",
+			"Rev": "3883ac1ce943878302255f538fce319d23226223"
+		},
+		{
+			"ImportPath": "github.com/agtorre/gocolorize",
+			"Rev": "f42b554bf7f006936130c9bb4f971afd2d87f671"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego",
+			"Comment": "v1.4.2",
+			"Rev": "07c628c7e9f813efc3f7e1785f667e08f2340d53"
+		},
+		{
+			"ImportPath": "github.com/codegangsta/inject",
+			"Comment": "v1.0-rc1-4-g4b81725",
+			"Rev": "4b8172520a03fa190f427bbd284db01b459bfce7"
+		},
+		{
+			"ImportPath": "github.com/codeskyblue/go-sh",
+			"Comment": "v0.1-26-g7a1ecf3",
+			"Rev": "7a1ecf31d357d6725db2110109de1795a5b4b14a"
+		},
+		{
+			"ImportPath": "github.com/drhodes/golorem",
+			"Rev": "6e38d8d5e45580c1715d4dc7e4808be379788a2e"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/gorm",
+			"Rev": "a29ac54e484be3c027d28090b59118be79dd4864"
+		},
+		{
+			"ImportPath": "github.com/kr/pretty",
+			"Comment": "go.weekly.2011-12-22-24-gf31442d",
+			"Rev": "f31442d60e51465c69811e2107ae978868dbea5c"
+		},
+		{
+			"ImportPath": "github.com/kr/text",
+			"Rev": "6807e777504f54ad073ecef66747de158294b639"
+		},
+		{
+			"ImportPath": "github.com/lib/pq",
+			"Rev": "7175accbed18058468c07811f76440d6e8d7cf19"
+		},
+		{
+			"ImportPath": "github.com/microcosm-cc/bluemonday",
+			"Rev": "fcd0f5074e55df204568c7419509fb59ddcad228"
+		},
+		{
+			"ImportPath": "github.com/russross/blackfriday",
+			"Comment": "v1.2-27-gf10a439",
+			"Rev": "f10a439fa0de041047d06b686fa5e056bee024b7"
+		},
+		{
+			"ImportPath": "github.com/shurcooL/go/github_flavored_markdown/sanitized_anchor_name",
+			"Rev": "86f96ac7292d298d9bc82341e1792069d70d2c6d"
+		},
+		{
+			"ImportPath": "golang.org/x/net/html",
+			"Comment": "null-240",
+			"Rev": "937a34c9de13c766c814510f76bca091dee06028"
+		}
+	]
+}

@@ -21,46 +21,43 @@ import (
 	"math/rand"
 	"path/filepath"
 
-	"github.com/gernest/lora/imgr"
+	"github.com/astaxie/beego"
 
 	"bitbucket.org/kardianos/osext"
 	"github.com/1l0/identicon"
 )
 
 func (p *Profile) GenerateIdenticon(base, s string) error {
+	var (
+		gPath           string
+		identiconPath   string
+		defaultIconPath string
+		link            string
+	)
+
 	id := identicon.New()
-	gPath := pathToProfilePics(base)
+	identiconPath = beego.AppConfig.String("identiconsPath")
+	defaultIconPath = "static/img/identicons"
+	baseDir, _ := osext.ExecutableFolder()
+
 	name := getHashName(s)
+
+	gPath = filepath.Join(baseDir, identiconPath)
+	link = fmt.Sprintf("/%s/%s.png", identiconPath, name)
+
+	if identiconPath == "" {
+		gPath = filepath.Join(base, defaultIconPath)
+		link = fmt.Sprintf("/%s/%s.png", defaultIconPath, name)
+	}
+
 	saveTo := filepath.Join(gPath, name)
-	link := fmt.Sprintf("/static/profile/%s.png", name)
-	err := generateProfileImg(id, saveTo)
-	if err != nil {
+
+	if err := generateProfileImg(id, saveTo); err != nil {
 		return err
 	}
+
 	p.Photo = link
-	src := fmt.Sprintf("%s/%s.png", gPath, name)
-	return p.geenerateThumbnail(src, name, 100, 100)
-
-}
-func (p *Profile) geenerateThumbnail(src, name string, width, height int) error {
-	thumb := &imgr.Thumbnails{}
-	err := thumb.CreateThumbnail(src, filepath.Dir(src), width, height)
-	if err != nil {
-		return err
-	}
-	p.Thumbnail = fmt.Sprintf("/static/profile/%s_thumbnail.png", name)
 	return nil
-
-}
-func pathToProfilePics(base string) string {
-	var basePath string
-	if base == "" {
-		basePath, _ = osext.ExecutableFolder()
-		return filepath.Join(basePath, "static/profile")
-	}
-	basePath = base
-	return filepath.Join(basePath, "static/profile")
-
 }
 
 func getHashName(s string) string {

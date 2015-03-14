@@ -15,6 +15,7 @@
 package controllers
 
 import (
+	"fmt"
 	"path/filepath"
 
 	"github.com/astaxie/beego"
@@ -42,6 +43,7 @@ func (p *ProjectController) NewProject() {
 
 	p.Data["themeList"] = &themes
 	p.Data["templateList"] = &templates
+	p.Data["Title"] = "Creating a new Website"
 
 	if p.Ctx.Input.Method() == "POST" {
 
@@ -94,8 +96,19 @@ func (p *ProjectController) NewProject() {
 			flash.Store(&p.Controller)
 			return
 		}
+		// Set the base Url of the project
 		project.SetBaseUrl()
+
+		err = project.SaveConfigFile()
+		if err != nil {
+			logThis.Debug("holly shit check this mess %s", db.Error)
+			flash.Error("some fish happened sorry")
+			flash.Store(&p.Controller)
+			return
+		}
+
 		err = ps.SaveConfigFile()
+
 		if err != nil {
 			logThis.Debug("holly shit check this mess %s", db.Error)
 			flash.Error("some fish happened sorry")
@@ -152,6 +165,7 @@ func (p *ProjectController) Remove() {
 	}
 	logThis.Info("project id is ", projectID)
 	p.Data["projectId"] = projectID
+	p.Data["Title"]="Deleting Your Website"
 
 	if p.Ctx.Input.Method() == "POST" {
 
@@ -276,7 +290,6 @@ func (p *ProjectController) Update() {
 		beego.Info("Whaacko %s", err)
 	}
 
-	lora := models.NewLoraObject()
 	project := models.Project{}
 	pages := []models.Page{}
 	param := models.Param{}
@@ -309,13 +322,11 @@ func (p *ProjectController) Update() {
 	db.First(&param, project.ParamId)
 
 	project.Param = param
-	lora.Add(pages)
-	lora.Add(project)
-	p.Data["lora"] = lora
+	p.Data["project"] = &project
+	p.Data["pages"] = &pages
+	p.Data["Title"] = project.Name
 
 	if p.Ctx.Input.Method() == "POST" {
-
-		// TODO: cleanup this mess and add validtion
 		projectTitle := p.GetString("projectTitle")
 		paramsAuthor := p.GetString("paramAuthor")
 		paramDescription := p.GetString("paramDescription")
@@ -367,9 +378,72 @@ func (p *ProjectController) Update() {
 }
 
 // Deploy prepares and pushes the project to the cloud
-// TODO
 func (p *ProjectController) Deploy() {
-	p.ActivateView("notyet")
+	flash := beego.NewFlash()
+	sess := p.ActivateContent("projects/deploy")
+	p.SetNotice()
+	if sess == nil {
+		flash.Error("You need to login to access this page")
+		flash.Store(&p.Controller)
+		beego.Info("Session not set yet")
+		p.Redirect("/accounts/login", 302)
+		return
+
+	}
+	projectID, err := p.GetInt64(":id")
+	if err != nil {
+		flash.Error("Problem dude")
+		flash.Store(&p.Controller)
+		return
+	}
+
+	a := sess["account"].(*models.Account)
+	project := models.Project{}
+	projects := []models.Project{}
+
+	db, err := models.Conn()
+	if err != nil {
+		flash.Error("Problem dude")
+		flash.Store(&p.Controller)
+		return
+	}
+	if db.First(&project, projectID).Error != nil {
+		flash.Error("Problem dude")
+		flash.Store(&p.Controller)
+		return
+	}
+	db.Model(&a).Related(&projects)
+
+	domain := beego.AppConfig.String("domainName")
+	baseURL := fmt.Sprintf("%s://%s.%s", p.Ctx.Input.Scheme(), project.Name, domain)
+
+	logThis.Info("Deploying at %s", baseURL)
+
+	if err := project.LoadConfigFile(); err != nil {
+		flash.Error("Problem dude")
+		flash.Store(&p.Controller)
+		return
+	}
+	project.BaseUrl = baseURL
+
+	if db.Save(&project).Error != nil {
+		flash.Error("Problem dude")
+		flash.Store(&p.Controller)
+		return
+	}
+	if err := project.SaveConfigFile(); err != nil {
+		flash.Error("Problem dude")
+		flash.Store(&p.Controller)
+		return
+	}
+	if err := project.Build(); err != nil {
+		flash.Error("Problem dude")
+		flash.Store(&p.Controller)
+		return
+	}
+	logThis.Success("Finished deployment")
+	p.Data["project"] = &project
+	p.Data["Title"] = fmt.Sprintf("Deploying %s", project.Name)
 }
 
 func (p *ProjectController) List() {
@@ -386,7 +460,6 @@ func (p *ProjectController) List() {
 	}
 	a := sess["account"].(*models.Account)
 
-	lora := models.NewLoraObject()
 	projects := []models.Project{}
 
 	db, err := models.Conn()
@@ -398,6 +471,6 @@ func (p *ProjectController) List() {
 		return
 	}
 	db.Model(a).Related(&projects)
-	lora.Add(projects)
-	p.Data["lora"] = lora
+	p.Data["projects"] = &projects
+	p.Data["Title"] = "List of my websites"
 }

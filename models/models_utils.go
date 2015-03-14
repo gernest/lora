@@ -230,13 +230,3 @@ func getResourceList(s, location string) ([]string, error) {
 	sort.Sort(sort.StringSlice(resourceList)) //Sort the list
 	return resourceList, nil
 }
-
-func getLocalHost() string {
-	port := beego.AppConfig.String("httpport")
-	if port == "" {
-		return ""
-	}
-	host := "localhost"
-	scheme := fmt.Sprintf("http://%s:%s", host, port)
-	return scheme
-}

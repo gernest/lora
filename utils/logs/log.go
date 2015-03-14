@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/agtorre/gocolorize"
+	"github.com/kr/pretty"
 )
 
 const (
@@ -75,6 +76,11 @@ func (l *LoraLog) Event(format string, a ...interface{}) {
 	s := fmt.Sprintf(format, a...)
 	logThis(EVENT, s)
 }
+
+func (l *LoraLog) Dump(a ...interface{}) {
+	pretty.Logln(a...)
+}
+
 func colorize(s, color string) string {
 	c := gocolorize.NewColor(color)
 	return c.Paint(s)

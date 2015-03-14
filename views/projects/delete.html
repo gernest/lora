@@ -1,20 +1,29 @@
-<div class="container">
-    <div class="row">
-        <div class="two columns"></div>
-        <div class="six columns">
-            <div class="delete-section">
-               <form method="post" action="/web/project/{{ .projectId }}/delete" class="pure-form">
-                    <p>
-                        Type the name of your website in the box and click delete
-                    </p>
-                    <input type="text" name="projectName" placeholder="website name">
-                    <button type="submit" class="button button-flat button-primary">
-                        delete
-                    </button>
-                </form>
+
+<div class="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-push-2">
+                <div class="lora-form">
+                    <form method="post" class="form-horizontal" action="/web/project/{{ .projectId }}/delete">
+                        <div class="form-group">
+                            <label for="password" class="control-label col-sm-2">website name</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="projectName"  class="form-control" placeholder="website name">
+                                {{ if .FormErrors.Password }}
+                                <span class="form-message">{{ .FormErrors.Password}}</span>
+                                {{ end}}
+                            </div>
+                        </div>
+                        <div class="pure-controls">
+                            <div class="col-sm-8 col-sm-push-2">
+                                <button type="submit" class="btn btn-primary">
+                                    delete
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+            </div>
         </div>
     </div>
 </div>
-
-

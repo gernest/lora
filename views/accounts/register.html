@@ -1,56 +1,68 @@
-<div class="container">
-    <div class="row">
-        <div class="six columns">
-            <form method="POST" class=" ">
-                <legend>
-                    Sign Up
-                </legend>
-                <fieldset>
-                    <div class="">
-                        <label for="last">username</label>
-                        <input type="text" name="userName" placeholder="User Name">
-                        {{ if .Errors.Company}}
-                        <aside class="form-message">{{ .Errors.Company}}</aside>
-                        {{ end }}
-                    </div>
-                    <div class="">
-                        <label for="last">Company Name</label>
-                        <input type="text" name="company" placeholder="Company Name">
-                        {{ if .Errors.Company}}
-                        <aside class="form-message">{{ .Errors.Company}}</aside>
-                        {{ end }}
-                    </div>
-                    <div class="">
-                        <label for="email">Email Address</label>
-                        <input type="email" name="email" placeholder="youremail@example.com">
-                        {{ if .Errors.Email}}
-                        <aside class="form-message">{{ .Errors.Email}}</aside>
-                        {{ end }}
-                    </div>
-                    <div class="">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" placeholder="Password">
-                        {{ if .Errors.Password}}
-                        <aside class="form-message">{{ .Errors.Password}}</aside>
-                        {{ end }}
-                    </div>
-                    <div class="">
-                        <label for="password2">Retype Password</label>
-                        <input name="password2" type="password" placeholder="confirm password">
-                        {{ if .Errors.Confirm}}
-                        <aside class="form-message">{{ .Errors.Confirm}}</aside>
-                        {{ end }}
-                    </div>
-                    <div class="">
-                        <label for="cb" class="">
-                            <input id="cb" type="checkbox" checked="checked" value="1" name="cb"> <a href="/site/pages/terms">I've read
-                            the terms and conditions</a>
-                        </label>
+<div class="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-push-2">
+                <div class="lora-form">
+                    <form method="POST" class="form-horizontal ">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="username" class="control-label col-sm-2">username</label>
+                                <div class="col-sm-5">
+                                    <input type="text" name="userName"  class="form-control" placeholder="User Name">
+                                    {{ if .FormErrors.UserName }}
+                                    <span class="form-message">{{ .FormErrors.UserName}}</span>
+                                    {{ end}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyname" class="control-label col-sm-2">Company </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="companyname" class="form-control" name="company" placeholder="Company Name">
+                                    {{ if .FormErrors.Company }}
+                                    <span class="form-message">{{ .FormErrors.Company}}</span>
+                                    {{ end}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email2" class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-5">
+                                    <input type="email" id="email2" name="email" class="form-control" placeholder="youremail@example.com">
+                                    {{ if .FormErrors.Email }}
+                                    <span class="form-message">{{ .FormErrors.Email}}</span>
+                                    {{ end}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="control-label col-sm-2">Password</label>
+                                <div class="col-sm-5">
+                                    <input type="password" id="password" class="form-control" name="password" placeholder="Password">
+                                    {{ if .FormErrors.Password }}
+                                    <span class="form-message">{{ .FormErrors.Password}}</span>
+                                    {{ end}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password2" class="col-sm-2 control-label">Retype Password</label>
+                                <div class="col-sm-5">
+                                    <input name="password2" id="password2" class="form-control" type="password" placeholder="confirm password">
+                                    {{ if .FormErrors.ConfirmPassword }}
+                                    <span class="form-message">{{ .FormErrors.ConfirmPassword}}</span>
+                                    {{ end}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                    <label for="cb" class="control-label col-sm-8">
+                                        <input id="cb" type="checkbox" checked="checked" value="1" name="cb">
+                                        <a href="/site/pages/terms">I've read the terms and conditions</a>
+                                        <button type="submit" class="btn btn-primary">Register</button>
+                                    </label>
+                                </div>
+                        </fieldset>
+                    </form>
+                </div>
 
-                        <button type="submit" class="button button-flat button-primary button-large">Register</button>
-                    </div>
-                </fieldset>
-            </form>
+            </div>
+
         </div>
 
     </div>

@@ -1,32 +1,34 @@
-{{ $lora:=.lora}}
-{{ if $lora.HasProfile }}
-{{ $user:= $lora.Account }}
-<div class="profile">
+<div class="home-section">
     <div class="container">
         <div class="row">
-            <div class="three columns">
-                <div class="profile-image">
-                    <img src="{{ .profile.Photo }}">
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img src="{{ .profile.Photo }}" class="img-rounded">
+
+                    <div class="caption text-center">
+                        <h5>{{.user.UserName }}</h5>
+                    </div>
                 </div>
-                <h5 class="uname">{{ $user.UserName }}</h5>
             </div>
-            <div class="four columns">
-                <div class="profile-details">
-                    <ul>
-                        <li>
-                            <span>email</span> <a href="#">{{ .user.Email }}</a>
+            <div class="col-sm-6 col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        Profile Info
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            {{ .user.Email }}
                         </li>
-                        <li>
-                            <span>company</span> {{ $user.Company }}
+                        <li class="list-group-item">
+                            {{ .user.Company }}
                         </li>
-                        <li>
-                            <span>Phone</span> {{ .profile.Phone }}
+                        <li class="list-group-item">
+                            {{ .profile.Phone }}
                         </li>
                     </ul>
-                    <a href="/web/accounts/profile/{{ .profile.Id }}/edit" class="update-profile">Update Details</a>
+                    <a href="/web/accounts/profile/{{ .profile.Id }}/edit" class="btn btn-primary">Update Details</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{{ end }}

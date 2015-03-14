@@ -66,8 +66,6 @@ func (p *PageController) Preview() {
 func (p *PageController) Update() {
 	sess := p.ActivateContent("page/edit")
 	flash := beego.NewFlash()
-	lora := models.NewLoraObject()
-	p.LayoutSections["JScripts"] = "jscript/editor.html"
 
 	if sess == nil {
 		flash.Error("you need to login inorder to update this page")
@@ -102,10 +100,10 @@ func (p *PageController) Update() {
 		n := &sections[k]
 		n.Sanitize()
 	}
-	lora.Add(sections)
 	page.Sanitize()
-	lora.Add(page)
-	p.Data["lora"] = lora
+	p.Data["sections"] = &sections
+	p.Data["page"] = &page
+	p.Data["Title"] = fmt.Sprintf("Updating %s page", page.Title)
 
 	if p.Ctx.Input.Method() == "POST" {
 		pageContent := p.GetString("content")
@@ -124,7 +122,9 @@ func (p *PageController) Update() {
 			previewPath := fmt.Sprintf("/web/page/%d/%d/preview", page.ProjectId, page.Id)
 			p.Redirect(previewPath, 302)
 		}
-		lora.Add(page)
-		p.Data["lora"] = lora
+		p.Data["sections"] = &sections
+		p.Data["page"] = &page
+		p.Data["Title"] = fmt.Sprintf("Updating %s page", page.Title)
 	}
+
 }

@@ -20,22 +20,34 @@ type LoraController struct {
 
 func (c *LoraController) Pricing() {
 	c.ActivateView("lora/pricing")
+	c.Data["Title"] = "Pricing"
 }
 func (c *LoraController) Services() {
 	c.ActivateView("lora/services")
+	c.Data["Title"] = "Services"
 }
 func (c *LoraController) Contacts() {
 	c.ActivateView("lora/contacts")
+	c.Data["Title"] = "Contacts"
+
 }
 func (c *LoraController) Legal() {
 	c.ActivateContent("lora/legal")
+	c.Data["Title"] = "Legal"
+
 }
 func (c *LoraController) Terms() {
 	c.ActivateContent("lora/terms")
+	c.Data["Title"] = "Terms of servie"
+
 }
 func (c *LoraController) Help() {
 	c.ActivateContent("lora/help")
+	c.Data["Title"] = "Help"
+
 }
 func (c *LoraController) Companies() {
 	c.ActivateView("lora/companies")
+	c.Data["Title"] = "Companies"
+
 }

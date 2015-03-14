@@ -1,46 +1,37 @@
-{{ $lora:= .lora}}
-{{if $lora.HasPage }}
-{{ $page:=$lora.Page }}
 <div class="container">
     <div class="row">
-        <div class="twelve columns">
-            <div class="edit">
-                <div class="edit-title">
-                    <span>{{ $page.Title }} Page</span>
-                </div>
-		    <form method="post" id="pageForm">
-                <textarea name="content" class="content">
-                    {{ $page.ContentHtml }}
-                </textarea>
-                <button type="submit" name="SaveAndEdit"> Update</button>
-                <button name="saveAndPreview" value="1" type="submit">save and preview</button>
-            </form>
+        <div class="col-md-12">
+            <div class="well well-large">
+                <h4>{{ .page.Title }}</h4>
             </div>
-            <div>
-			{{ if $lora.HasSections }}
-			{{ $sections:=$lora.Sections }}
-             <button class="edit-section-btn">sections <i class="fa fa-chevron-down"></i></button>
-                <div class="edit-section">
-                    {{ range $sections }}
+            <form method="post" class="editor-form form-horizontal">
+                <div class="form-group">
                     <div>
-                        <h4>{{ .Name }}</h4>
-                        <div class="page-control">
-                            <ul>
-                                <li>
-                                    {{ .LastUpdate }}
-                                </li>
-                                <li>
-                                    <a href="/web/section/{{ .PageId }}/{{ .Id }}/update">edit</a>
-
-                                </li>
-                            </ul>
-                        </div>
+                        <textarea name="content" class="content">
+                            {{ .page.ContentHtml }}
+                        </textarea>
                     </div>
-                    {{ end }}
                 </div>
-            </div>
-			{{ end }}
+                <button type="submit" name="SaveAndEdit" class="btn btn-primary"> Update</button>
+                <button name="saveAndPreview" value="1" type="submit" class="btn btn-primary">save and preview</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+                {{ range .sections }}
+                <div class="panel panel-default">
+                    <h4 class="panel-heading">{{ .Name }}</h4>
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            {{ .LastUpdate }}
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/web/section/{{ .PageId }}/{{ .Id }}/update"
+                               class="btn btn-primary btn-large">Update</a>
+                        </li>
+                    </ul>
+                </div>
+                {{ end }}
         </div>
     </div>
 </div>
-{{ end }}

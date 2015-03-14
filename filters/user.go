@@ -13,7 +13,7 @@ type User struct {
 	sessName string
 }
 
-func (u *User) ClearanceLevel() (int, error ){
+func (u *User) ClearanceLevel() (int, error) {
 	err := u.loadAccount()
 	if err != nil {
 		logThis.Info("Fuck thhe user is not there, failed t %v", err)

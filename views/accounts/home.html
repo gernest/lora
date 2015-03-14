@@ -1,30 +1,42 @@
-{{ $lora:=.lora}}
-<div class="account">
+<div class="home-section">
     <div class="container">
-        <div class="row">
-            {{ if $lora.HasAccount }}
-            {{$user:=$lora.Account}}
-            <!--Controls part-->
-            <div class="four columns">
-                <div class="settings">
-                    <h3>Tasks</h3>
-                    <a href="/web/project/new" class="button button-setting"><i class="fa fa-link"></i> create website</a>
-                    <a href="/web/project/list" id="proj-list" class="button button-setting"><i class="fa fa-link"></i> manage websites</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Tasks</div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="/web/project/new"> create website</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/web/project/list"> manage websites</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/web/accounts/files/upload">upload files</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="four columns">
-                <div class="settings">
-                    <h3> Settings</h3>
+                <div class="col-md-4">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">Settings</div>
+                    </div>
                 </div>
-            </div>
-            <div class="four columns">
-                <div class="settings">
-                    <h3>Profile</h3>
-                    <a href="/web/accounts/profile/{{ $user.ProfileId }}/view" class="button button-setting"><i class="fa fa-link"></i> View</a>
-                    <a href="/web/accounts/profile/{{ $user.ProfileId }}/edit" class="button button-setting"><i class="fa fa-link"></i> Edit</a>
+                <div class="col-md-4">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">Profile</div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="/web/accounts/profile/{{ .user.ProfileId }}/view">View</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/web/accounts/profile/{{ .user.ProfileId }}/edit">Edit</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{{ end }}

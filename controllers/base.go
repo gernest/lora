@@ -71,6 +71,7 @@ func (c *MainController) ActivateContent(view string) map[string]interface{} {
 func (c *MainController) Get() {
 	_ = c.ActivateContent("index")
 	c.SetNotice()
+	c.Data["Title"] = "Lora Platform"
 }
 
 // Notice this is an old school notice page

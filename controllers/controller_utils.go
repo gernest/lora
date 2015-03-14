@@ -36,14 +36,19 @@ func Rebuild(p *models.Page) error {
 	db, err := models.Conn()
 	defer db.Close()
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
 		return err
 	}
 	err = db.Find(project, p.ProjectId).Error
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
+
 		return err
 	}
 	err = project.LoadConfigFile()
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
+
 		return err
 	}
 	for k := range project.Pages {
@@ -59,8 +64,8 @@ func Rebuild(p *models.Page) error {
 					s.Sanitize()
 					sub := []models.SubSection{}
 					db.Order("updated_at desc").Model(s).Related(&sub)
-					for k:=range sub {
-						subsec:=&sub[k]
+					for k := range sub {
+						subsec := &sub[k]
 						subsec.Sanitize()
 					}
 					s.SubSections = sub
@@ -73,14 +78,26 @@ func Rebuild(p *models.Page) error {
 	}
 	err = project.SaveConfigFile()
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
+
 		return err
 	}
 	err = project.GenContent()
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
+
+		return err
+	}
+	err = project.SaveDataFiles()
+	if err != nil {
+		logThis.Debug("Trouble %v", err)
+
 		return err
 	}
 	err = project.Build()
 	if err != nil {
+		logThis.Debug("Trouble %v", err)
+
 		return err
 	}
 	logThis.Success(" *** done  building %s***", p.Title)
@@ -135,6 +152,7 @@ func checkUserByName(sess map[string]interface{}) (models.Account, error) {
 	}
 	return usr, err
 }
+
 func checkUserByEmail(email string) (models.Account, error) {
 	usr := models.Account{}
 	db, err := models.Conn()

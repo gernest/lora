@@ -23,19 +23,20 @@ import (
 type (
 	// Account stores user information
 	Account struct {
-		Id             int64
-		UserName       string    `toml:"-" sql:"not null;unique"`
-		Company        string    `toml:"company_name" sql:"unique"`
-		Email          string    `toml:"email" sql:"unique"`
-		Projects       []Project `toml:"-"`
-		Password       string    `toml:"-"`
-		Uploads        []Upload  `toml:"-"`
-		Profile        Profile   `toml:"-"`
-		ProfileId      int64     `toml:"-"`
-		ClearanceLevel int       `toml:"-"`
-		CreatedAt      time.Time `toml:"-"`
-		UpdatedAt      time.Time `toml:"-"`
-		DeletedAt      time.Time `toml:"-"`
+		Id              int64     `form:"-"`
+		UserName        string    `toml:"-" sql:"not null;unique" form:"userName" valid:"Required"`
+		Company         string    `toml:"company_name" sql:"unique" form:"company" valid:"Required"`
+		Email           string    `toml:"email" sql:"unique" form:"email" valid:"Email"`
+		Projects        []Project `toml:"-" form:"-"`
+		Password        string    `toml:"-" form:"password" valid:"Required"`
+		ConfirmPassword string    `toml:"-" sql:"-" form:"password2" valid:"Required"`
+		Uploads         []Upload  `toml:"-" form:"-"`
+		Profile         Profile   `toml:"-" form:"-"`
+		ProfileId       int64     `toml:"-" form:"-"`
+		ClearanceLevel  int       `toml:"-" form:"-"`
+		CreatedAt       time.Time `toml:"-" form:"-"`
+		UpdatedAt       time.Time `toml:"-" form:"-"`
+		DeletedAt       time.Time `toml:"-" form:"-"`
 	}
 
 	// Project provide an abstract representation of a hugo project with other extra important details
@@ -48,9 +49,9 @@ type (
 		Template     string    `toml:"templateName"`
 		Theme        string    `toml:"theme"`
 		PublishDir   string    `toml:"publishDir"`
-		ProjectPath  string    `toml:"-"`
+		ProjectPath  string    `toml:"projectPath"`
 		TemplatePath string    `toml:"-"`
-		BaseUrl      string    `toml:"baseurl" sql:"-"`
+		BaseUrl      string    `toml:"baseurl"`
 		HomeUrl      string    `toml:"-" sql:"-"`
 		LanguageCode string    `toml:"languageCode" sql:"-"`
 		Pages        []Page    `toml:"pages"`

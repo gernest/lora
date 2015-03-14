@@ -35,6 +35,12 @@ func init() {
 				beego.NSRouter("/:profileID:int/edit", &controllers.ProfileController{}, "get,post:Edit"),
 				beego.NSRouter("/:profileID:int/view", &controllers.ProfileController{}, "get:Display"),
 			),
+			beego.NSNamespace("/files",
+				beego.NSRouter("/upload", &controllers.FilesController{}, "get,post:Upload"),
+			),
+		),
+		beego.NSNamespace("/admin",
+			beego.NSRouter("/", &controllers.AdminController{}, "get:Index"),
 		),
 		beego.NSNamespace("/project",
 			beego.NSRouter("/new", &controllers.ProjectController{}, "get,post:NewProject"),
@@ -71,5 +77,6 @@ func init() {
 	beego.AddNamespace(ns)
 	beego.AddNamespace(nsLora)
 
-	beego.InsertFilter("/", beego.BeforeRouter, filters.AuthLevelSix)
+	beego.InsertFilter("/", beego.BeforeRouter, filters.StaticProxy)
+	beego.InsertFilter("/*", beego.BeforeRouter, filters.StaticProxy)
 }
