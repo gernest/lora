@@ -21,9 +21,8 @@ import (
 
 	"path/filepath"
 
-	"bitbucket.org/kardianos/osext"
-
 	"bytes"
+	"github.com/kardianos/osext"
 	"io/ioutil"
 
 	"github.com/BurntSushi/toml"
@@ -192,13 +191,13 @@ func (p *Project) SetBaseUrl() {
 
 }
 
-func(p *Project)SaveDataFiles()error{
-	for _,page:=range p.Pages {
-		if err:=page.SaveDataFile(p.ProjectPath);err!=nil {
+func (p *Project) SaveDataFiles() error {
+	for _, page := range p.Pages {
+		if err := page.SaveDataFile(p.ProjectPath); err != nil {
 			logThis.Debug("Trouble %v", err)
 			return err
 		}
-		
+
 	}
 	return nil
 }

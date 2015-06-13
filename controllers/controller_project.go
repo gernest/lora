@@ -165,7 +165,7 @@ func (p *ProjectController) Remove() {
 	}
 	logThis.Info("project id is ", projectID)
 	p.Data["projectId"] = projectID
-	p.Data["Title"]="Deleting Your Website"
+	p.Data["Title"] = "Deleting Your Website"
 
 	if p.Ctx.Input.Method() == "POST" {
 

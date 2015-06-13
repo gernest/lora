@@ -19,10 +19,10 @@ import (
 	"fmt"
 	"time"
 
-	"code.google.com/p/go.crypto/bcrypt"
 	"github.com/astaxie/beego"
 	sh "github.com/codeskyblue/go-sh"
 	"github.com/gernest/lora/models"
+	"golang.org/x/crypto/bcrypt"
 )
 
 const (

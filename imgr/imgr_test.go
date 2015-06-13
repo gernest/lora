@@ -19,8 +19,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"bitbucket.org/kardianos/osext"
 	. "github.com/gernest/lora/imgr"
+	"github.com/kardianos/osext"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
