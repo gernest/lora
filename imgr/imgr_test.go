@@ -43,7 +43,7 @@ var _ = Describe("Imgr", func() {
 		allow = []string{".png", ".jpeg", ".PNG", ".JPG", ".jpg"}
 	})
 
-	Describe("ImageManager", func() {
+	PDescribe("ImageManager", func() {
 		BeforeEach(func() {
 			manager = NewImageManager(src, dst, allow)
 
