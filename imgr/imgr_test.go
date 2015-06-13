@@ -55,7 +55,7 @@ var _ = Describe("Imgr", func() {
 		})
 
 	})
-	Describe("ThumbailManager", func() {
+	PDescribe("ThumbailManager", func() {
 		var thumb *Thumbnails
 		BeforeEach(func() {
 			thumb = &Thumbnails{}
