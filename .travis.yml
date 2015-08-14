@@ -9,4 +9,4 @@ install:
   - go get -v -t ./...
   - export PATH=$PATH:$HOME/gopath/bin
 
-script: ginkgo -r
+script: go build
