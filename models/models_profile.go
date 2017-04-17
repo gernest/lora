@@ -23,8 +23,8 @@ import (
 
 	"github.com/astaxie/beego"
 
-	"bitbucket.org/kardianos/osext"
 	"github.com/1l0/identicon"
+	"github.com/kardianos/osext"
 )
 
 func (p *Profile) GenerateIdenticon(base, s string) error {

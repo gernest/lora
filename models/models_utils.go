@@ -23,9 +23,8 @@ import (
 	"runtime"
 	"sort"
 
-	"bitbucket.org/kardianos/osext"
-
 	"github.com/gernest/lora/utils/logs"
+	"github.com/kardianos/osext"
 
 	"github.com/astaxie/beego"
 	cp "github.com/gernest/lora/utils/copy"
